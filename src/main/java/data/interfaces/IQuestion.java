@@ -4,7 +4,10 @@ import javafx.scene.Parent;
 
 public interface IQuestion {
 
-    int value = 0;
+    int Value = 0;
+
+    void LoadData();
 
     Parent CreatePane();
+
 }
