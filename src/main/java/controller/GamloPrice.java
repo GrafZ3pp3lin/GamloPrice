@@ -26,7 +26,8 @@ public class GamloPrice extends Application {
 
     private void loadSampleLayout() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/sample.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Home.fxml"));
+            loader.setController(new HomeController());
             Parent layout = loader.load();
             primaryStage.setScene(new Scene(layout));
         }

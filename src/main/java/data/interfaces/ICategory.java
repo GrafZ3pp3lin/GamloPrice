@@ -2,10 +2,40 @@ package data.interfaces;
 
 import java.util.List;
 
+/**
+ * Set of Questions within a Game with the same Category
+ *
+ * @author Johannes
+ */
 public interface ICategory {
-    
-    String Name = null;
-    
-    List<IQuestion> Questions = null;
-    
+
+    /**
+     * get Category Name
+     *
+     * @return Category Name
+     */
+    String getName();
+
+    /**
+     * Get all Questions of this Category
+     *
+     * @return List with all Questions
+     */
+    List<IQuestion> getQuestions();
+
+    /**
+     * add a Question to this Category. Value of Questions must be unique!
+     *
+     * @param question Question that will be added
+     */
+    void addQuestion(IQuestion question);
+
+    /**
+     * get a Question by value.
+     *
+     * @param value Value of Question
+     * @return Question with specified Value
+     */
+    IQuestion getQuestions(int value);
+
 }
