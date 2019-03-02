@@ -4,13 +4,30 @@ import data.interfaces.ITeam;
 
 /**
  * A Quiz Game could be played by multiple Teams. Each Team have a Name and Points.
- *
- * @author Johannes
  */
 public class Team implements ITeam {
 
     private String Name;
     private int Points;
+
+    // region Constructor
+
+    /**
+     * Constructor with Team Name
+     *
+     * @param name Name of the Team
+     */
+    public Team(String name) {
+        Name = name;
+    }
+
+    /**
+     * empty Constructor
+     */
+    public Team() {
+    }
+
+    // endregion
 
     /**
      * set the Team Name

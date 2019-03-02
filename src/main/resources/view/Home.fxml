@@ -35,7 +35,7 @@
     <StackPane fx:id="StackPane_Content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
         <BorderPane fx:id="BorderPane_Default" prefHeight="200.0" prefWidth="200.0">
             <center>
-                <Label text="Herzlich Willkommen" BorderPane.alignment="CENTER">
+                <Label text="Welcome" BorderPane.alignment="CENTER">
                     <font>
                         <Font size="40.0" />
                     </font>

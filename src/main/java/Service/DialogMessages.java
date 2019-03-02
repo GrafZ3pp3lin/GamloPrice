@@ -4,8 +4,6 @@ import Service.interfaces.IMessages;
 
 /**
  * Interact and inform the User with DialogMessages
- *
- * @author Johannes
  */
 public class DialogMessages implements IMessages {
 

@@ -5,11 +5,9 @@ import javafx.scene.Parent;
 import java.util.List;
 
 /**
- * Question, definied by various Components. Components will be added vertikal to the Question Pane. Default Layout is:
+ * Question, defined by various Components. Components will be added vertical to the Question Pane. Default Layout is:
  * Title Component + Button Grid Component
  * Each Question has a Value, defines its difficulty.
- *
- * @author Johannes
  */
 public interface IQuestion {
 

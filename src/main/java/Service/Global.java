@@ -3,9 +3,7 @@ package Service;
 import Service.interfaces.IMessages;
 
 /**
- * Provides Service Classes as Singeltons
- *
- * @author Johannes
+ * Provides Service Classes as Singletons
  */
 public class Global {
 

@@ -7,7 +7,6 @@ import javafx.scene.layout.Region;
  * a Question Component provides a Region, which is added to the Question Pane.
  *
  * @param <T> Component Data Type
- * @author Johannes
  */
 public interface IQuestionComponent<T> {
 

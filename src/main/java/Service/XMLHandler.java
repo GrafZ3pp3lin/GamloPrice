@@ -4,8 +4,6 @@ import data.interfaces.IGame;
 
 /**
  * Helper Class to work with XML-Documents
- *
- * @author Johannes
  */
 public class XMLHandler {
 

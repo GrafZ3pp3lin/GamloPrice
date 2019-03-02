@@ -4,8 +4,6 @@ import java.util.List;
 
 /**
  * Set of Questions within a Game with the same Category
- *
- * @author Johannes
  */
 public interface ICategory {
 
@@ -15,6 +13,13 @@ public interface ICategory {
      * @return Category Name
      */
     String getName();
+
+    /**
+     * set Name of Category
+     *
+     * @param name Name of Category
+     */
+    void setName(String name);
 
     /**
      * Get all Questions of this Category

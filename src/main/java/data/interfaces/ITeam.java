@@ -2,8 +2,6 @@ package data.interfaces;
 
 /**
  * A Quiz Game could be played by multiple Teams. Each Team have a Name and Points.
- *
- * @author Johannes
  */
 public interface ITeam {
 

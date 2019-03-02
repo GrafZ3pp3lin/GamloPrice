@@ -7,16 +7,16 @@ import javafx.scene.Parent;
 import java.util.List;
 
 /**
- * Question, definied by various Components. Components will be added vertikal to the Question Pane. Default Layout is:
+ * Question, defined by various Components. Components will be added vertical to the Question Pane. Default Layout is:
  * Title Component + Button Grid Component
  * Each Question has a Value, defines its difficulty.
- *
- * @author Johannes
  */
 public class Question implements IQuestion {
 
     private int Value;
     private List<IQuestionComponent> QuestionComponents;
+
+    // region Constructors
 
     /**
      * Create new Question with Value
@@ -26,6 +26,8 @@ public class Question implements IQuestion {
     public Question(int value) {
         Value = value;
     }
+
+    // endregion
 
     /**
      * Value of Question. The Team, which correctly answered this Question will get the amount of this Value as Points.

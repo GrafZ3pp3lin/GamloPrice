@@ -2,8 +2,6 @@ package Service;
 
 /**
  * Type of a Message
- *
- * @author Johannes
  */
 public enum MessageType {
 

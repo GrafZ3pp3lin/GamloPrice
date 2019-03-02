@@ -4,8 +4,6 @@ import Service.MessageType;
 
 /**
  * Offer Methods to interact and inform the User
- *
- * @author Johannes
  */
 public interface IMessages {
 

@@ -37,7 +37,7 @@ public class HomeController {
     private MenuItem MenuItem_About;
 
     @FXML
-    private StackPane StackPane_Conetnt;
+    private StackPane StackPane_Content;
 
     @FXML
     private BorderPane BorderPane_Default;

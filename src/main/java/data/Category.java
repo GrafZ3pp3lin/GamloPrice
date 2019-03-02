@@ -3,17 +3,37 @@ package data;
 import data.interfaces.ICategory;
 import data.interfaces.IQuestion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Set of Questions within a Game with the same Category
- *
- * @author Johannes
  */
 public class Category implements ICategory {
 
     private String Name;
     private List<IQuestion> Questions;
+
+    // region Constructors
+
+    /**
+     * Constructor with name of Category
+     *
+     * @param name Name of Category
+     */
+    public Category(String name) {
+        this();
+        Name = name;
+    }
+
+    /**
+     * empty Constructor
+     */
+    public Category() {
+        Questions = new ArrayList<>();
+    }
+
+    // endregion
 
     /**
      * get Category Name
@@ -23,6 +43,16 @@ public class Category implements ICategory {
     @Override
     public String getName() {
         return Name;
+    }
+
+    /**
+     * set Name of Category
+     *
+     * @param name Name of Category
+     */
+    @Override
+    public void setName(String name) {
+        this.Name = name;
     }
 
     /**
