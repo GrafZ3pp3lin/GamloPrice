@@ -17,3 +17,10 @@ By default each Category has five rated Questions. The different Values of the Q
 * Question without Answers
 * Question with short Video Clips
 * a lot more...
+
+## Deployment
+This Application is implemented with Java 11.0.2 and JavaFX 11.
+You can get this Java Version from the official Website: https://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+JavaFX is til Java 10 no longer Part of the SDK, so you have to download JavaFX seperat!
+You can get it here: https://openjfx.io/
