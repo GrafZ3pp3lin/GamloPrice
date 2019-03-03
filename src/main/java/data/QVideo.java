@@ -3,33 +3,30 @@ package data;
 import data.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.media.MediaView;
 
-/**
- * QTitle is a Question Component, used for the Title of a Question.
- */
-public class QTitle implements IQuestionComponent<String> {
+public class QVideo implements IQuestionComponent<String> {
 
     private String Name;
-    private Label label;
+    private MediaView mediaView;
 
     // region Constructors
 
     /**
-     * Question Title with custom Name
+     * Question Video with custom Name
      *
-     * @param name Name of Component, if there is more then one Title
+     * @param name Name of Component, if there is more then one Video
      */
-    public QTitle(String name) {
+    public QVideo(String name) {
         Name = name;
-        label = new Label();
+        mediaView = new MediaView();
     }
 
     /**
-     * Question Title with Default Name "Title"
+     * Question Video with Default Name "Video"
      */
-    public QTitle() {
-        this("Title");
+    public QVideo() {
+        this("Video");
     }
 
     // endregion
@@ -47,20 +44,21 @@ public class QTitle implements IQuestionComponent<String> {
     /**
      * Component, which is displayed on QuestionPane
      *
-     * @return Label with Title
+     * @return Component as Region
      */
     @Override
     public Node getComponent() {
-        return label;
+        // TODO wrap MediaView in Container and add Control Buttons
+        return mediaView;
     }
 
     /**
-     * Init Component with Question Data
+     * Init Component and load Data from the Game.xml file
      *
-     * @param data QuestionData for this Question from Game Document
+     * @param data QuestionData for this Question from Game Data File
      */
     @Override
     public void InitComponent(IQuestionData<String> data) {
-        label.setText(data.getData());
+        // TODO implement
     }
 }

@@ -25,9 +25,9 @@ public class Game implements IGame {
      * @param amount Amount of Questions in each Category
      */
     public Game(String name, int amount) {
-        this();
         Name = name;
         Amount = amount;
+        Categories = new ArrayList<>();
     }
 
     /**
@@ -36,16 +36,14 @@ public class Game implements IGame {
      * @param name Name of the Game
      */
     public Game(String name) {
-        this();
-        Name = name;
+        this(name, 5);
     }
 
     /**
      * empty Constructor
      */
     public Game() {
-        Categories = new ArrayList<>();
-        Amount = 5;
+        this("Unnamed Game", 5);
     }
 
     // endregion
@@ -71,7 +69,7 @@ public class Game implements IGame {
     }
 
     /**
-     * get Path to XML-Document
+     * get Path to Game Data File
      *
      * @return absolute Path
      */

@@ -1,5 +1,6 @@
 package Service;
 
+import Service.interfaces.IFileHandler;
 import Service.interfaces.IMessages;
 
 /**
@@ -8,9 +9,9 @@ import Service.interfaces.IMessages;
 public class Global {
 
     /**
-     * load and write XML-Documents
+     * load and write Game-Documents
      */
-    public static XMLHandler XMLHandler = new XMLHandler();
+    public static IFileHandler XMLHandler = new XMLHandler();
 
     /**
      * interact with the User

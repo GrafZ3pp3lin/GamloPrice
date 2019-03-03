@@ -1,11 +1,12 @@
 package Service;
 
+import Service.interfaces.IFileHandler;
 import data.interfaces.IGame;
 
 /**
  * Helper Class to work with XML-Documents
  */
-public class XMLHandler {
+public class XMLHandler implements IFileHandler {
 
     /**
      * read a Game XML-Document
@@ -29,3 +30,4 @@ public class XMLHandler {
     }
 
 }
+

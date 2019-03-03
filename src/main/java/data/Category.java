@@ -22,15 +22,15 @@ public class Category implements ICategory {
      * @param name Name of Category
      */
     public Category(String name) {
-        this();
         Name = name;
+        Questions = new ArrayList<>();
     }
 
     /**
      * empty Constructor
      */
     public Category() {
-        Questions = new ArrayList<>();
+        this("Unnamed Category");
     }
 
     // endregion

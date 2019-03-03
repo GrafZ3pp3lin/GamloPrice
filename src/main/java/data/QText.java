@@ -3,33 +3,30 @@ package data;
 import data.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 
-/**
- * QTitle is a Question Component, used for the Title of a Question.
- */
-public class QTitle implements IQuestionComponent<String> {
+public class QText implements IQuestionComponent<String> {
 
     private String Name;
-    private Label label;
+    private Text content;
 
     // region Constructors
 
     /**
-     * Question Title with custom Name
+     * Question Text with custom Name
      *
-     * @param name Name of Component, if there is more then one Title
+     * @param name Name of Component, if there is more then one Text
      */
-    public QTitle(String name) {
+    public QText(String name) {
         Name = name;
-        label = new Label();
+        content = new Text();
     }
 
     /**
-     * Question Title with Default Name "Title"
+     * Question Text with Default Name "Text"
      */
-    public QTitle() {
-        this("Title");
+    public QText() {
+        this("Text");
     }
 
     // endregion
@@ -47,20 +44,20 @@ public class QTitle implements IQuestionComponent<String> {
     /**
      * Component, which is displayed on QuestionPane
      *
-     * @return Label with Title
+     * @return Component as Region
      */
     @Override
     public Node getComponent() {
-        return label;
+        return content;
     }
 
     /**
-     * Init Component with Question Data
+     * Init Component and load Data from the Game.xml file
      *
-     * @param data QuestionData for this Question from Game Document
+     * @param data QuestionData for this Question from Game Data File
      */
     @Override
     public void InitComponent(IQuestionData<String> data) {
-        label.setText(data.getData());
+        content.setText(data.getData());
     }
 }
