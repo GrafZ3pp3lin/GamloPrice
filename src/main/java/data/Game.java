@@ -1,5 +1,6 @@
 package data;
 
+import Service.QuestionLayoutProvider;
 import data.interfaces.ICategory;
 import data.interfaces.IGame;
 
@@ -14,7 +15,10 @@ public class Game implements IGame {
     private String Name;
     private String Path;
     private int Amount;
+
     private List<ICategory> Categories;
+
+    private QuestionLayoutProvider LayoutProvider;
 
     // region Constructors
 
@@ -28,6 +32,8 @@ public class Game implements IGame {
         Name = name;
         Amount = amount;
         Categories = new ArrayList<>();
+        // TODO init LayoutProvider
+        LayoutProvider = new QuestionLayoutProvider();
     }
 
     /**
@@ -65,7 +71,7 @@ public class Game implements IGame {
      */
     @Override
     public void setName(String name) {
-
+        this.Name = name;
     }
 
     /**
@@ -85,7 +91,8 @@ public class Game implements IGame {
      */
     @Override
     public void setPath(String path) {
-
+        // TODO tet for valid Path
+        this.Path = path;
     }
 
     /**

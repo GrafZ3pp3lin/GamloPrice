@@ -1,37 +1,32 @@
-package data;
+package data.components;
 
-import data.interfaces.IQuestionComponent;
+import data.components.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
 import javafx.scene.Node;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-import java.util.List;
-
-public class QButtonGrid implements IQuestionComponent<List<String>> {
+public class QImage implements IQuestionComponent<String> {
 
     private String Name;
-    private GridPane buttonGrid;
-
-    // region Constructors
+    private ImageView image;
 
     /**
-     * Question Button Grid with custom Name
+     * Question Image with custom Name
      *
-     * @param name Name of Component, if there is more then one ButtonGrid
+     * @param name Name of Component, if there is more then one Image
      */
-    public QButtonGrid(String name) {
+    public QImage(String name) {
         Name = name;
-        buttonGrid = new GridPane();
+        image = new ImageView();
     }
 
     /**
-     * Question Button Grid with Default Name "ButtonGrid"
+     * Question Image with Default Name "Image"
      */
-    public QButtonGrid() {
-        this("ButtonGrid");
+    public QImage() {
+        this("Image");
     }
-
-    // endregion
 
     /**
      * Name of Component to identify Data for this Component in case there are more then one of these Components
@@ -50,7 +45,7 @@ public class QButtonGrid implements IQuestionComponent<List<String>> {
      */
     @Override
     public Node getComponent() {
-        return buttonGrid;
+        return image;
     }
 
     /**
@@ -59,7 +54,9 @@ public class QButtonGrid implements IQuestionComponent<List<String>> {
      * @param data QuestionData for this Question from Game Data File
      */
     @Override
-    public void InitComponent(IQuestionData<List<String>> data) {
-        // TODO implement GridPane
+    public void InitComponent(IQuestionData<String> data) {
+        // TODO test if data is valid Path
+        image.setImage(new Image(data.getData()));
     }
+
 }

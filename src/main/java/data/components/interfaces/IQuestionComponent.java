@@ -1,5 +1,6 @@
-package data.interfaces;
+package data.components.interfaces;
 
+import data.interfaces.IQuestionData;
 import javafx.scene.Node;
 
 /**

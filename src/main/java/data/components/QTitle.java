@@ -1,6 +1,6 @@
-package data;
+package data.components;
 
-import data.interfaces.IQuestionComponent;
+import data.components.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

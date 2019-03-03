@@ -1,32 +1,32 @@
-package data;
+package data.components;
 
-import data.interfaces.IQuestionComponent;
+import data.components.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
 import javafx.scene.Node;
-import javafx.scene.text.Text;
+import javafx.scene.media.MediaView;
 
-public class QText implements IQuestionComponent<String> {
+public class QVideo implements IQuestionComponent<String> {
 
     private String Name;
-    private Text content;
+    private MediaView mediaView;
 
     // region Constructors
 
     /**
-     * Question Text with custom Name
+     * Question Video with custom Name
      *
-     * @param name Name of Component, if there is more then one Text
+     * @param name Name of Component, if there is more then one Video
      */
-    public QText(String name) {
+    public QVideo(String name) {
         Name = name;
-        content = new Text();
+        mediaView = new MediaView();
     }
 
     /**
-     * Question Text with Default Name "Text"
+     * Question Video with Default Name "Video"
      */
-    public QText() {
-        this("Text");
+    public QVideo() {
+        this("Video");
     }
 
     // endregion
@@ -48,7 +48,8 @@ public class QText implements IQuestionComponent<String> {
      */
     @Override
     public Node getComponent() {
-        return content;
+        // TODO wrap MediaView in Container and add Control Buttons
+        return mediaView;
     }
 
     /**
@@ -58,6 +59,6 @@ public class QText implements IQuestionComponent<String> {
      */
     @Override
     public void InitComponent(IQuestionData<String> data) {
-        content.setText(data.getData());
+        // TODO implement
     }
 }

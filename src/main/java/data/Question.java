@@ -1,10 +1,8 @@
 package data;
 
 import data.interfaces.IQuestion;
-import data.interfaces.IQuestionComponent;
+import data.interfaces.IQuestionLayout;
 import javafx.scene.Parent;
-
-import java.util.List;
 
 /**
  * Question, defined by various Components. Components will be added vertical to the Question Pane. Default Layout is:
@@ -14,7 +12,8 @@ import java.util.List;
 public class Question implements IQuestion {
 
     private int Value;
-    private List<IQuestionComponent> QuestionComponents;
+    private boolean continueButtonEnabled;
+    private IQuestionLayout QuestionLayout;
 
     // region Constructors
 
@@ -25,6 +24,8 @@ public class Question implements IQuestion {
      */
     public Question(int value) {
         Value = value;
+        QuestionLayout = new QuestionLayout();
+        continueButtonEnabled = false;
     }
 
     // endregion
@@ -60,34 +61,34 @@ public class Question implements IQuestion {
     }
 
     /**
+     * Is there a continue Button on the Question Page
+     *
+     * @return true, if continue Button is enabled
+     */
+    @Override
+    public boolean IsContinueButtonEnabled() {
+        return continueButtonEnabled;
+    }
+
+    /**
+     * Some Questions need a continue Button, to get to the next Page.
+     * If enabled there will be Button on the Question Page, to continue to the Result Page.
+     *
+     * @param enable en- or disabled the continue Button
+     */
+    @Override
+    public void EnableContinueButton(boolean enable) {
+        continueButtonEnabled = enable;
+    }
+
+    /**
      * get all Question Components ordered
      *
      * @return all Question Components
      */
     @Override
-    public List<IQuestionComponent> getAllQuestionComponents() {
-        return QuestionComponents;
+    public IQuestionLayout getAllQuestionComponents() {
+        return QuestionLayout;
     }
 
-    /**
-     * get a Question Component by its name
-     *
-     * @param name name of the Component
-     * @return Component with given name
-     */
-    @Override
-    public IQuestionComponent getQuestionComponent(String name) {
-        //TODO implement
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * add a Question Component to this Question
-     *
-     * @param component Question Component, to be added
-     */
-    @Override
-    public void addQuestionComponent(IQuestionComponent component) {
-        QuestionComponents.add(component);
-    }
 }

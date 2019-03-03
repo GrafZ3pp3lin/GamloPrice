@@ -1,32 +1,35 @@
-package data;
+package data.components;
 
-import data.interfaces.IQuestionComponent;
+import data.components.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
-public class QImage implements IQuestionComponent<String> {
+public class QText implements IQuestionComponent<String> {
 
     private String Name;
-    private ImageView image;
+    private Text content;
+
+    // region Constructors
 
     /**
-     * Question Image with custom Name
+     * Question Text with custom Name
      *
-     * @param name Name of Component, if there is more then one Image
+     * @param name Name of Component, if there is more then one Text
      */
-    public QImage(String name) {
+    public QText(String name) {
         Name = name;
-        image = new ImageView();
+        content = new Text();
     }
 
     /**
-     * Question Image with Default Name "Image"
+     * Question Text with Default Name "Text"
      */
-    public QImage() {
-        this("Image");
+    public QText() {
+        this("Text");
     }
+
+    // endregion
 
     /**
      * Name of Component to identify Data for this Component in case there are more then one of these Components
@@ -45,7 +48,7 @@ public class QImage implements IQuestionComponent<String> {
      */
     @Override
     public Node getComponent() {
-        return image;
+        return content;
     }
 
     /**
@@ -55,8 +58,6 @@ public class QImage implements IQuestionComponent<String> {
      */
     @Override
     public void InitComponent(IQuestionData<String> data) {
-        // TODO test if data is valid Path
-        image.setImage(new Image(data.getData()));
+        content.setText(data.getData());
     }
-
 }

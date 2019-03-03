@@ -1,32 +1,34 @@
-package data;
+package data.components;
 
-import data.interfaces.IQuestionComponent;
+import data.components.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
 import javafx.scene.Node;
-import javafx.scene.media.MediaView;
+import javafx.scene.layout.GridPane;
 
-public class QVideo implements IQuestionComponent<String> {
+import java.util.List;
+
+public class QButtonGrid implements IQuestionComponent<List<String>> {
 
     private String Name;
-    private MediaView mediaView;
+    private GridPane buttonGrid;
 
     // region Constructors
 
     /**
-     * Question Video with custom Name
+     * Question Button Grid with custom Name
      *
-     * @param name Name of Component, if there is more then one Video
+     * @param name Name of Component, if there is more then one ButtonGrid
      */
-    public QVideo(String name) {
+    public QButtonGrid(String name) {
         Name = name;
-        mediaView = new MediaView();
+        buttonGrid = new GridPane();
     }
 
     /**
-     * Question Video with Default Name "Video"
+     * Question Button Grid with Default Name "ButtonGrid"
      */
-    public QVideo() {
-        this("Video");
+    public QButtonGrid() {
+        this("ButtonGrid");
     }
 
     // endregion
@@ -48,8 +50,7 @@ public class QVideo implements IQuestionComponent<String> {
      */
     @Override
     public Node getComponent() {
-        // TODO wrap MediaView in Container and add Control Buttons
-        return mediaView;
+        return buttonGrid;
     }
 
     /**
@@ -58,7 +59,7 @@ public class QVideo implements IQuestionComponent<String> {
      * @param data QuestionData for this Question from Game Data File
      */
     @Override
-    public void InitComponent(IQuestionData<String> data) {
-        // TODO implement
+    public void InitComponent(IQuestionData<List<String>> data) {
+        // TODO implement GridPane
     }
 }
