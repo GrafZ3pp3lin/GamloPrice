@@ -25,7 +25,4 @@ You can get this Java Version from the official Website: https://www.oracle.com/
 JavaFX is til Java 10 no longer Part of the SDK, so you have to download JavaFX separate!
 You can get it here: https://openjfx.io/
 
-Maybe you have to add VM options to your Project to load the JavaFX Library:
-```
---module-path D:\Code\Java\_JavaFX\javafx-sdk-11.0.2\lib --add-modules=javafx.controls,javafx.fxml
-```
+To enable JavaFX in your Project follow the Guideline from OpenJFX: https://openjfx.io/openjfx-docs/#introduction
