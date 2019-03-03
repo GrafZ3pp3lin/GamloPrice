@@ -7,38 +7,60 @@ import javafx.scene.text.Text;
 
 public class QText implements IQuestionComponent<String> {
 
-    private String Name;
+    private String name;
     private Text content;
+
+    private IQuestionData<String> questionData;
 
     // region Constructors
 
     /**
-     * Question Text with custom Name
+     * Create Text with custom name and data
      *
-     * @param name Name of Component, if there is more then one Text
+     * @param name         name of Component, if there is more then one Text
+     * @param questionData Content for Text
      */
-    public QText(String name) {
-        Name = name;
+    public QText(String name, IQuestionData<String> questionData) {
+        this.name = (name == null) ? getClass().getSimpleName() : name;
+        this.questionData = questionData;
         content = new Text();
     }
 
     /**
-     * Question Text with Default Name "Text"
+     * Create a Image Grid with given data
+     *
+     * @param questionData Content for Text
+     */
+    public QText(IQuestionData<String> questionData) {
+        this(null, questionData);
+    }
+
+    /**
+     * Create Text with custom name
+     *
+     * @param name name of Component, if there is more then one Text
+     */
+    public QText(String name) {
+        this(name, null);
+    }
+
+    /**
+     * Create Text with default ClassName
      */
     public QText() {
-        this("Text");
+        this(null, null);
     }
 
     // endregion
 
     /**
-     * Name of Component to identify Data for this Component in case there are more then one of these Components
+     * name of Component to identify Data for this Component in case there are more then one of these Components
      *
-     * @return Name of Component
+     * @return name of Component
      */
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     /**
@@ -54,10 +76,10 @@ public class QText implements IQuestionComponent<String> {
     /**
      * Init Component and load Data from the Game.xml file
      *
-     * @param data QuestionData for this Question from Game Data File
+     * @param data questionData for this Question from Game Data File
      */
     @Override
-    public void InitComponent(IQuestionData<String> data) {
+    public void initComponent(IQuestionData<String> data) {
         content.setText(data.getData());
     }
 }

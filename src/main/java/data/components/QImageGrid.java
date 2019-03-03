@@ -9,38 +9,60 @@ import java.util.List;
 
 public class QImageGrid implements IQuestionComponent<List<String>> {
 
-    private String Name;
+    private String name;
     private GridPane imageGrid;
+
+    private IQuestionData<List<String>> questionData;
 
     // region Constructors
 
     /**
-     * Question Image Grid with custom Name
+     * Create a Image Grid with custom name and data
      *
-     * @param name Name of Component, if there is more then one ImageGrid
+     * @param name         name of Component, if there is more then one ImageGrid
+     * @param questionData List with Paths to Images
      */
-    public QImageGrid(String name) {
-        Name = name;
+    public QImageGrid(String name, IQuestionData<List<String>> questionData) {
+        this.name = (name == null) ? getClass().getSimpleName() : name;
+        this.questionData = questionData;
         imageGrid = new GridPane();
     }
 
     /**
-     * Question Image Grid with Default Name "ImageGrid"
+     * Create a Image Grid with given data
+     *
+     * @param questionData List with Paths to Images
+     */
+    public QImageGrid(IQuestionData<List<String>> questionData) {
+        this(null, questionData);
+    }
+
+    /**
+     * Create a empty Image Grid with custom name
+     *
+     * @param name name of Component, if there is more then one ImageGrid
+     */
+    public QImageGrid(String name) {
+        this(name, null);
+    }
+
+    /**
+     * Create a Image Grid with default ClassName
      */
     public QImageGrid() {
-        this("ImageGrid");
+        this(null, null);
     }
 
     // endregion
 
     /**
-     * Name of Component to identify Data for this Component in case there are more then one of these Components
+     * name of Component to identify Data for this Component in case there are more then one of these Components
      *
-     * @return Name of Component
+     * @return name of Component
      */
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     /**
@@ -56,10 +78,10 @@ public class QImageGrid implements IQuestionComponent<List<String>> {
     /**
      * Init Component and load Data from the Game.xml file
      *
-     * @param data QuestionData for this Question from Game Data File
+     * @param data questionData for this Question from Game Data File
      */
     @Override
-    public void InitComponent(IQuestionData<List<String>> data) {
+    public void initComponent(IQuestionData<List<String>> data) {
         // TODO implement GridPane
     }
 }

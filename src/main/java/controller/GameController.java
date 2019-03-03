@@ -44,7 +44,7 @@ public class GameController {
     /**
      * Open the given Game in a separate Stage
      */
-    public void ShowGame() {
+    public void showGame() {
         stage = new Stage();
         stage.setTitle(Game.getName());
         if (SelectionScene == null) {

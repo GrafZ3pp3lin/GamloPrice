@@ -17,23 +17,30 @@ public interface IQuestion {
     int getValue();
 
     /**
+     * set the Value for this Question.
+     *
+     * @param value Value of Question
+     */
+    void setValue(int value);
+
+    /**
      * initialize all Components with their data
      */
-    void LoadData();
+    void loadData();
 
     /**
      * Create the Pane, which is displayed. The Pane uses the defined Layout and Data.
      *
      * @return Question Pane as Parent
      */
-    Parent CreatePane();
+    Parent createPane();
 
     /**
      * Is there a continue Button on the Question Page
      *
      * @return true, if continue Button is enabled
      */
-    boolean IsContinueButtonEnabled();
+    boolean isContinueButtonEnabled();
 
     /**
      * Some Questions need a continue Button, to get to the next Page.
@@ -41,13 +48,20 @@ public interface IQuestion {
      *
      * @param enable en- or disabled the continue Button
      */
-    void EnableContinueButton(boolean enable);
+    void enableContinueButton(boolean enable);
 
     /**
-     * get all Question Components ordered
+     * set the QuestionLayout. Override the old Layout.
+     *
+     * @param layout new QuestionLayout
+     */
+    void setQuestionLayout(IQuestionLayout layout);
+
+    /**
+     * get the Question Layout with all Question Components ordered
      *
      * @return all Question Components
      */
-    IQuestionLayout getAllQuestionComponents();
+    IQuestionLayout getQuestionLayout();
 
 }

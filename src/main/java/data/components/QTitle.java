@@ -10,38 +10,60 @@ import javafx.scene.control.Label;
  */
 public class QTitle implements IQuestionComponent<String> {
 
-    private String Name;
+    private String name;
     private Label label;
+
+    private IQuestionData<String> questionData;
 
     // region Constructors
 
     /**
-     * Question Title with custom Name
+     * Create a Title with custom name and data
      *
-     * @param name Name of Component, if there is more then one Title
+     * @param name         name of Component, if there is more then one Title
+     * @param questionData Content for Title
      */
-    public QTitle(String name) {
-        Name = name;
+    public QTitle(String name, IQuestionData<String> questionData) {
+        this.name = (name == null) ? getClass().getSimpleName() : name;
+        this.questionData = questionData;
         label = new Label();
     }
 
     /**
-     * Question Title with Default Name "Title"
+     * Create a Title with given data
+     *
+     * @param questionData Content for Title
+     */
+    public QTitle(IQuestionData<String> questionData) {
+        this(null, questionData);
+    }
+
+    /**
+     * Question Title with custom name
+     *
+     * @param name name of Component, if there is more then one Title
+     */
+    public QTitle(String name) {
+        this(name, null);
+    }
+
+    /**
+     * Question Title with default ClassName
      */
     public QTitle() {
-        this("Title");
+        this(null, null);
     }
 
     // endregion
 
     /**
-     * Name of Component to identify Data for this Component in case there are more then one of these Components
+     * name of Component to identify Data for this Component in case there are more then one of these Components
      *
-     * @return Name of Component
+     * @return name of Component
      */
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     /**
@@ -57,10 +79,10 @@ public class QTitle implements IQuestionComponent<String> {
     /**
      * Init Component with Question Data
      *
-     * @param data QuestionData for this Question from Game Document
+     * @param data questionData for this Question from Game Document
      */
     @Override
-    public void InitComponent(IQuestionData<String> data) {
+    public void initComponent(IQuestionData<String> data) {
         label.setText(data.getData());
     }
 }

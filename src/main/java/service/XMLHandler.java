@@ -1,6 +1,6 @@
-package Service;
+package service;
 
-import Service.interfaces.IFileHandler;
+import service.interfaces.IFileHandler;
 import data.interfaces.IGame;
 
 /**

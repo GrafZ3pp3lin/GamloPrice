@@ -14,21 +14,21 @@ public interface IQuestionLayout {
      *
      * @return Name of Layout
      */
-    String GetName();
+    String getName();
 
     /**
      * get all Question Components, ordered from Top to Bottom
      *
      * @return List with all Question Components
      */
-    List<IQuestionComponent> GetQuestionComponents();
+    List<IQuestionComponent> getQuestionComponents();
 
     /**
      * Initialize the Layout with Question Components
      *
      * @param components List with Components
      */
-    void SetQuestionComponents(List<IQuestionComponent> components);
+    void setQuestionComponents(List<IQuestionComponent> components);
 
     /**
      * get a Component from this Layout by name
@@ -36,13 +36,13 @@ public interface IQuestionLayout {
      * @param name Name of the Component
      * @return Component wit given name
      */
-    IQuestionComponent GetQuestionComponent(String name);
+    IQuestionComponent getQuestionComponent(String name);
 
     /**
      * add a Question Component to the Bottom of the Layout
      *
      * @param component Question Component to be added
      */
-    void AddQuestionComponent(IQuestionComponent component);
+    void addQuestionComponent(IQuestionComponent component);
 
 }

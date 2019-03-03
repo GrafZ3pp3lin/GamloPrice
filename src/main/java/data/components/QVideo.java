@@ -7,38 +7,60 @@ import javafx.scene.media.MediaView;
 
 public class QVideo implements IQuestionComponent<String> {
 
-    private String Name;
+    private String name;
     private MediaView mediaView;
+
+    private IQuestionData<String> questionData;
 
     // region Constructors
 
     /**
-     * Question Video with custom Name
+     * Create a Video with custom name and data
      *
-     * @param name Name of Component, if there is more then one Video
+     * @param name         name of Component, if there is more then one Video
+     * @param questionData Path to Video
      */
-    public QVideo(String name) {
-        Name = name;
+    public QVideo(String name, IQuestionData<String> questionData) {
+        this.name = (name == null) ? getClass().getSimpleName() : name;
+        this.questionData = questionData;
         mediaView = new MediaView();
     }
 
     /**
-     * Question Video with Default Name "Video"
+     * Create a Video with given data
+     *
+     * @param questionData Path to Video
+     */
+    public QVideo(IQuestionData<String> questionData) {
+        this(null, questionData);
+    }
+
+    /**
+     * Question Video with custom name
+     *
+     * @param name name of Component, if there is more then one Video
+     */
+    public QVideo(String name) {
+        this(name, null);
+    }
+
+    /**
+     * Question Video with Default name "Video"
      */
     public QVideo() {
-        this("Video");
+        this(null, null);
     }
 
     // endregion
 
     /**
-     * Name of Component to identify Data for this Component in case there are more then one of these Components
+     * name of Component to identify Data for this Component in case there are more then one of these Components
      *
-     * @return Name of Component
+     * @return name of Component
      */
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     /**
@@ -55,10 +77,10 @@ public class QVideo implements IQuestionComponent<String> {
     /**
      * Init Component and load Data from the Game.xml file
      *
-     * @param data QuestionData for this Question from Game Data File
+     * @param data questionData for this Question from Game Data File
      */
     @Override
-    public void InitComponent(IQuestionData<String> data) {
+    public void initComponent(IQuestionData<String> data) {
         // TODO implement
     }
 }

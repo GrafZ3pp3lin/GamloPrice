@@ -9,38 +9,60 @@ import java.util.List;
 
 public class QButtonGrid implements IQuestionComponent<List<String>> {
 
-    private String Name;
+    private String name;
     private GridPane buttonGrid;
+
+    private IQuestionData<List<String>> questionData;
 
     // region Constructors
 
     /**
-     * Question Button Grid with custom Name
+     * Create a Button Grid with custom name and data
      *
-     * @param name Name of Component, if there is more then one ButtonGrid
+     * @param name         name of Component, if there is more then one ButtonGrid
+     * @param questionData List with Strings for Buttons
      */
-    public QButtonGrid(String name) {
-        Name = name;
+    public QButtonGrid(String name, IQuestionData<List<String>> questionData) {
+        this.name = (name == null) ? getClass().getSimpleName() : name;
+        this.questionData = questionData;
         buttonGrid = new GridPane();
     }
 
     /**
-     * Question Button Grid with Default Name "ButtonGrid"
+     * Create a Button Grid with given data
+     *
+     * @param questionData List with Strings for Buttons
+     */
+    public QButtonGrid(IQuestionData<List<String>> questionData) {
+        this(null, questionData);
+    }
+
+    /**
+     * Create a empty Button Grid with custom name
+     *
+     * @param name name of Component, if there is more then one ButtonGrid
+     */
+    public QButtonGrid(String name) {
+        this(name, null);
+    }
+
+    /**
+     * Create a empty Button Grid with default ClassName
      */
     public QButtonGrid() {
-        this("ButtonGrid");
+        this(null, null);
     }
 
     // endregion
 
     /**
-     * Name of Component to identify Data for this Component in case there are more then one of these Components
+     * name of Component to identify Data for this Component in case there are more then one of these Components
      *
-     * @return Name of Component
+     * @return name of Component
      */
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     /**
@@ -56,10 +78,11 @@ public class QButtonGrid implements IQuestionComponent<List<String>> {
     /**
      * Init Component and load Data from the Game.xml file
      *
-     * @param data QuestionData for this Question from Game Data File
+     * @param data questionData for this Question from Game Data File
      */
     @Override
-    public void InitComponent(IQuestionData<List<String>> data) {
+    public void initComponent(IQuestionData<List<String>> data) {
+        questionData = data;
         // TODO implement GridPane
     }
 }

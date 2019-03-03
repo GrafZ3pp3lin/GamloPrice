@@ -8,34 +8,60 @@ import javafx.scene.image.ImageView;
 
 public class QImage implements IQuestionComponent<String> {
 
-    private String Name;
+    private String name;
     private ImageView image;
 
+    private IQuestionData<String> questionData;
+
+    // region Constructors
+
     /**
-     * Question Image with custom Name
+     * Create a Image with custom name and data
      *
-     * @param name Name of Component, if there is more then one Image
+     * @param name         name of Component, if there is more then one Image
+     * @param questionData Path to Image
      */
-    public QImage(String name) {
-        Name = name;
+    public QImage(String name, IQuestionData<String> questionData) {
+        this.name = (name == null) ? getClass().getSimpleName() : name;
+        this.questionData = questionData;
         image = new ImageView();
     }
 
     /**
-     * Question Image with Default Name "Image"
+     * Create a Image with given data
+     *
+     * @param questionData Path to Image
      */
-    public QImage() {
-        this("Image");
+    public QImage(IQuestionData<String> questionData) {
+        this(null, questionData);
     }
 
     /**
-     * Name of Component to identify Data for this Component in case there are more then one of these Components
+     * Question Image with custom name
      *
-     * @return Name of Component
+     * @param name name of Component, if there is more then one Image
+     */
+    public QImage(String name) {
+        this(name, null);
+    }
+
+    /**
+     * Question Image with default ClassName
+     */
+    public QImage() {
+        this(null, null);
+    }
+
+    // endregion
+
+    /**
+     * name of Component to identify Data for this Component in case there are more then one of these Components
+     *
+     * @return name of Component
      */
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     /**
@@ -51,10 +77,11 @@ public class QImage implements IQuestionComponent<String> {
     /**
      * Init Component and load Data from the Game.xml file
      *
-     * @param data QuestionData for this Question from Game Data File
+     * @param data questionData for this Question from Game Data File
      */
     @Override
-    public void InitComponent(IQuestionData<String> data) {
+    public void initComponent(IQuestionData<String> data) {
+        questionData = data;
         // TODO test if data is valid Path
         image.setImage(new Image(data.getData()));
     }

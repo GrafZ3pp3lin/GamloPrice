@@ -11,29 +11,29 @@ import java.util.List;
  */
 public class QuestionLayout implements IQuestionLayout {
 
-    private String Name;
-    private List<IQuestionComponent> QuestionComponents;
+    private String name;
+    private List<IQuestionComponent> questionComponents;
 
     // region Constructors
 
     /**
      * Creates a Layout with the given Components
      *
-     * @param name               Name of the Layout
+     * @param name               name of the Layout
      * @param questionComponents Components, which will be added to the Layout
      */
     public QuestionLayout(String name, List<IQuestionComponent> questionComponents) {
-        this.Name = name;
-        QuestionComponents = new ArrayList<>();
+        this.name = name;
+        this.questionComponents = new ArrayList<>();
         if (questionComponents != null) {
-            QuestionComponents.addAll(questionComponents);
+            this.questionComponents.addAll(questionComponents);
         }
     }
 
     /**
      * Creates an empty Layout
      *
-     * @param name Name of the Layout
+     * @param name name of the Layout
      */
     public QuestionLayout(String name) {
         this(name, null);
@@ -44,11 +44,11 @@ public class QuestionLayout implements IQuestionLayout {
     /**
      * get the name of the Layout
      *
-     * @return Name of Layout
+     * @return name of Layout
      */
     @Override
-    public String GetName() {
-        return Name;
+    public String getName() {
+        return name;
     }
 
     /**
@@ -57,8 +57,8 @@ public class QuestionLayout implements IQuestionLayout {
      * @return List with all Question Components
      */
     @Override
-    public List<IQuestionComponent> GetQuestionComponents() {
-        return QuestionComponents;
+    public List<IQuestionComponent> getQuestionComponents() {
+        return questionComponents;
     }
 
     /**
@@ -67,19 +67,19 @@ public class QuestionLayout implements IQuestionLayout {
      * @param components List with Components
      */
     @Override
-    public void SetQuestionComponents(List<IQuestionComponent> components) {
-        QuestionComponents.clear();
-        QuestionComponents.addAll(components);
+    public void setQuestionComponents(List<IQuestionComponent> components) {
+        questionComponents.clear();
+        questionComponents.addAll(components);
     }
 
     /**
      * get a Component from this Layout by name
      *
-     * @param name Name of the Component
+     * @param name name of the Component
      * @return Component wit given name
      */
     @Override
-    public IQuestionComponent GetQuestionComponent(String name) {
+    public IQuestionComponent getQuestionComponent(String name) {
         // TODO implement
         throw new UnsupportedOperationException();
     }
@@ -90,7 +90,7 @@ public class QuestionLayout implements IQuestionLayout {
      * @param component Question Component to be added
      */
     @Override
-    public void AddQuestionComponent(IQuestionComponent component) {
-        QuestionComponents.add(component);
+    public void addQuestionComponent(IQuestionComponent component) {
+        questionComponents.add(component);
     }
 }

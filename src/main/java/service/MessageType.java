@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 /**
  * Type of a Message

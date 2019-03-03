@@ -1,4 +1,4 @@
-package Service.interfaces;
+package service.interfaces;
 
 import data.interfaces.IGame;
 

@@ -1,12 +1,12 @@
 package controller;
 
-import Service.DialogMessages;
-import Service.XMLHandler;
-import Service.interfaces.IFileHandler;
-import Service.interfaces.IMessages;
+import service.DialogMessages;
+import service.XMLHandler;
+import service.interfaces.IFileHandler;
+import service.interfaces.IMessages;
 
 /**
- * Provides Service Classes as Singletons
+ * Provides service Classes as Singletons
  */
 class Global {
 

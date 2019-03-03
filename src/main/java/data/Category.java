@@ -7,23 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Set of Questions within a Game with the same Category
+ * Set of questions within a Game with the same Category
  */
 public class Category implements ICategory {
 
-    private String Name;
-    private List<IQuestion> Questions;
+    private String name;
+    private List<IQuestion> questions;
 
     // region Constructors
 
     /**
      * Constructor with name of Category
      *
-     * @param name Name of Category
+     * @param name name of Category
      */
     public Category(String name) {
-        Name = name;
-        Questions = new ArrayList<>();
+        this.name = name;
+        questions = new ArrayList<>();
     }
 
     /**
@@ -36,43 +36,43 @@ public class Category implements ICategory {
     // endregion
 
     /**
-     * get Category Name
+     * get Category name
      *
-     * @return Category Name
+     * @return Category name
      */
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     /**
-     * set Name of Category
+     * set name of Category
      *
-     * @param name Name of Category
+     * @param name name of Category
      */
     @Override
     public void setName(String name) {
-        this.Name = name;
+        this.name = name;
     }
 
     /**
-     * Get all Questions of this Category
+     * Get all questions of this Category
      *
-     * @return List with all Questions
+     * @return List with all questions
      */
     @Override
     public List<IQuestion> getQuestions() {
-        return Questions;
+        return questions;
     }
 
     /**
-     * add a Question to this Category. Value of Questions must be unique!
+     * add a Question to this Category. Value of questions must be unique!
      *
      * @param question Question that will be added
      */
     @Override
     public void addQuestion(IQuestion question) {
-        Questions.add(question);
+        questions.add(question);
     }
 
     /**

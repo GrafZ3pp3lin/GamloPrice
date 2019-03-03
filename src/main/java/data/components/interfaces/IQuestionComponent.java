@@ -30,6 +30,6 @@ public interface IQuestionComponent<T> {
      *
      * @param data QuestionData for this Question from Game Data File
      */
-    void InitComponent(IQuestionData<T> data);
+    void initComponent(IQuestionData<T> data);
 
 }

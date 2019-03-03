@@ -7,44 +7,64 @@ import javafx.scene.Parent;
 /**
  * Question, defined by various Components. Components will be added vertical to the Question Pane. Default Layout is:
  * Title Component + Button Grid Component
- * Each Question has a Value, defines its difficulty.
+ * Each Question has a value, defines its difficulty.
  */
 public class Question implements IQuestion {
 
-    private int Value;
+    private int value;
     private boolean continueButtonEnabled;
-    private IQuestionLayout QuestionLayout;
+    private IQuestionLayout questionLayout;
 
     // region Constructors
 
     /**
-     * Create new Question with Value
+     * Create new Question with questionLayout and value
      *
-     * @param value Value of the Question
+     * @param value value of the Question
+     * @param questionLayout Layout of the Question Pane
+     */
+    public Question(int value, IQuestionLayout questionLayout) {
+        this.value = value;
+        this.questionLayout = questionLayout;
+        continueButtonEnabled = false;
+    }
+
+    /**
+     * Create new Question with value
+     *
+     * @param value value of the Question
      */
     public Question(int value) {
-        Value = value;
-        QuestionLayout = new QuestionLayout();
-        continueButtonEnabled = false;
+        this(value, null);
     }
 
     // endregion
 
     /**
-     * Value of Question. The Team, which correctly answered this Question will get the amount of this Value as Points.
+     * value of Question. The Team, which correctly answered this Question will get the amount of this value as Points.
      *
-     * @return Value of Question
+     * @return value of Question
      */
     @Override
     public int getValue() {
-        return Value;
+        return value;
+    }
+
+    /**
+     * set the value for this Question.
+     *
+     * @param value value of Question
+     */
+    @Override
+    public void setValue(int value) {
+        this.value = value;
     }
 
     /**
      * initialize all Components with their data
      */
     @Override
-    public void LoadData() {
+    public void loadData() {
         //TODO implement
         throw new UnsupportedOperationException();
     }
@@ -55,7 +75,7 @@ public class Question implements IQuestion {
      * @return Question Pane as Parent
      */
     @Override
-    public Parent CreatePane() {
+    public Parent createPane() {
         //TODO implement
         throw new UnsupportedOperationException();
     }
@@ -66,7 +86,7 @@ public class Question implements IQuestion {
      * @return true, if continue Button is enabled
      */
     @Override
-    public boolean IsContinueButtonEnabled() {
+    public boolean isContinueButtonEnabled() {
         return continueButtonEnabled;
     }
 
@@ -77,8 +97,19 @@ public class Question implements IQuestion {
      * @param enable en- or disabled the continue Button
      */
     @Override
-    public void EnableContinueButton(boolean enable) {
+    public void enableContinueButton(boolean enable) {
         continueButtonEnabled = enable;
+    }
+
+    /**
+     * set the questionLayout. Override the old Layout.
+     *
+     * @param layout new questionLayout
+     */
+    @Override
+    public void setQuestionLayout(IQuestionLayout layout) {
+        // TODO Ask User for commit, maybe save old Layout
+        this.questionLayout = layout;
     }
 
     /**
@@ -87,8 +118,8 @@ public class Question implements IQuestion {
      * @return all Question Components
      */
     @Override
-    public IQuestionLayout getAllQuestionComponents() {
-        return QuestionLayout;
+    public IQuestionLayout getQuestionLayout() {
+        return questionLayout;
     }
 
 }

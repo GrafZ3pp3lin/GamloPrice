@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 import data.interfaces.IQuestionLayout;
 
@@ -6,24 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Provides all defined Question Layouts.
- * Every Game can have its own Layouts, therefor every Game needs its own QuestionLayoutProvider.
+ * Provides all defined Question layouts.
+ * Every Game can have its own layouts, therefor every Game needs its own QuestionLayoutProvider.
  */
 public class QuestionLayoutProvider {
 
-    private List<IQuestionLayout> Layouts;
+    private List<IQuestionLayout> layouts;
 
     // region Constructors
 
     /**
-     * Creates a new QuestionLayoutProvider with given Layouts
+     * Creates a new QuestionLayoutProvider with given layouts
      *
      * @param layouts Layout, which will be added to the Layout List
      */
     public QuestionLayoutProvider(List<IQuestionLayout> layouts) {
-        this.Layouts = new ArrayList<>();
+        this.layouts = new ArrayList<>();
         if (layouts != null) {
-            this.Layouts.addAll(layouts);
+            this.layouts.addAll(layouts);
         }
     }
 
@@ -42,19 +42,19 @@ public class QuestionLayoutProvider {
      * @param name Name of the Layout
      * @return Copy of the Layout
      */
-    public IQuestionLayout GetLayout(String name) {
+    public IQuestionLayout getLayout(String name) {
         //TODO Create Copy of Layout and return it
         throw new UnsupportedOperationException();
     }
 
     /**
-     * Clears all Layouts and add the new ones.
+     * Clears all layouts and add the new ones.
      *
-     * @param layouts New Game Layouts
+     * @param layouts New Game layouts
      */
-    public void InitLayouts(List<IQuestionLayout> layouts) {
-        this.Layouts.clear();
-        this.Layouts.addAll(layouts);
+    public void initLayouts(List<IQuestionLayout> layouts) {
+        this.layouts.clear();
+        this.layouts.addAll(layouts);
     }
 
     /**
@@ -62,8 +62,8 @@ public class QuestionLayoutProvider {
      *
      * @param layout Layout to be added
      */
-    public void AddLayout(IQuestionLayout layout) {
-        this.Layouts.add(layout);
+    public void addLayout(IQuestionLayout layout) {
+        this.layouts.add(layout);
     }
 
 }

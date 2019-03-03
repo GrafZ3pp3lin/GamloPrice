@@ -29,10 +29,10 @@ public class GamloPrice extends Application {
 
         primaryStage.show();
 
-        SimpleTestGame();
+        simpleTestGame();
     }
 
-    private void SimpleTestGame() {
+    private void simpleTestGame() {
         IGame Game = new Game("TestGame");
         ICategory cat = new Category("TestCategory");
         for (int i = 20; i < 100; i += 20) {
@@ -41,7 +41,7 @@ public class GamloPrice extends Application {
         }
         Game.addCategory(cat);
         GameController gc = new GameController(Game);
-        gc.ShowGame();
+        gc.showGame();
     }
 
     private void loadSampleLayout() {
