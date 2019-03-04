@@ -2,15 +2,12 @@ package data.components;
 
 import data.components.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
-import javafx.scene.Node;
-import javafx.scene.layout.GridPane;
 
 import java.util.List;
 
 public class QButtonGrid implements IQuestionComponent<List<String>> {
 
-    private String name;
-    private GridPane buttonGrid;
+    private final String name;
 
     private IQuestionData<List<String>> questionData;
 
@@ -25,7 +22,6 @@ public class QButtonGrid implements IQuestionComponent<List<String>> {
     public QButtonGrid(String name, IQuestionData<List<String>> questionData) {
         this.name = (name == null) ? getClass().getSimpleName() : name;
         this.questionData = questionData;
-        buttonGrid = new GridPane();
     }
 
     /**
@@ -66,16 +62,6 @@ public class QButtonGrid implements IQuestionComponent<List<String>> {
     }
 
     /**
-     * Component, which is displayed on QuestionPane
-     *
-     * @return Component as Region
-     */
-    @Override
-    public Node getComponent() {
-        return buttonGrid;
-    }
-
-    /**
      * Init Component and load Data from the Game.xml file
      *
      * @param data questionData for this Question from Game Data File
@@ -83,6 +69,5 @@ public class QButtonGrid implements IQuestionComponent<List<String>> {
     @Override
     public void initComponent(IQuestionData<List<String>> data) {
         questionData = data;
-        // TODO implement GridPane
     }
 }

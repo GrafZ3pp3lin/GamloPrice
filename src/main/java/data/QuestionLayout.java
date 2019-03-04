@@ -11,7 +11,8 @@ import java.util.List;
  */
 public class QuestionLayout implements IQuestionLayout {
 
-    private String name;
+    private final String name;
+
     private List<IQuestionComponent> questionComponents;
 
     // region Constructors

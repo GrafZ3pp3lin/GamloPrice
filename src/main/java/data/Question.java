@@ -2,10 +2,9 @@ package data;
 
 import data.interfaces.IQuestion;
 import data.interfaces.IQuestionLayout;
-import javafx.scene.Parent;
 
 /**
- * Question, defined by various Components. Components will be added vertical to the Question Pane. Default Layout is:
+ * Question, defined by various Components. Components will be added vertical to the Question Layout. Default Layout is:
  * Title Component + Button Grid Component
  * Each Question has a value, defines its difficulty.
  */
@@ -20,7 +19,7 @@ public class Question implements IQuestion {
     /**
      * Create new Question with questionLayout and value
      *
-     * @param value value of the Question
+     * @param value          value of the Question
      * @param questionLayout Layout of the Question Pane
      */
     public Question(int value, IQuestionLayout questionLayout) {
@@ -70,17 +69,6 @@ public class Question implements IQuestion {
     }
 
     /**
-     * Create the Pane, which is displayed. The Pane uses the defined Layout and Data.
-     *
-     * @return Question Pane as Parent
-     */
-    @Override
-    public Parent createPane() {
-        //TODO implement
-        throw new UnsupportedOperationException();
-    }
-
-    /**
      * Is there a continue Button on the Question Page
      *
      * @return true, if continue Button is enabled
@@ -102,6 +90,16 @@ public class Question implements IQuestion {
     }
 
     /**
+     * get all Question Components ordered
+     *
+     * @return all Question Components
+     */
+    @Override
+    public IQuestionLayout getQuestionLayout() {
+        return questionLayout;
+    }
+
+    /**
      * set the questionLayout. Override the old Layout.
      *
      * @param layout new questionLayout
@@ -110,16 +108,6 @@ public class Question implements IQuestion {
     public void setQuestionLayout(IQuestionLayout layout) {
         // TODO Ask User for commit, maybe save old Layout
         this.questionLayout = layout;
-    }
-
-    /**
-     * get all Question Components ordered
-     *
-     * @return all Question Components
-     */
-    @Override
-    public IQuestionLayout getQuestionLayout() {
-        return questionLayout;
     }
 
 }

@@ -1,7 +1,6 @@
 package data.components.interfaces;
 
 import data.interfaces.IQuestionData;
-import javafx.scene.Node;
 
 /**
  * Every Question consist of Question Components. Question Components is e.g. the Title of the Question or an Image.
@@ -17,13 +16,6 @@ public interface IQuestionComponent<T> {
      * @return Name of Component
      */
     String getName();
-
-    /**
-     * Component, which is displayed on QuestionPane
-     *
-     * @return Component as Region
-     */
-    Node getComponent();
 
     /**
      * Init Component and load Data from the Game.xml file

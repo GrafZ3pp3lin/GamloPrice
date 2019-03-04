@@ -2,16 +2,13 @@ package data.components;
 
 import data.components.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
 
 /**
  * QTitle is a Question Component, used for the Title of a Question.
  */
 public class QTitle implements IQuestionComponent<String> {
 
-    private String name;
-    private Label label;
+    private final String name;
 
     private IQuestionData<String> questionData;
 
@@ -26,7 +23,6 @@ public class QTitle implements IQuestionComponent<String> {
     public QTitle(String name, IQuestionData<String> questionData) {
         this.name = (name == null) ? getClass().getSimpleName() : name;
         this.questionData = questionData;
-        label = new Label();
     }
 
     /**
@@ -67,22 +63,12 @@ public class QTitle implements IQuestionComponent<String> {
     }
 
     /**
-     * Component, which is displayed on QuestionPane
-     *
-     * @return Label with Title
-     */
-    @Override
-    public Node getComponent() {
-        return label;
-    }
-
-    /**
      * Init Component with Question Data
      *
      * @param data questionData for this Question from Game Document
      */
     @Override
     public void initComponent(IQuestionData<String> data) {
-        label.setText(data.getData());
+        questionData = data;
     }
 }

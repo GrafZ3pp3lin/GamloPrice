@@ -1,9 +1,7 @@
 package data.interfaces;
 
-import javafx.scene.Parent;
-
 /**
- * Question, defined by various Components. Components will be added vertical to the Question Pane. Default Layout is:
+ * Question, defined by various Components. Components will be added vertical to the Question Layout. Default Layout is:
  * Title Component + Button Grid Component
  * Each Question has a Value, defines its difficulty.
  */
@@ -29,13 +27,6 @@ public interface IQuestion {
     void loadData();
 
     /**
-     * Create the Pane, which is displayed. The Pane uses the defined Layout and Data.
-     *
-     * @return Question Pane as Parent
-     */
-    Parent createPane();
-
-    /**
      * Is there a continue Button on the Question Page
      *
      * @return true, if continue Button is enabled
@@ -51,17 +42,17 @@ public interface IQuestion {
     void enableContinueButton(boolean enable);
 
     /**
-     * set the QuestionLayout. Override the old Layout.
-     *
-     * @param layout new QuestionLayout
-     */
-    void setQuestionLayout(IQuestionLayout layout);
-
-    /**
      * get the Question Layout with all Question Components ordered
      *
      * @return all Question Components
      */
     IQuestionLayout getQuestionLayout();
+
+    /**
+     * set the QuestionLayout. Override the old Layout.
+     *
+     * @param layout new QuestionLayout
+     */
+    void setQuestionLayout(IQuestionLayout layout);
 
 }

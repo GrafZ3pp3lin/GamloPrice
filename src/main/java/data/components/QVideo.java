@@ -2,13 +2,10 @@ package data.components;
 
 import data.components.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
-import javafx.scene.Node;
-import javafx.scene.media.MediaView;
 
 public class QVideo implements IQuestionComponent<String> {
 
-    private String name;
-    private MediaView mediaView;
+    private final String name;
 
     private IQuestionData<String> questionData;
 
@@ -23,7 +20,6 @@ public class QVideo implements IQuestionComponent<String> {
     public QVideo(String name, IQuestionData<String> questionData) {
         this.name = (name == null) ? getClass().getSimpleName() : name;
         this.questionData = questionData;
-        mediaView = new MediaView();
     }
 
     /**
@@ -64,23 +60,13 @@ public class QVideo implements IQuestionComponent<String> {
     }
 
     /**
-     * Component, which is displayed on QuestionPane
-     *
-     * @return Component as Region
-     */
-    @Override
-    public Node getComponent() {
-        // TODO wrap MediaView in Container and add Control Buttons
-        return mediaView;
-    }
-
-    /**
      * Init Component and load Data from the Game.xml file
      *
      * @param data questionData for this Question from Game Data File
      */
     @Override
     public void initComponent(IQuestionData<String> data) {
+        questionData = data;
         // TODO implement
     }
 }

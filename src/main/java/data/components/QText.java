@@ -2,13 +2,10 @@ package data.components;
 
 import data.components.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
-import javafx.scene.Node;
-import javafx.scene.text.Text;
 
 public class QText implements IQuestionComponent<String> {
 
-    private String name;
-    private Text content;
+    private final String name;
 
     private IQuestionData<String> questionData;
 
@@ -23,7 +20,6 @@ public class QText implements IQuestionComponent<String> {
     public QText(String name, IQuestionData<String> questionData) {
         this.name = (name == null) ? getClass().getSimpleName() : name;
         this.questionData = questionData;
-        content = new Text();
     }
 
     /**
@@ -64,22 +60,12 @@ public class QText implements IQuestionComponent<String> {
     }
 
     /**
-     * Component, which is displayed on QuestionPane
-     *
-     * @return Component as Region
-     */
-    @Override
-    public Node getComponent() {
-        return content;
-    }
-
-    /**
      * Init Component and load Data from the Game.xml file
      *
      * @param data questionData for this Question from Game Data File
      */
     @Override
     public void initComponent(IQuestionData<String> data) {
-        content.setText(data.getData());
+        questionData = data;
     }
 }
