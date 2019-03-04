@@ -4,9 +4,9 @@ import data.interfaces.IGame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
@@ -44,7 +44,7 @@ public class GameController {
     /**
      * Open the given Game in a separate Stage
      */
-    public void ShowGame() {
+    public void showGame() {
         stage = new Stage();
         stage.setTitle(Game.getName());
         if (SelectionScene == null) {
@@ -108,13 +108,13 @@ public class GameController {
     /**
      * set Space between Control edge of AnchorPane
      *
-     * @param control Control in an AnchorPane
+     * @param node Control in an AnchorPane
      * @param margin Space to the edge of the AnchorPane
      */
-    private void setAnchors(Control control, double margin) {
-        AnchorPane.setBottomAnchor(control, margin);
-        AnchorPane.setLeftAnchor(control, margin);
-        AnchorPane.setRightAnchor(control, margin);
-        AnchorPane.setTopAnchor(control, margin);
+    private void setAnchors(Node node, double margin) {
+        AnchorPane.setBottomAnchor(node, margin);
+        AnchorPane.setLeftAnchor(node, margin);
+        AnchorPane.setRightAnchor(node, margin);
+        AnchorPane.setTopAnchor(node, margin);
     }
 }

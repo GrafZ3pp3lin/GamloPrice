@@ -1,6 +1,6 @@
-package Service.interfaces;
+package service.interfaces;
 
-import Service.MessageType;
+import service.MessageType;
 
 /**
  * Offer Methods to interact and inform the User
@@ -13,7 +13,7 @@ public interface IMessages {
      * @param type    Type of the Message
      * @param message Message, that will be shown
      */
-    void ShowMessage(MessageType type, String message);
+    void showMessage(MessageType type, String message);
 
     /**
      * Show a Message with Message Type and Title
@@ -22,7 +22,7 @@ public interface IMessages {
      * @param message Message, that will be shown
      * @param title   Title of the Message
      */
-    void ShowMessage(MessageType type, String message, String title);
+    void showMessage(MessageType type, String message, String title);
 
     /**
      * Show a Message with Message Type, Title and header
@@ -32,7 +32,7 @@ public interface IMessages {
      * @param title   Title of the Message
      * @param header  Header of the Message (can be null)
      */
-    void ShowMessage(MessageType type, String message, String title, String header);
+    void showMessage(MessageType type, String message, String title, String header);
 
     /**
      * Show a Message that have to be confirmed
@@ -43,6 +43,6 @@ public interface IMessages {
      * @param header  Header of the Message (can be null)
      * @return true, if the User pressed OK
      */
-    boolean ConfirmMessage(MessageType type, String message, String title, String header);
+    boolean confirmMessage(MessageType type, String message, String title, String header);
 
 }

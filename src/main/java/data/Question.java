@@ -1,62 +1,92 @@
 package data;
 
 import data.interfaces.IQuestion;
-import data.interfaces.IQuestionComponent;
-import javafx.scene.Parent;
-
-import java.util.List;
+import data.interfaces.IQuestionLayout;
 
 /**
- * Question, defined by various Components. Components will be added vertical to the Question Pane. Default Layout is:
+ * Question, defined by various Components. Components will be added vertical to the Question Layout. Default Layout is:
  * Title Component + Button Grid Component
- * Each Question has a Value, defines its difficulty.
+ * Each Question has a value, defines its difficulty.
  */
 public class Question implements IQuestion {
 
-    private int Value;
-    private List<IQuestionComponent> QuestionComponents;
+    private int value;
+    private boolean continueButtonEnabled;
+    private IQuestionLayout questionLayout;
 
     // region Constructors
 
     /**
-     * Create new Question with Value
+     * Create new Question with questionLayout and value
      *
-     * @param value Value of the Question
+     * @param value          value of the Question
+     * @param questionLayout Layout of the Question Pane
+     */
+    public Question(int value, IQuestionLayout questionLayout) {
+        this.value = value;
+        this.questionLayout = questionLayout;
+        continueButtonEnabled = false;
+    }
+
+    /**
+     * Create new Question with value
+     *
+     * @param value value of the Question
      */
     public Question(int value) {
-        Value = value;
+        this(value, null);
     }
 
     // endregion
 
     /**
-     * Value of Question. The Team, which correctly answered this Question will get the amount of this Value as Points.
+     * value of Question. The Team, which correctly answered this Question will get the amount of this value as Points.
      *
-     * @return Value of Question
+     * @return value of Question
      */
     @Override
     public int getValue() {
-        return Value;
+        return value;
+    }
+
+    /**
+     * set the value for this Question.
+     *
+     * @param value value of Question
+     */
+    @Override
+    public void setValue(int value) {
+        this.value = value;
     }
 
     /**
      * initialize all Components with their data
      */
     @Override
-    public void LoadData() {
+    public void loadData() {
         //TODO implement
         throw new UnsupportedOperationException();
     }
 
     /**
-     * Create the Pane, which is displayed. The Pane uses the defined Layout and Data.
+     * Is there a continue Button on the Question Page
      *
-     * @return Question Pane as Parent
+     * @return true, if continue Button is enabled
      */
     @Override
-    public Parent CreatePane() {
-        //TODO implement
-        throw new UnsupportedOperationException();
+    public boolean isContinueButtonEnabled() {
+        return continueButtonEnabled;
+    }
+
+    /**
+     * Some Questions need a continue Button, to get to the next Page.
+     * If enabled there will be Button on the Question Page, to continue to the Result Page.
+     *
+     * @param enable en- or disabled the continue Button
+     */
+    @Override
+    public void enableContinueButton(boolean enable) {
+        continueButtonEnabled = enable;
     }
 
     /**
@@ -65,29 +95,19 @@ public class Question implements IQuestion {
      * @return all Question Components
      */
     @Override
-    public List<IQuestionComponent> getAllQuestionComponents() {
-        return QuestionComponents;
+    public IQuestionLayout getQuestionLayout() {
+        return questionLayout;
     }
 
     /**
-     * get a Question Component by its name
+     * set the questionLayout. Override the old Layout.
      *
-     * @param name name of the Component
-     * @return Component with given name
+     * @param layout new questionLayout
      */
     @Override
-    public IQuestionComponent getQuestionComponent(String name) {
-        //TODO implement
-        throw new UnsupportedOperationException();
+    public void setQuestionLayout(IQuestionLayout layout) {
+        // TODO Ask User for commit, maybe save old Layout
+        this.questionLayout = layout;
     }
 
-    /**
-     * add a Question Component to this Question
-     *
-     * @param component Question Component, to be added
-     */
-    @Override
-    public void addQuestionComponent(IQuestionComponent component) {
-        QuestionComponents.add(component);
-    }
 }

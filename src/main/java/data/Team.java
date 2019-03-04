@@ -3,22 +3,22 @@ package data;
 import data.interfaces.ITeam;
 
 /**
- * A Quiz Game could be played by multiple Teams. Each Team have a Name and Points.
+ * A Quiz Game could be played by multiple Teams. Each Team have a name and points.
  */
 public class Team implements ITeam {
 
-    private String Name;
-    private int Points;
+    private String name;
+    private int points;
 
     // region Constructor
 
     /**
-     * Constructor with Team Name
+     * Constructor with Team name
      *
-     * @param name Name of the Team
+     * @param name name of the Team
      */
     public Team(String name) {
-        Name = name;
+        this.name = name;
     }
 
     /**
@@ -30,23 +30,23 @@ public class Team implements ITeam {
     // endregion
 
     /**
-     * set the Team Name
+     * set the Team name
      *
      * @param name Team name
      */
     @Override
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     /**
-     * get Team Name
+     * get Team name
      *
      * @return Team name
      */
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     /**
@@ -56,26 +56,26 @@ public class Team implements ITeam {
      */
     @Override
     public void setPoints(int points) {
-        Points = points;
+        this.points = points;
     }
 
     /**
-     * add some Points
+     * add some points
      *
-     * @param points amount of Points
+     * @param points amount of points
      */
     @Override
     public void addPoints(int points) {
-        Points += points;
+        this.points += points;
     }
 
     /**
-     * get Team Points
+     * get Team points
      *
-     * @return Team Points
+     * @return Team points
      */
     @Override
     public int getPoints() {
-        return Points;
+        return points;
     }
 }

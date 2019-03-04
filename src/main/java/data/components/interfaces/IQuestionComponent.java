@@ -1,12 +1,12 @@
-package data.interfaces;
+package data.components.interfaces;
 
-import javafx.scene.layout.Region;
+import data.interfaces.IQuestionData;
 
 /**
  * Every Question consist of Question Components. Question Components is e.g. the Title of the Question or an Image.
  * a Question Component provides a Region, which is added to the Question Pane.
  *
- * @param <T> Component Data Type
+ * @param <T> Data Type
  */
 public interface IQuestionComponent<T> {
 
@@ -18,17 +18,10 @@ public interface IQuestionComponent<T> {
     String getName();
 
     /**
-     * Component, which is displayed on QuestionPane
-     *
-     * @return Component as Region
-     */
-    Region getComponent();
-
-    /**
      * Init Component and load Data from the Game.xml file
      *
-     * @param data QuestionData for this Question from xml Document
+     * @param data QuestionData for this Question from Game Data File
      */
-    void InitComponent(IQuestionData<T> data);
+    void initComponent(IQuestionData<T> data);
 
 }

@@ -1,11 +1,7 @@
 package data.interfaces;
 
-import javafx.scene.Parent;
-
-import java.util.List;
-
 /**
- * Question, defined by various Components. Components will be added vertical to the Question Pane. Default Layout is:
+ * Question, defined by various Components. Components will be added vertical to the Question Layout. Default Layout is:
  * Title Component + Button Grid Component
  * Each Question has a Value, defines its difficulty.
  */
@@ -19,37 +15,44 @@ public interface IQuestion {
     int getValue();
 
     /**
+     * set the Value for this Question.
+     *
+     * @param value Value of Question
+     */
+    void setValue(int value);
+
+    /**
      * initialize all Components with their data
      */
-    void LoadData();
+    void loadData();
 
     /**
-     * Create the Pane, which is displayed. The Pane uses the defined Layout and Data.
+     * Is there a continue Button on the Question Page
      *
-     * @return Question Pane as Parent
+     * @return true, if continue Button is enabled
      */
-    Parent CreatePane();
+    boolean isContinueButtonEnabled();
 
     /**
-     * get all Question Components ordered
+     * Some Questions need a continue Button, to get to the next Page.
+     * If enabled there will be Button on the Question Page, to continue to the Result Page.
+     *
+     * @param enable en- or disabled the continue Button
+     */
+    void enableContinueButton(boolean enable);
+
+    /**
+     * get the Question Layout with all Question Components ordered
      *
      * @return all Question Components
      */
-    List<IQuestionComponent> getAllQuestionComponents();
+    IQuestionLayout getQuestionLayout();
 
     /**
-     * get a Question Component by its name
+     * set the QuestionLayout. Override the old Layout.
      *
-     * @param name name of the Component
-     * @return Component with given name
+     * @param layout new QuestionLayout
      */
-    IQuestionComponent getQuestionComponent(String name);
-
-    /**
-     * add a Question Component to this Question
-     *
-     * @param component Question Component, to be added
-     */
-    void addQuestionComponent(IQuestionComponent component);
+    void setQuestionLayout(IQuestionLayout layout);
 
 }

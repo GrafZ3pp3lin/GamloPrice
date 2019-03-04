@@ -1,6 +1,6 @@
-package Service;
+package service;
 
-import Service.interfaces.IMessages;
+import service.interfaces.IMessages;
 
 /**
  * Interact and inform the User with DialogMessages
@@ -14,7 +14,7 @@ public class DialogMessages implements IMessages {
      * @param message Message, that will be shown
      */
     @Override
-    public void ShowMessage(MessageType type, String message) {
+    public void showMessage(MessageType type, String message) {
         // TODO implement
         throw new UnsupportedOperationException();
     }
@@ -27,7 +27,7 @@ public class DialogMessages implements IMessages {
      * @param title   Title of the Message
      */
     @Override
-    public void ShowMessage(MessageType type, String message, String title) {
+    public void showMessage(MessageType type, String message, String title) {
         // TODO implement
         throw new UnsupportedOperationException();
     }
@@ -41,7 +41,7 @@ public class DialogMessages implements IMessages {
      * @param header  Header of the Message (can be null)
      */
     @Override
-    public void ShowMessage(MessageType type, String message, String title, String header) {
+    public void showMessage(MessageType type, String message, String title, String header) {
         // TODO implement
         throw new UnsupportedOperationException();
     }
@@ -56,7 +56,7 @@ public class DialogMessages implements IMessages {
      * @return true, if the User pressed OK
      */
     @Override
-    public boolean ConfirmMessage(MessageType type, String message, String title, String header) {
+    public boolean confirmMessage(MessageType type, String message, String title, String header) {
         // TODO implement
         throw new UnsupportedOperationException();
     }
