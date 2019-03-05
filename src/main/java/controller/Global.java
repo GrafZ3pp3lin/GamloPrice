@@ -12,7 +12,7 @@ import service.interfaces.IQuestionConverter;
 /**
  * Provides service Classes as Singletons
  */
-class Global {
+public class Global {
 
     /**
      * load and write Game-Documents

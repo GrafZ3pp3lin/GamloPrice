@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Every Game will be started in a separate Stage. This GameController create a new Game Stage and manage it.
  */
-class GameController {
+public class GameController {
 
     private IGame Game;
 

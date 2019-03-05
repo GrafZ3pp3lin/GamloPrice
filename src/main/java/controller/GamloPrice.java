@@ -1,11 +1,7 @@
 package controller;
 
-import data.Category;
-import data.Game;
-import data.Question;
-import data.interfaces.ICategory;
-import data.interfaces.IGame;
-import data.interfaces.IQuestion;
+import data.*;
+import data.interfaces.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-class GamloPrice extends Application {
+public class GamloPrice extends Application {
 
     private Stage primaryStage;
 
