@@ -1,7 +1,5 @@
 package data.interfaces;
 
-import data.components.interfaces.IQuestionComponent;
-
 import java.util.List;
 
 /**

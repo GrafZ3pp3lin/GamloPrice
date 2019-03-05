@@ -1,9 +1,13 @@
 package controller;
 
 import service.DialogMessages;
+import service.QuestionComponentConverter;
+import service.QuestionConverter;
 import service.XMLHandler;
 import service.interfaces.IFileHandler;
 import service.interfaces.IMessages;
+import service.interfaces.IQuestionComponentConverter;
+import service.interfaces.IQuestionConverter;
 
 /**
  * Provides service Classes as Singletons
@@ -18,6 +22,16 @@ class Global {
     /**
      * interact with the User
      */
-    public static IMessages Messenger = new DialogMessages();
+    public static IMessages messenger = new DialogMessages();
+
+    /**
+     * converts a Question into a JavaFX Component
+     */
+    public static IQuestionConverter questionConverter = new QuestionConverter();
+
+    /**
+     * converts default Components into JavaFX Nodes
+     */
+    public static IQuestionComponentConverter questionComponentConverter = new QuestionComponentConverter();
 
 }
