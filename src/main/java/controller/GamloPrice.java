@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class GamloPrice extends Application {
+class GamloPrice extends Application {
 
     private Stage primaryStage;
 

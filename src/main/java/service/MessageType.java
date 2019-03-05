@@ -3,7 +3,7 @@ package service;
 /**
  * Type of a Message
  */
-public enum MessageType {
+enum MessageType {
 
     /**
      * Message to inform the User
