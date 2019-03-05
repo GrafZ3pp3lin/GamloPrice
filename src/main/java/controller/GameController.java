@@ -1,17 +1,23 @@
 package controller;
 
+import data.QuestionComponent;
+import data.QuestionData;
 import data.interfaces.IGame;
+import data.interfaces.IQuestionComponent;
+import data.interfaces.IQuestionData;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import service.QuestionComponentConverter;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +56,30 @@ public class GameController {
         if (SelectionScene == null) {
             SelectionScene = createSelectionScene();
         }
+
+        //
+
+        IQuestionData<String> data = new QuestionData<String>();
+
+        String[] array = new String[5];
+
+//        for (int i = 0; i < array.length; i++) {
+//            try {
+//                array[i] = new File("C:\\Users\\Johannes\\Pictures\\Screenshots\\Screenshot (20).png").toURI().toURL().toString();
+//            }
+//            catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+        data.setData("Das ist ein Test");
+        IQuestionComponent comp = new QuestionComponent("Title", data);
+
+        BorderPane pane = new BorderPane(Global.questionComponentConverter.convertQuestionComponent(comp));
+        pane.setPrefSize(1000, 1000);
+
+        //
+
         stage.setScene(SelectionScene);
         stage.show();
     }
@@ -95,7 +125,7 @@ public class GameController {
                 Button b = new Button(((j + 1) * 20) + "");
                 b.setId(b.getText() + "," + i);
                 b.setOnAction(eh);
-                setAnchors(b, 20);
+                QuestionComponentConverter.setAnchors(b, 20);
                 buttons.add(b);
                 buttonGrid.add(new AnchorPane(b), i, j + 1);
             }
@@ -105,16 +135,4 @@ public class GameController {
         return new Scene(buttonGrid);
     }
 
-    /**
-     * set Space between Control edge of AnchorPane
-     *
-     * @param node Control in an AnchorPane
-     * @param margin Space to the edge of the AnchorPane
-     */
-    private void setAnchors(Node node, double margin) {
-        AnchorPane.setBottomAnchor(node, margin);
-        AnchorPane.setLeftAnchor(node, margin);
-        AnchorPane.setRightAnchor(node, margin);
-        AnchorPane.setTopAnchor(node, margin);
-    }
 }
