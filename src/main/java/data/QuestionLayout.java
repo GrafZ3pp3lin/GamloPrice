@@ -1,6 +1,6 @@
 package data;
 
-import data.components.interfaces.IQuestionComponent;
+import data.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionLayout;
 
 import java.util.ArrayList;

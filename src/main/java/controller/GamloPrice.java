@@ -1,11 +1,7 @@
 package controller;
 
-import data.Category;
-import data.Game;
-import data.Question;
-import data.interfaces.ICategory;
-import data.interfaces.IGame;
-import data.interfaces.IQuestion;
+import data.*;
+import data.interfaces.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
