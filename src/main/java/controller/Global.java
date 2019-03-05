@@ -1,9 +1,6 @@
 package controller;
 
-import service.DialogMessages;
-import service.QuestionComponentConverter;
-import service.QuestionConverter;
-import service.XMLHandler;
+import service.*;
 import service.interfaces.IFileHandler;
 import service.interfaces.IMessages;
 import service.interfaces.IQuestionComponentConverter;
@@ -34,4 +31,8 @@ public class Global {
      */
     public static IQuestionComponentConverter questionComponentConverter = new QuestionComponentConverter();
 
+    /**
+     * contains the data of the connected Screens
+     */
+    public static ScreenData screenData = new ScreenData();
 }
