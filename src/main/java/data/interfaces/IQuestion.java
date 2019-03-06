@@ -1,11 +1,13 @@
 package data.interfaces;
 
+import java.io.Serializable;
+
 /**
  * Question, defined by various Components. Components will be added vertical to the Question Layout. Default Layout is:
  * Title Component + Button Grid Component
  * Each Question has a Value, defines its difficulty.
  */
-public interface IQuestion {
+public interface IQuestion extends Serializable {
 
     /**
      * Value of Question. The Team, which correctly answered this Question will get the amount of this Value as Points.
@@ -37,7 +39,7 @@ public interface IQuestion {
      * Some Questions need a continue Button, to get to the next Page.
      * If enabled there will be Button on the Question Page, to continue to the Result Page.
      *
-     * @param enable en- or disabled the continue Button
+     * @param enable en-or disabled the continue Button
      */
     void enableContinueButton(boolean enable);
 

@@ -29,15 +29,26 @@ public class GamloPrice extends Application {
     }
 
     private void simpleTestGame() {
+
         IGame Game = new Game("TestGame");
-        ICategory cat = new Category("TestCategory");
-        for (int i = 20; i < 100; i += 20) {
-            IQuestion question = new Question(i);
-            cat.addQuestion(question);
+        for(int j = 0; j < 2; j++){
+            ICategory cat = new Category("TestCategory: " + j);
+            for (int i = 20; i < 100; i += 20) {
+                IQuestion question = new Question(i);
+                cat.addQuestion(question);
+            }
+            Game.addCategory(cat);
         }
-        Game.addCategory(cat);
-        GameController gc = new GameController(Game);
-        gc.showGame();
+
+        //IGame Game = Global.binarySerializer.readGameFile("C:\\Users\\joels\\Desktop\\test.gp");
+        if(Game != null){
+            GameController gc = new GameController(Game);
+            gc.showGame();
+        }
+        else{
+            System.out.println("oops, Something went wrong");
+        }
+        Global.binarySerializer.saveGame(Game, "C:\\Users\\joels\\Desktop\\test.gp");
     }
 
     private void loadSampleLayout() {

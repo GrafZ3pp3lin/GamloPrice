@@ -1,10 +1,12 @@
 package data.interfaces;
 
+import java.io.Serializable;
+
 /**
  * Every Question consist of Question Components. Question Components is e.g. the Title of the Question or an Image.
  * a Question Component provides a Region, which is added to the Question Pane.
  */
-public interface IQuestionComponent {
+public interface IQuestionComponent extends Serializable {
 
     /**
      * get Component Type. Dependent on this type the GUI Component will be created.

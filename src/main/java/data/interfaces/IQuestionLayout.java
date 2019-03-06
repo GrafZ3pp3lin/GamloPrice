@@ -1,11 +1,12 @@
 package data.interfaces;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Defines the Layout for a Question Pane
  */
-public interface IQuestionLayout {
+public interface IQuestionLayout extends Serializable {
 
     /**
      * get the name of the Layout
