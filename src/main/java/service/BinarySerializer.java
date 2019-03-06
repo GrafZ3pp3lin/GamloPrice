@@ -37,9 +37,7 @@ public class BinarySerializer implements IFileHandler {
         try {
             if(!save.exists()) {
                 save.createNewFile();
-                System.out.println("ex");
             }
-            System.out.println("ja");
             FileOutputStream fos = new FileOutputStream(save);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(game);
