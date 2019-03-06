@@ -1,16 +1,18 @@
 package service;
 
+import data.QuestionData;
 import data.interfaces.IQuestionComponent;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.text.Text;
 import service.interfaces.IQuestionComponentConverter;
 
 import java.util.Arrays;
@@ -47,8 +49,30 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
         for (int i = 0; i < rows; i++) {
             RowConstraints rc = new RowConstraints();
             rc.setVgrow(Priority.ALWAYS);
+            rc.setPercentHeight(100D / rows);
             pane.getRowConstraints().add(rc);
         }
+    }
+
+    /**
+     * Way too easy to describe
+     *
+     * @param media media...
+     * @return MediaHolder...
+     */
+    private Region putMediaInMediaHolder(Node media) {
+        StackPane mediaHolder = new StackPane(media);
+
+        ScrollPane scrollPane = new ScrollPane(mediaHolder);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        mediaHolder.minWidthProperty().bind(Bindings.createDoubleBinding(() ->
+                scrollPane.getViewportBounds().getWidth(), scrollPane.viewportBoundsProperty()));
+        mediaHolder.minHeightProperty().bind(Bindings.createDoubleBinding(() ->
+                scrollPane.getViewportBounds().getHeight(), scrollPane.viewportBoundsProperty()));
+
+        return scrollPane;
     }
 
     /*
@@ -84,13 +108,14 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
     @Override
     @Default
     @Component(types = {"Title", "Image", "ButtonGrid", "ImageGrid", "Video", "Text"})
-    public Node convertQuestionComponent(IQuestionComponent component) {
-        var data = component.getComponentData().getData();
+    public Node convertQuestionComponent(IQuestionComponent component, QuestionData<?>... args) {
+        var data = component.getComponentData("data").getData();
         Node node = null;
 
         if (component.getType().equalsIgnoreCase("Title")) {
             if (data instanceof String) {
                 Label label = new Label((String) data);
+                label.setWrapText(true);
                 VBox titleBox = new VBox(label);
                 titleBox.setAlignment(Pos.CENTER);
                 node = titleBox;
@@ -99,15 +124,18 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
         else if (component.getType().equalsIgnoreCase("Image")) {
             if (data instanceof String) {
                 ImageView view = new ImageView((String) data);
-                VBox imageBox = new VBox(view);
-                imageBox.setAlignment(Pos.CENTER);
 
-                view.setPreserveRatio(true);
+                Region mediaHolder = putMediaInMediaHolder(view);
+
+                Boolean preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
+
+                view.setPreserveRatio(preserveRatio == null ? true : preserveRatio);
                 view.setSmooth(true);
-                view.fitHeightProperty().bind(imageBox.heightProperty());
-                view.fitWidthProperty().bind(imageBox.widthProperty());
 
-                node = imageBox;
+                view.fitHeightProperty().bind(mediaHolder.heightProperty());
+                view.fitWidthProperty().bind(mediaHolder.widthProperty());
+
+                node = mediaHolder;
             }
         }
         else if (component.getType().equalsIgnoreCase("ButtonGrid")) {
@@ -165,23 +193,19 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
                         if (i * rows + j >= castData.length) {
                             break;
                         }
+                        ImageView imageView = new ImageView(castData[i * rows + j]);
 
-                        ImageView view = new ImageView(castData[i * rows + j]);
-                        Button button = new Button();
-                        button.setPrefHeight(300);
-                        // TODO complex Algo for set Width and Height
+                        Region mediaHolder = putMediaInMediaHolder(imageView);
 
-                        view.setFitHeight(300);
-                        view.fitHeightProperty().bind(button.heightProperty());
-                        view.fitWidthProperty().bind(button.widthProperty());
+                        imageView.fitWidthProperty().bind(mediaHolder.widthProperty());
+                        imageView.fitHeightProperty().bind(mediaHolder.heightProperty());
 
-                        view.setPreserveRatio(true);
-                        view.setSmooth(true);
-                        view.setCache(true);
-                        button.setId(castData[i * rows + j]);
-                        button.setGraphic(view);
-                        setAnchors(button, 10);
-                        imageGrid.add(new AnchorPane(button), i, j);
+                        Boolean preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
+
+                        imageView.setPreserveRatio(preserveRatio == null ? true : preserveRatio);
+                        imageView.setSmooth(true);
+
+                        imageGrid.add(mediaHolder, i, j);
                     }
                 }
 
@@ -194,21 +218,41 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
                 MediaPlayer player = new MediaPlayer(media);
                 MediaView view = new MediaView(player);
 
-                VBox box = new VBox(view);
+                view.setOnMouseClicked(mouseEvent -> {
+                    if (player.getStatus() == MediaPlayer.Status.PLAYING) {
+                        player.pause();
+                    }
+                    else {
+                        player.play();
+                    }
+                });
 
-                view.setPreserveRatio(true);
-                player.setAutoPlay(true);
-                view.fitHeightProperty().bind(box.heightProperty());
-                view.fitWidthProperty().bind(box.widthProperty());
+                view.setOnContextMenuRequested(mouseEvent -> player.stop());
 
-                // TODO play/pause and replay button
+                Region scrollPane = putMediaInMediaHolder(view);
 
-                node = box;
+                view.fitHeightProperty().bind(scrollPane.heightProperty());
+                view.fitWidthProperty().bind(scrollPane.widthProperty());
+
+                Boolean preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
+                Boolean autoPlay = (Boolean) component.getComponentData("autoPlay").getData();
+
+                view.setPreserveRatio(preserveRatio == null ? true : preserveRatio);
+                view.setSmooth(true);
+                player.setAutoPlay(autoPlay == null ? false : autoPlay);
+
+                node = scrollPane;
             }
         }
         else if (component.getType().equalsIgnoreCase("Text")) {
             if (data instanceof String) {
-                Text text = new Text((String) data);
+                Label text = new Label((String) data);
+                text.setWrapText(true);
+
+                if (component.containsComponentData("width")) {
+                    Integer width = (Integer) component.getComponentData("width").getData();
+                    text.setPrefWidth(width);
+                }
 
                 node = text;
             }

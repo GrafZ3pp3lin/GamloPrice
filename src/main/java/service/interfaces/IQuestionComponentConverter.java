@@ -1,5 +1,6 @@
 package service.interfaces;
 
+import data.QuestionData;
 import data.interfaces.IQuestionComponent;
 import javafx.scene.Node;
 
@@ -33,8 +34,9 @@ public interface IQuestionComponentConverter {
      * Each QuestionComponent needs its own Code.
      *
      * @param component Question Component
+     * @param args Additional Component parameters
      * @return JavaFX Node
      */
-    Node convertQuestionComponent(IQuestionComponent component);
+    Node convertQuestionComponent(IQuestionComponent component, QuestionData<?>... args);
 
 }

@@ -8,6 +8,13 @@ package data.interfaces;
 public interface IQuestionData<T> {
 
     /**
+     * get Name of this data Object
+     *
+     * @return Name of data Object
+     */
+    String getName();
+
+    /**
      * set the Data value
      *
      * @param value Data value

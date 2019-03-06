@@ -59,28 +59,29 @@ public class GameController {
 
         //
 
-        IQuestionData<String> data = new QuestionData<String>();
+        List<IQuestionData<?>> datas = new ArrayList<>();
 
-        String[] array = new String[5];
+        IQuestionData<String> text = new QuestionData<String>("data", "Lorem ipsum dolor sit amet, " +
+                "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam " +
+                "erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, " +
+                "no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, " +
+                "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. " +
+                "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus " +
+                "est Lorem ipsum dolor sit amet.");
+        IQuestionData<Integer> width = new QuestionData<Integer>("width", 500);
 
-//        for (int i = 0; i < array.length; i++) {
-//            try {
-//                array[i] = new File("C:\\Users\\Johannes\\Pictures\\Screenshots\\Screenshot (20).png").toURI().toURL().toString();
-//            }
-//            catch (MalformedURLException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        datas.add(text);
+        datas.add(width);
+//        datas.add(autoStart);
 
-        data.setData("Das ist ein Test");
-        IQuestionComponent comp = new QuestionComponent("Title", data);
+        IQuestionComponent comp = new QuestionComponent("Text", datas);
 
         BorderPane pane = new BorderPane(Global.questionComponentConverter.convertQuestionComponent(comp));
         pane.setPrefSize(1000, 1000);
 
         //
 
-        stage.setScene(SelectionScene);
+        stage.setScene(new Scene(pane));
         stage.show();
     }
 
