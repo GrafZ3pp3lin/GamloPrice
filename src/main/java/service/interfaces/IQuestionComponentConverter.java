@@ -1,26 +1,40 @@
 package service.interfaces;
 
-import data.QuestionData;
 import data.interfaces.IQuestionComponent;
+import data.interfaces.IQuestionData;
 import javafx.scene.Node;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Converts a Question Component into a JavaFX Node
  */
 public interface IQuestionComponentConverter {
 
+    /**
+     * convert any QuestionComponent into JavaFX Nodes.
+     * Each QuestionComponent needs its own Code.
+     *
+     * @param component Question Component
+     * @param args      Additional Component parameters
+     * @return JavaFX Node
+     */
+    Node convertQuestionComponent(IQuestionComponent component, IQuestionData<?>... args);
+
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     @interface Component {
 
-        enum PRIORITY {
-            LOW, NORMAL, HIGH, HIGHEST
-        }
         PRIORITY priority() default PRIORITY.NORMAL;
 
         String[] types();
+
+        enum PRIORITY {
+            LOW, NORMAL, HIGH, HIGHEST
+        }
 
     }
 
@@ -28,15 +42,5 @@ public interface IQuestionComponentConverter {
     @Retention(RetentionPolicy.RUNTIME)
     @interface Default {
     }
-
-    /**
-     * convert any QuestionComponent into JavaFX Nodes.
-     * Each QuestionComponent needs its own Code.
-     *
-     * @param component Question Component
-     * @param args Additional Component parameters
-     * @return JavaFX Node
-     */
-    Node convertQuestionComponent(IQuestionComponent component, QuestionData<?>... args);
 
 }

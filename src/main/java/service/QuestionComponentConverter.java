@@ -1,8 +1,9 @@
 package service;
 
-import data.QuestionData;
 import data.interfaces.IQuestionComponent;
+import data.interfaces.IQuestionData;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -75,6 +76,15 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
         return scrollPane;
     }
 
+    private IQuestionData<?> getParameterData(String name, IQuestionData<?>... args) {
+        for (IQuestionData<?> data : args) {
+            if (data.getName().equalsIgnoreCase(name)) {
+                return data;
+            }
+        }
+        return null;
+    }
+
     /*
     Grids:
     size: column x row
@@ -99,6 +109,8 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
     20: 4 x 5
      */
 
+    //TODO height property als parameter angeben. Componenten können darauf binden mit gesetzer Formel
+
     /**
      * convert default Question Components into JavaFX Nodes.
      *
@@ -108,7 +120,7 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
     @Override
     @Default
     @Component(types = {"Title", "Image", "ButtonGrid", "ImageGrid", "Video", "Text"})
-    public Node convertQuestionComponent(IQuestionComponent component, QuestionData<?>... args) {
+    public Node convertQuestionComponent(IQuestionComponent component, IQuestionData<?>... args) {
         var data = component.getComponentData("data").getData();
         Node node = null;
 
@@ -127,9 +139,12 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
 
                 Region mediaHolder = putMediaInMediaHolder(view);
 
-                Boolean preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
+                Boolean preserveRatio = true;
+                if (component.containsComponentData("preserveRatio")) {
+                    preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
+                }
 
-                view.setPreserveRatio(preserveRatio == null ? true : preserveRatio);
+                view.setPreserveRatio(preserveRatio);
                 view.setSmooth(true);
 
                 view.fitHeightProperty().bind(mediaHolder.heightProperty());
@@ -200,9 +215,12 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
                         imageView.fitWidthProperty().bind(mediaHolder.widthProperty());
                         imageView.fitHeightProperty().bind(mediaHolder.heightProperty());
 
-                        Boolean preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
+                        Boolean preserveRatio = true;
+                        if (component.containsComponentData("preserveRatio")) {
+                            preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
+                        }
 
-                        imageView.setPreserveRatio(preserveRatio == null ? true : preserveRatio);
+                        imageView.setPreserveRatio(preserveRatio);
                         imageView.setSmooth(true);
 
                         imageGrid.add(mediaHolder, i, j);
@@ -229,32 +247,57 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
 
                 view.setOnContextMenuRequested(mouseEvent -> player.stop());
 
-                Region scrollPane = putMediaInMediaHolder(view);
+                Region mediaHolder = putMediaInMediaHolder(view);
 
-                view.fitHeightProperty().bind(scrollPane.heightProperty());
-                view.fitWidthProperty().bind(scrollPane.widthProperty());
+                view.fitHeightProperty().bind(mediaHolder.heightProperty());
+//                view.fitHeightProperty().bind(((ReadOnlyDoubleProperty) getParameterData("heightProperty", args).getData()).multiply((Double) component.getComponentData("height").getData() / 100D));
+                view.fitWidthProperty().bind(mediaHolder.widthProperty());
 
-                Boolean preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
-                Boolean autoPlay = (Boolean) component.getComponentData("autoPlay").getData();
+                Boolean preserveRatio = true;
+                if (component.containsComponentData("preserveRatio")) {
+                    preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
+                }
 
-                view.setPreserveRatio(preserveRatio == null ? true : preserveRatio);
+                Boolean autoPlay = false;
+                if (component.containsComponentData("autoPlay")) {
+                    autoPlay = (Boolean) component.getComponentData("autoPlay").getData();
+                }
+
+                view.setPreserveRatio(preserveRatio);
                 view.setSmooth(true);
-                player.setAutoPlay(autoPlay == null ? false : autoPlay);
+                player.setAutoPlay(autoPlay);
 
-                node = scrollPane;
+                node = mediaHolder;
             }
         }
         else if (component.getType().equalsIgnoreCase("Text")) {
             if (data instanceof String) {
+
                 Label text = new Label((String) data);
                 text.setWrapText(true);
 
+                StackPane pane = new StackPane(text);
+
                 if (component.containsComponentData("width")) {
-                    Integer width = (Integer) component.getComponentData("width").getData();
-                    text.setPrefWidth(width);
+                    String widthString = (String) component.getComponentData("width").getData();
+                    boolean percentage = false;
+                    if (widthString.endsWith("%")) {
+                        widthString = widthString.substring(0, widthString.length() - 1);
+                        percentage = true;
+                    }
+
+                    Integer value = Integer.valueOf(widthString);
+
+                    if (percentage) {
+                        text.maxWidthProperty().bind(pane.widthProperty().multiply(value / 100D));
+                        text.minHeightProperty().bind(((ReadOnlyDoubleProperty) getParameterData("heightProperty", args).getData()).multiply((Double) component.getComponentData("height").getData() / 100D));
+                    }
+                    else {
+                        text.setMaxWidth(value);
+                    }
                 }
 
-                node = text;
+                node = pane;
             }
         }
 

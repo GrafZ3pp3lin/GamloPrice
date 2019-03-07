@@ -1,10 +1,10 @@
 package controller;
 
+import data.Question;
 import data.QuestionComponent;
 import data.QuestionData;
-import data.interfaces.IGame;
-import data.interfaces.IQuestionComponent;
-import data.interfaces.IQuestionData;
+import data.QuestionLayout;
+import data.interfaces.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -17,8 +17,8 @@ import javafx.stage.Stage;
 import service.QuestionComponentConverter;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -59,30 +59,41 @@ public class GameController {
 
         //
 
-        List<IQuestionData<?>> datas = new ArrayList<>();
+        IQuestionData<Double> height = new QuestionData<>("height", 10D);
 
-        IQuestionData<String> text = new QuestionData<String>("data", "Lorem ipsum dolor sit amet, " +
+        IQuestionData<String> titleData = new QuestionData<>("data", "Das ist der Titel");
+
+        IQuestionComponent title = new QuestionComponent("Title", Arrays.asList(titleData));
+
+        IQuestionData<String> textData = new QuestionData<>("data", "Lorem ipsum dolor sit amet, " +
                 "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam " +
                 "erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, " +
-                "no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, " +
-                "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. " +
-                "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus " +
-                "est Lorem ipsum dolor sit amet.");
-        IQuestionData<Integer> width = new QuestionData<Integer>("width", 500);
+                "no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr");
+        IQuestionData<String> width = new QuestionData<>("width", "80%");
+        height = new QuestionData<>("height", 10D);
+        IQuestionComponent text = new QuestionComponent("Text", Arrays.asList(textData, width, height));
 
-        datas.add(text);
-        datas.add(width);
-//        datas.add(autoStart);
+        IQuestionData<String> videoData = new QuestionData<>("data");
+        videoData.setData(new File("C:\\Users\\Johannes\\Videos\\Filme.mp4").toURI().toString());
 
-        IQuestionComponent comp = new QuestionComponent("Text", datas);
+//        IQuestionData<Boolean> videoRatio = new QuestionData<>("preserveRatio", false);
 
-        BorderPane pane = new BorderPane(Global.questionComponentConverter.convertQuestionComponent(comp));
-        pane.setPrefSize(1000, 1000);
+        height = new QuestionData<>("height", 80D);
+        IQuestionComponent video = new QuestionComponent("Video", Arrays.asList(videoData));
+
+        IQuestionLayout layout = new QuestionLayout(Arrays.asList(title, text, video));
+
+        IQuestion question = new Question(layout);
+
+        BorderPane pane = new BorderPane(Global.questionConverter.convertQuestion(question));
+//        BorderPane pane = new BorderPane(Global.converter.convertQuestionComponent(video));
+//        pane.setStyle("-fx-background-color: yellow;");
 
         //
 
         stage.setScene(new Scene(pane));
         stage.show();
+        stage.setMaximized(true);
     }
 
     /**

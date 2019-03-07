@@ -29,6 +29,15 @@ public class Question implements IQuestion {
     }
 
     /**
+     * Create a new Question with questionLayout and no value
+     *
+     * @param questionLayout
+     */
+    public Question(IQuestionLayout questionLayout) {
+        this(0, questionLayout);
+    }
+
+    /**
      * Create new Question with value
      *
      * @param value value of the Question
