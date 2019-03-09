@@ -85,7 +85,7 @@ public class GameController implements IObserver {
         IQuestionComponent video = new QuestionComponent("Image", Arrays.asList(videoData, grow));
 
         // ButtonGrid
-        IQuestionData<String[]> buttonData = new QuestionData<>("data", new String[] {"one", "two", "three", "four", "five", "six"});
+        IQuestionData<String[]> buttonData = new QuestionData<>("data", new String[] {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"});
         IQuestionComponent buttonGrid = new QuestionComponent("ButtonGrid", Arrays.asList(buttonData, grow));
 
         // ImageGrid

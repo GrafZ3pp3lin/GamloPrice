@@ -170,21 +170,23 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
                 GridPane buttonGrid = new GridPane();
                 Collections.shuffle(Arrays.asList(castData));
 
-                int rows = (castData.length - 2) / 7 + 2;
-                int columns = (castData.length + (rows - 1)) / rows;
+                int columns = (castData.length - 2) / 7 + 2;
+                int rows = (castData.length + (columns - 1)) / columns;
+
+                System.out.println(rows + ", " + columns);
 
                 initGridPane(buttonGrid, columns, rows);
 
-                for (int i = 0; i < columns; i++) {
-                    for (int j = 0; j < rows; j++) {
-                        if (i * rows + j >= castData.length) {
+                for (int row = 0; row < rows; row++) {
+                    for (int column = 0; column < columns; column++) {
+                        if (row * columns + column >= castData.length) {
                             break;
                         }
 
-                        Button button = new Button(castData[i * rows + j]);
-                        button.setId(castData[i * rows + j]);
+                        Button button = new Button(castData[row * columns + column]);
+                        button.setId(castData[row * columns + column]);
                         setAnchors(button, 20);
-                        buttonGrid.add(new AnchorPane(button), i, j);
+                        buttonGrid.add(new AnchorPane(button), column, row);
                     }
                 }
 
@@ -203,17 +205,17 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
                 GridPane imageGrid = new GridPane();
                 Collections.shuffle(Arrays.asList(castData));
 
-                int rows = (castData.length - 2) / 5 + 2;
-                int columns = (castData.length + (rows - 1)) / rows;
+                int columns = (castData.length - 2) / 5 + 2;
+                int rows = (castData.length + (columns - 1)) / columns;
 
                 initGridPane(imageGrid, columns, rows);
 
-                for (int i = 0; i < columns; i++) {
-                    for (int j = 0; j < rows; j++) {
-                        if (i * rows + j >= castData.length) {
+                for (int row = 0; row < rows; row++) {
+                    for (int column = 0; column < columns; column++) {
+                        if (row * columns + column >= castData.length) {
                             break;
                         }
-                        ImageView imageView = new ImageView(castData[i * rows + j]);
+                        ImageView imageView = new ImageView(castData[row * columns + column]);
 
                         Region mediaHolder = putMediaInMediaHolder(imageView);
 
@@ -228,7 +230,7 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
                         imageView.setPreserveRatio(preserveRatio);
                         imageView.setSmooth(true);
 
-                        imageGrid.add(mediaHolder, i, j);
+                        imageGrid.add(mediaHolder, column, row);
                     }
                 }
 
