@@ -98,10 +98,6 @@ public class GameController implements IObserver {
         IQuestion question = new Question(layout);
 
         BorderPane pane = new BorderPane(Global.questionConverter.convertQuestion(question));
-//        BorderPane pane = new BorderPane(Global.converter.convertQuestionComponent(video));
-//        pane.setStyle("-fx-background-color: yellow;");
-
-        //
 
         stage.setScene(new Scene(pane));
         stage.setWidth(1280);

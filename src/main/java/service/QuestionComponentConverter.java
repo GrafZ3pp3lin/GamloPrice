@@ -112,8 +112,6 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
     20: 4 x 5
      */
 
-    //TODO height property als parameter angeben. Componenten können darauf binden mit gesetzer Formel
-
     /**
      * convert default Question Components into JavaFX Nodes.
      *
@@ -257,7 +255,6 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
                 Region mediaHolder = putMediaInMediaHolder(view);
 
                 view.fitHeightProperty().bind(mediaHolder.heightProperty());
-//                view.fitHeightProperty().bind(((ReadOnlyDoubleProperty) getParameterData("heightProperty", args).getData()).multiply((Double) component.getComponentData("height").getData() / 100D));
                 view.fitWidthProperty().bind(mediaHolder.widthProperty());
 
                 Boolean preserveRatio = true;
