@@ -14,6 +14,7 @@ import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.TextAlignment;
 import service.interfaces.IQuestionComponentConverter;
 
 import java.util.Arrays;
@@ -65,6 +66,8 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
         StackPane mediaHolder = new StackPane(media);
 
         ScrollPane scrollPane = new ScrollPane(mediaHolder);
+        scrollPane.getStyleClass().add("background");
+
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
@@ -128,8 +131,12 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
             if (data instanceof String) {
                 Label label = new Label((String) data);
                 label.setWrapText(true);
+                label.getStyleClass().add("title");
+
                 VBox titleBox = new VBox(label);
                 titleBox.setAlignment(Pos.CENTER);
+                titleBox.getStyleClass().add("title_background");
+
                 node = titleBox;
             }
         }
@@ -274,9 +281,11 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
             if (data instanceof String) {
 
                 Label text = new Label((String) data);
+                text.setTextAlignment(TextAlignment.CENTER);
                 text.setWrapText(true);
 
                 StackPane pane = new StackPane(text);
+                pane.minHeightProperty().bind(text.heightProperty().multiply(1.2));
 
                 if (component.containsComponentData("width")) {
                     String widthString = (String) component.getComponentData("width").getData();
@@ -290,7 +299,6 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
 
                     if (percentage) {
                         text.maxWidthProperty().bind(pane.widthProperty().multiply(value / 100D));
-                        text.minHeightProperty().bind(((ReadOnlyDoubleProperty) getParameterData("heightProperty", args).getData()).multiply((Double) component.getComponentData("height").getData() / 100D));
                     }
                     else {
                         text.setMaxWidth(value);
@@ -303,6 +311,11 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
 
         if (node == null) {
             node = new Label("404 Not Found");
+        }
+        else {
+            if (component.containsComponentData("height")) {
+                ((Region) node).minHeightProperty().bind(((ReadOnlyDoubleProperty) getParameterData("heightProperty", args).getData()).multiply(Double.valueOf((String) component.getComponentData("height").getData()) / 100D));
+            }
         }
 
         return node;

@@ -30,23 +30,25 @@ public class QuestionConverter implements IQuestionConverter {
     @Override
     public Parent convertQuestion(IQuestion question) {
         GridPane questionPane = new GridPane();
-        questionPane.setGridLinesVisible(true);
 
         ColumnConstraints cc = new ColumnConstraints();
         cc.setHgrow(Priority.ALWAYS);
-        cc.setPercentWidth(100);
+//        cc.setPercentWidth(100);
         questionPane.getColumnConstraints().add(cc);
 
         for (IQuestionComponent component : question.getQuestionLayout().getQuestionComponents()) {
             RowConstraints rc = new RowConstraints();
-//            if (component.containsComponentData("height")) {
-//                rc.setPercentHeight((Double) component.getComponentData("height").getData());
-//            }
-//            else {
-//                rc.setFillHeight(true);
-//            }
-
-            rc.setVgrow(Priority.ALWAYS);
+            if (component.containsComponentData("grow")) {
+                if ((Boolean) component.getComponentData("grow").getData()) {
+                    rc.setVgrow(Priority.ALWAYS);
+                }
+                else {
+                    rc.setVgrow(Priority.NEVER);
+                }
+            }
+            else {
+                rc.setVgrow(Priority.SOMETIMES);
+            }
             questionPane.getRowConstraints().add(rc);
         }
 
@@ -56,6 +58,11 @@ public class QuestionConverter implements IQuestionConverter {
             Node temp = converter.convertQuestionComponent(question.getQuestionLayout().getQuestionComponents().get(i), heightProperty);
             questionPane.add(temp, 0, i);
         }
+
+        questionPane.setStyle("-fx-background: #CCC;-fx-accent: #007206;-fx-text-color: black;-fx-button-color: #808080;");
+
+        questionPane.getStylesheets().add("/view/style.css");
+        questionPane.getStyleClass().add("background");
 
         return questionPane;
     }

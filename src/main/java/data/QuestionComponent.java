@@ -2,6 +2,7 @@ package data;
 
 import data.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
+import data.observable.IObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ public class QuestionComponent implements IQuestionComponent {
     private String type;
     private String name;
     private List<IQuestionData<?>> questionData;
+
+    private IObserver observer;
 
     // region Constructors
 
@@ -143,4 +146,23 @@ public class QuestionComponent implements IQuestionComponent {
         return false;
     }
 
+    /**
+     * set Observer to this Event Sender
+     *
+     * @param observer
+     */
+    @Override
+    public void setObserver(IObserver observer) {
+        this.observer = observer;
+    }
+
+    /**
+     * notify Observer
+     */
+    @Override
+    public void notifyObserver() {
+        // TODO implement
+        // observer.update(UpdateType.Answer, "");
+        throw new UnsupportedOperationException();
+    }
 }
