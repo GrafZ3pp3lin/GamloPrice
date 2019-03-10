@@ -147,6 +147,36 @@ public class QuestionComponent implements IQuestionComponent {
     }
 
     /**
+     * check if Component Data contains a correct Answer
+     *
+     * @return true if a correct Answer exists
+     */
+    @Override
+    public boolean containsCorrectAnswer() {
+        for (IQuestionData<?> data : this.questionData) {
+            if (data.getName().equalsIgnoreCase(CORRECT_ANSWER)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * get the correct Answer to this Component
+     *
+     * @return Data with correct Answer
+     */
+    @Override
+    public IQuestionData<?> getCorrectAnswer() {
+        for (IQuestionData<?> data : this.questionData) {
+            if (data.getName().equalsIgnoreCase(CORRECT_ANSWER)) {
+                return data;
+            }
+        }
+        return null;
+    }
+
+    /**
      * set Observer to this Event Sender
      *
      * @param observer

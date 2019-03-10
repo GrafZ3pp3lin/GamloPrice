@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 public class ScreenData {
 
     private List<Screen> connectedScreens = new ArrayList<>();
-    private Screen presentationScreen;
-    private Screen mainScreen;
+    private static Screen presentationScreen;
+    private static Screen mainScreen;
 
     public ScreenData(){
         reloadConnectedScreens();
@@ -46,7 +46,7 @@ public class ScreenData {
      * get the Mainscreen
      * @return screen for mainmenue, editing, etc.
      */
-    public Screen getMainScreen(){
+    public static Screen getMainScreen(){
         return mainScreen;
     }
 
@@ -54,7 +54,7 @@ public class ScreenData {
      * get the Screen for the presentationmode
      * @return Screen for presentation
      */
-    public Screen getPresentationScreen(){
+    public static Screen getPresentationScreen(){
         return presentationScreen;
     }
 

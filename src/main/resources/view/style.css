@@ -25,10 +25,36 @@
 	-fx-background-color: -fx-background;
 }
 
-.controll_Button {
-	-fx-background-color: derive(-fx-button-color,-40%);
-	-fx-font-size: 15px;
-	-fx-text-fill: -fx-text-color;
+.return_Button {
+	-fx-background-radius: 100;
+	-fx-background-insets: 0;
+	-fx-padding: 0;
+	-fx-background-color: transparent;
+	-fx-graphic: url("/images/return.png");
+}
+
+.return_Button:hover {
+	-fx-background-color: derive(black, 50%);
+}
+
+.return_Button:armed {
+	-fx-background-color: derive(black, 80%);
+}
+
+.continue_Button {
+	-fx-background-radius: 100;
+	-fx-background-insets: 0;
+	-fx-padding: 0;
+	-fx-background-color: transparent;
+	-fx-graphic: url("/images/continue.png");
+}
+
+.continue_Button:hover {
+	-fx-background-color: derive(-fx-accent, 50%);
+}
+
+.continue_Button:armed {
+	-fx-background-color: derive(-fx-accent, 80%);
 }
 
 .title {

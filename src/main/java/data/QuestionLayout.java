@@ -3,6 +3,7 @@ package data;
 import data.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

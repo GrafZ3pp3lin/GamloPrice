@@ -2,13 +2,17 @@ package data.interfaces;
 
 import data.observable.ISender;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Every Question consist of Question Components. Question Components is e.g. the Title of the Question or an Image.
  * a Question Component provides a Region, which is added to the Question Pane.
  */
-public interface IQuestionComponent extends ISender {
+public interface IQuestionComponent extends Serializable, ISender {
+
+    String CORRECT_ANSWER = "%CORRECT_ANSWER:<name>%";
+    String SELECTED_ANSWER = "%SELECTED_ANSWER:<name>%";
 
     /**
      * get Component Type. Dependent on this type the GUI Component will be created.
@@ -60,5 +64,19 @@ public interface IQuestionComponent extends ISender {
      * @return true if data exist within this Component
      */
     boolean containsComponentData(String name);
+
+    /**
+     * check if Component Data contains a correct Answer
+     *
+     * @return true if a correct Answer exists
+     */
+    boolean containsCorrectAnswer();
+
+    /**
+     * get the correct Answer to this Component
+     *
+     * @return Data with correct Answer
+     */
+    IQuestionData<?> getCorrectAnswer();
 
 }

@@ -3,6 +3,8 @@ package data;
 import data.interfaces.IQuestion;
 import data.interfaces.IQuestionLayout;
 
+import java.util.UUID;
+
 /**
  * Question, defined by various Components. Components will be added vertical to the Question Layout. Default Layout is:
  * Title Component + Button Grid Component
@@ -10,9 +12,10 @@ import data.interfaces.IQuestionLayout;
  */
 public class Question implements IQuestion {
 
+    private UUID id;
     private int value;
-    private boolean continueButtonEnabled;
     private IQuestionLayout questionLayout;
+    private IQuestionLayout answerLayout;
 
     // region Constructors
 
@@ -23,9 +26,9 @@ public class Question implements IQuestion {
      * @param questionLayout Layout of the Question Pane
      */
     public Question(int value, IQuestionLayout questionLayout) {
+        id = UUID.randomUUID();
         this.value = value;
         this.questionLayout = questionLayout;
-        continueButtonEnabled = false;
     }
 
     /**
@@ -49,6 +52,16 @@ public class Question implements IQuestion {
     // endregion
 
     /**
+     * get unique Id of this Question
+     *
+     * @return Question Id
+     */
+    @Override
+    public UUID getId() {
+        return id;
+    }
+
+    /**
      * value of Question. The Team, which correctly answered this Question will get the amount of this value as Points.
      *
      * @return value of Question
@@ -66,36 +79,6 @@ public class Question implements IQuestion {
     @Override
     public void setValue(int value) {
         this.value = value;
-    }
-
-    /**
-     * initialize all Components with their data
-     */
-    @Override
-    public void loadData() {
-        //TODO implement
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Is there a continue Button on the Question Page
-     *
-     * @return true, if continue Button is enabled
-     */
-    @Override
-    public boolean isContinueButtonEnabled() {
-        return continueButtonEnabled;
-    }
-
-    /**
-     * Some Questions need a continue Button, to get to the next Page.
-     * If enabled there will be Button on the Question Page, to continue to the Result Page.
-     *
-     * @param enable en- or disabled the continue Button
-     */
-    @Override
-    public void enableContinueButton(boolean enable) {
-        continueButtonEnabled = enable;
     }
 
     /**
@@ -117,6 +100,26 @@ public class Question implements IQuestion {
     public void setQuestionLayout(IQuestionLayout layout) {
         // TODO Ask User for commit, maybe save old Layout
         this.questionLayout = layout;
+    }
+
+    /**
+     * get the Answer Layout with all Question Components ordered
+     *
+     * @return all Answer Components
+     */
+    @Override
+    public IQuestionLayout getAnswerLayout() {
+        return answerLayout;
+    }
+
+    /**
+     * set the Answer Layout. Override the old Layout.
+     *
+     * @param layout new Answer Layout
+     */
+    @Override
+    public void setAnswerLayout(IQuestionLayout layout) {
+        answerLayout = layout;
     }
 
 }

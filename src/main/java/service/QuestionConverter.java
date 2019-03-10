@@ -14,6 +14,10 @@ import javafx.scene.layout.RowConstraints;
 import service.interfaces.IQuestionComponentConverter;
 import service.interfaces.IQuestionConverter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Convert Question to a JavaFX Pane
  */
@@ -28,7 +32,7 @@ public class QuestionConverter implements IQuestionConverter {
      * @return JavaFX Parent
      */
     @Override
-    public Parent convertQuestion(IQuestion question) {
+    public Parent convertQuestion(IQuestion question, IQuestionData<?>... args) {
         GridPane questionPane = new GridPane();
 
         ColumnConstraints cc = new ColumnConstraints();
@@ -54,8 +58,12 @@ public class QuestionConverter implements IQuestionConverter {
 
         IQuestionData<ReadOnlyDoubleProperty> heightProperty = new QuestionData<>("heightProperty", questionPane.heightProperty());
 
+        List<IQuestionData<?>> arguments = new ArrayList<>();
+        arguments.addAll(Arrays.asList(args));
+        arguments.add(heightProperty);
+
         for (int i = 0; i < question.getQuestionLayout().getQuestionComponents().size(); i++) {
-            Node temp = converter.convertQuestionComponent(question.getQuestionLayout().getQuestionComponents().get(i), heightProperty);
+            Node temp = converter.convertQuestionComponent(question.getQuestionLayout().getQuestionComponents().get(i), arguments.toArray(new IQuestionData[0]));
             questionPane.add(temp, 0, i);
         }
 

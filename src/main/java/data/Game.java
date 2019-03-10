@@ -6,12 +6,14 @@ import data.interfaces.IGame;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Represent a Game with different categories.
  */
 public class Game implements IGame {
 
+    private UUID id;
     private String name;
     private String path;
     private int amount;
@@ -29,6 +31,7 @@ public class Game implements IGame {
      * @param amount amount of Questions in each Category
      */
     public Game(String name, int amount) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.amount = amount;
         categories = new ArrayList<>();
@@ -53,6 +56,16 @@ public class Game implements IGame {
     }
 
     // endregion
+
+    /**
+     * get unique Id of this Game
+     *
+     * @return Game Id
+     */
+    @Override
+    public UUID getId() {
+        return id;
+    }
 
     /**
      * get name of Game

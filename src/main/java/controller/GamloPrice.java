@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class GamloPrice extends Application {
 
@@ -26,6 +27,7 @@ public class GamloPrice extends Application {
         primaryStage.show();
 
         simpleTestGame();
+//        testXMLLayoutHandler();
     }
 
     private void simpleTestGame() {
@@ -38,6 +40,19 @@ public class GamloPrice extends Application {
         Game.addCategory(cat);
         GameController gc = new GameController(Game);
         gc.showGame();
+    }
+
+    private void testXMLLayoutHandler() {
+        IQuestionComponent title = new QuestionComponent("Title");
+        IQuestionComponent buttonGrid = new QuestionComponent("ButtonGrid");
+        IQuestionLayout layout = new QuestionLayout("Question", Arrays.asList(title, buttonGrid));
+        IQuestionLayout[] layouts = new IQuestionLayout[1];
+        layouts[0] = layout;
+
+        Global.XMLHandler.saveToFile(layouts, "C:\\Users\\Johannes\\Desktop\\Test.xml");
+
+        IQuestionLayout[] layout2 = Global.XMLHandler.readFromFile("C:\\Users\\Johannes\\Desktop\\Test.xml");
+        System.out.println(layout2.length);
     }
 
     private void loadSampleLayout() {

@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import service.QuestionComponentConverter;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -85,19 +86,29 @@ public class GameController implements IObserver {
         IQuestionComponent video = new QuestionComponent("Image", Arrays.asList(videoData, grow));
 
         // ButtonGrid
-        IQuestionData<String[]> buttonData = new QuestionData<>("data", new String[] {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"});
+        IQuestionData<String[]> buttonData = new QuestionData<>("data", new String[] {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"});
         IQuestionComponent buttonGrid = new QuestionComponent("ButtonGrid", Arrays.asList(buttonData, grow));
 
         // ImageGrid
         IQuestionData<String[]> imageGridData = new QuestionData<>("data", new String[] {path, path, path, path, path, path});
         IQuestionComponent imageGrid = new QuestionComponent("ImageGrid", Arrays.asList(imageGridData, grow));
 
+        // Result
+        IQuestionData<Boolean> correct = new QuestionData<>("correct", true);
+        IQuestionData<Double> size = new QuestionData<>("fitHeight", 100D);
+        IQuestionData<Boolean> oneLine = new QuestionData<>("oneLine", true);
+        IQuestionData<String> resultText = new QuestionData<>("correctText", "Ja supi, gelöst!");
+        IQuestionComponent result = new QuestionComponent("Result", Arrays.asList(resultText));
+
+        //Control Buttons
+        IQuestionComponent controlButtons = new QuestionComponent("ControlButtons");
+
         // Layout
-        IQuestionLayout layout = new QuestionLayout(Arrays.asList(title, text, buttonGrid));
+        IQuestionLayout layout = new QuestionLayout(Arrays.asList(title, text, buttonGrid, controlButtons));
 
         IQuestion question = new Question(layout);
 
-        BorderPane pane = new BorderPane(Global.questionConverter.convertQuestion(question));
+        BorderPane pane = new BorderPane(Global.questionConverter.convertQuestion(question, correct));
 
         stage.setScene(new Scene(pane));
         stage.setWidth(1280);

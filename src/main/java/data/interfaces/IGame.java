@@ -1,11 +1,19 @@
 package data.interfaces;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Represent a Game with different Categories.
  */
 public interface IGame {
+
+    /**
+     * get unique Id of this Game
+     *
+     * @return Game Id
+     */
+    UUID getId();
 
     /**
      * get Name of Game

@@ -1,6 +1,7 @@
 package service.interfaces;
 
 import data.interfaces.IQuestion;
+import data.interfaces.IQuestionData;
 import javafx.scene.Parent;
 
 /**
@@ -14,5 +15,5 @@ public interface IQuestionConverter {
      * @param question Question
      * @return JavaFX Parent
      */
-    Parent convertQuestion(IQuestion question);
+    Parent convertQuestion(IQuestion question, IQuestionData<?>... args);
 }
