@@ -18,7 +18,7 @@ public class QuestionLayout implements IQuestionLayout {
     // region Constructors
 
     /**
-     * Creates a Layout with the given Components
+     * Creates a Layout with the given Components and a custom name
      *
      * @param name               name of the Layout
      * @param questionComponents Components, which will be added to the Layout
@@ -32,12 +32,28 @@ public class QuestionLayout implements IQuestionLayout {
     }
 
     /**
+     * Creates a Layout the given Components
+     *
+     * @param questionComponents Components, which will be added to the Layout
+     */
+    public QuestionLayout(List<IQuestionComponent> questionComponents) {
+        this(null, questionComponents);
+    }
+
+    /**
      * Creates an empty Layout
      *
      * @param name name of the Layout
      */
     public QuestionLayout(String name) {
         this(name, null);
+    }
+
+    /**
+     * Creates an empty Layout
+     */
+    public QuestionLayout() {
+        this(null, null);
     }
 
     // endregion

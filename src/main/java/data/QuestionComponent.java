@@ -2,12 +2,18 @@ package data;
 
 import data.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
+import data.observable.IObserver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuestionComponent implements IQuestionComponent {
 
     private String type;
     private String name;
-    private IQuestionData<?> questionData;
+    private List<IQuestionData<?>> questionData;
+
+    private IObserver observer;
 
     // region Constructors
 
@@ -18,10 +24,13 @@ public class QuestionComponent implements IQuestionComponent {
      * @param name         Name of Component, if there are more then one
      * @param questionData Data from this Component
      */
-    public QuestionComponent(String type, String name, IQuestionData<?> questionData) {
+    public QuestionComponent(String type, String name, List<IQuestionData<?>> questionData) {
         this.type = type;
         this.name = name;
-        this.questionData = questionData;
+        this.questionData = new ArrayList<>();
+        if (questionData != null) {
+            this.questionData.addAll(questionData);
+        }
     }
 
     /**
@@ -30,7 +39,7 @@ public class QuestionComponent implements IQuestionComponent {
      * @param type         specify Type of Question Component (like Title)
      * @param questionData Data from this Component
      */
-    public QuestionComponent(String type, IQuestionData<?> questionData) {
+    public QuestionComponent(String type, List<IQuestionData<?>> questionData) {
         this(type, type, questionData);
     }
 
@@ -85,22 +94,75 @@ public class QuestionComponent implements IQuestionComponent {
     }
 
     /**
-     * get the specified Content Data for this Component
+     * Init Component with Content Data
      *
-     * @return Component Data
+     * @param data List of QuestionData for this Component from Game Data File
      */
     @Override
-    public IQuestionData<?> getComponentData() {
-        return questionData;
+    public void setComponentData(List<IQuestionData<?>> data) {
+        this.questionData.clear();
+        questionData.addAll(data);
     }
 
     /**
-     * Init Component and load Data from the Game.xml file
+     * add Data to Component
      *
-     * @param data QuestionData for this Question from Game Data File
+     * @param data QuestionData
      */
     @Override
-    public void setComponentData(IQuestionData<?> data) {
-        questionData = data;
+    public void addComponentData(IQuestionData<?> data) {
+        this.questionData.add(data);
+    }
+
+    /**
+     * get the specified Content Data for this Component
+     *
+     * @param name Name of Data
+     * @return Component Data
+     */
+    @Override
+    public IQuestionData<?> getComponentData(String name) {
+        for (IQuestionData<?> data : this.questionData) {
+            if (data.getName().equalsIgnoreCase(name)) {
+                return data;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * contains this Question Component the specified Data
+     *
+     * @param name Name of the data Object
+     * @return true if data exist within this Component
+     */
+    @Override
+    public boolean containsComponentData(String name) {
+        for (IQuestionData<?> data : this.questionData) {
+            if (data.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * set Observer to this Event Sender
+     *
+     * @param observer
+     */
+    @Override
+    public void setObserver(IObserver observer) {
+        this.observer = observer;
+    }
+
+    /**
+     * notify Observer
+     */
+    @Override
+    public void notifyObserver() {
+        // TODO implement
+        // observer.update(UpdateType.Answer, "");
+        throw new UnsupportedOperationException();
     }
 }

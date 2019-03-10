@@ -3,7 +3,6 @@ package controller;
 import service.*;
 import service.interfaces.IFileHandler;
 import service.interfaces.IMessages;
-import service.interfaces.IQuestionComponentConverter;
 import service.interfaces.IQuestionConverter;
 
 /**
@@ -32,12 +31,8 @@ public class Global {
     public static IQuestionConverter questionConverter = new QuestionConverter();
 
     /**
-     * converts default Components into JavaFX Nodes
-     */
-    public static IQuestionComponentConverter questionComponentConverter = new QuestionComponentConverter();
-
-    /**
      * contains the data of the connected Screens
      */
     public static ScreenData screenData = new ScreenData();
+
 }

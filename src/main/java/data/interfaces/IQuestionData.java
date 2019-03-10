@@ -10,6 +10,13 @@ import java.io.Serializable;
 public interface IQuestionData<T extends Serializable> extends Serializable {
 
     /**
+     * get Name of this data Object
+     *
+     * @return Name of data Object
+     */
+    String getName();
+
+    /**
      * set the Data value
      *
      * @param value Data value

@@ -1,6 +1,8 @@
 package data.interfaces;
 
+import data.observable.ISender;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Every Question consist of Question Components. Question Components is e.g. the Title of the Question or an Image.
@@ -32,15 +34,31 @@ public interface IQuestionComponent extends Serializable {
     /**
      * Init Component with Content Data
      *
-     * @param data QuestionData for this Question from Game Data File
+     * @param data List of QuestionData for this Component from Game Data File
      */
-    void setComponentData(IQuestionData<?> data);
+    void setComponentData(List<IQuestionData<?>> data);
+
+    /**
+     * add Data to Component
+     *
+     * @param data QuestionData
+     */
+    void addComponentData(IQuestionData<?> data);
 
     /**
      * get the specified Content Data for this Component
      *
+     * @param name Name of Data
      * @return Component Data
      */
-    IQuestionData<?> getComponentData();
+    IQuestionData<?> getComponentData(String name);
+
+    /**
+     * contains this Question Component the specified Data
+     *
+     * @param name Name of the data Object
+     * @return true if data exist within this Component
+     */
+    boolean containsComponentData(String name);
 
 }
