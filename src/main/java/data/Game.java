@@ -18,7 +18,7 @@ public class Game implements IGame {
 
     private List<ICategory> categories;
 
-    private QuestionLayoutProvider layoutProvider;
+    private transient QuestionLayoutProvider layoutProvider;
 
     // region Constructors
 

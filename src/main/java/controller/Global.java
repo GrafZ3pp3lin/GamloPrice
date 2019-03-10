@@ -16,6 +16,11 @@ public class Global {
     public static IFileHandler XMLHandler = new XMLHandler();
 
     /**
+     * load and write Game-Documents in binaryFormat
+     */
+    public static IFileHandler binarySerializer = new BinarySerializer();
+
+    /**
      * interact with the User
      */
     public static IMessages messenger = new DialogMessages();

@@ -1,9 +1,11 @@
 package data.interfaces;
 
+import java.io.Serializable;
+
 /**
  * A Quiz Game could be played by multiple Teams. Each Team have a Name and Points.
  */
-public interface ITeam {
+public interface ITeam extends Serializable {
 
     /**
      * set the Team Name

@@ -1,11 +1,13 @@
 package data.interfaces;
 
+import java.io.Serializable;
+
 /**
  * Data for Question Components. To init a Component you need to pass an Object of Question Data.
  *
  * @param <T> Question Data Type
  */
-public interface IQuestionData<T> {
+public interface IQuestionData<T extends Serializable> extends Serializable {
 
     /**
      * get Name of this data Object

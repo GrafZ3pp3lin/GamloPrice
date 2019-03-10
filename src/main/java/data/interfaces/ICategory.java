@@ -1,11 +1,12 @@
 package data.interfaces;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Set of Questions within a Game with the same Category
  */
-public interface ICategory {
+public interface ICategory extends Serializable {
 
     /**
      * get Category Name

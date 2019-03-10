@@ -1,11 +1,12 @@
 package data.interfaces;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Represent a Game with different Categories.
  */
-public interface IGame {
+public interface IGame extends Serializable {
 
     /**
      * get Name of Game
