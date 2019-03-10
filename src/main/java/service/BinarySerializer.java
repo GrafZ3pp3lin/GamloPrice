@@ -19,7 +19,7 @@ public class BinarySerializer implements IFileHandler {
         try {
             FileInputStream fis = new FileInputStream(input);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            game = (IGame) ois.readObject();
+            ois.close()
         } catch (IOException e) {
             e.printStackTrace();
             return null;
