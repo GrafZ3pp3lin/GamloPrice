@@ -12,18 +12,21 @@ public class BinarySerializer implements IFileHandler {
         IGame game;
         File input = new File(path);
 
-        if(!input.exists()) {
+        if (!input.exists()) {
             return null;
         }
 
+        ObjectInputStream ois = null;
         try {
-            FileInputStream fis = new FileInputStream(input);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            ois.close()
-        } catch (IOException e) {
+            ois = new ObjectInputStream(new FileInputStream(input));
+            game = (IGame) ois.readObject();
+            ois.close();
+        }
+        catch (IOException e) {
             e.printStackTrace();
             return null;
-        } catch (ClassNotFoundException e) {
+        }
+        catch (ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }
@@ -35,7 +38,7 @@ public class BinarySerializer implements IFileHandler {
 
         File save = new File(path);
         try {
-            if(!save.exists()) {
+            if (!save.exists()) {
                 save.createNewFile();
             }
             FileOutputStream fos = new FileOutputStream(save);
@@ -43,7 +46,8 @@ public class BinarySerializer implements IFileHandler {
             oos.writeObject(game);
             oos.flush();
             oos.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
             return false;
         }
