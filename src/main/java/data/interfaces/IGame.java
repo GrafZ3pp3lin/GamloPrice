@@ -79,4 +79,12 @@ public interface IGame {
      */
     ICategory getCategory(String name);
 
+    /**
+     * get a Questi0on from this Game by id
+     *
+     * @param id Question id
+     * @return Question
+     */
+    IQuestion getQuestionById(UUID id);
+
 }

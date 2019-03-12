@@ -10,6 +10,7 @@ import data.observable.UpdateType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,10 +20,10 @@ import javafx.stage.Stage;
 import service.QuestionComponentConverter;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Every Game will be started in a separate Stage. This GameController create a new Game Stage and manage it.
@@ -32,16 +33,14 @@ public class GameController implements IObserver {
     private IGame Game;
 
     private Stage stage;
-    private Scene SelectionScene;
+    private Parent selectionPane;
+    private BorderPane questionPane;
     private List<Button> buttons;
 
     // region Constructors
 
     public GameController(IGame game) {
         Game = game;
-    }
-
-    public GameController() {
     }
 
     // endregion
@@ -56,13 +55,27 @@ public class GameController implements IObserver {
     public void showGame() {
         stage = new Stage();
         stage.setTitle(Game.getName());
-        if (SelectionScene == null) {
-            SelectionScene = createSelectionScene();
+        if (selectionPane == null) {
+            selectionPane = createSelectionScene();
+        }
+        if (questionPane == null) {
+            questionPane = new BorderPane();
         }
 
+        stage.setScene(new Scene(selectionPane));
+
+//        tempCreateCustomQuestion();
+
+        stage.setWidth(1280);
+        stage.setHeight(720);
+        stage.setFullScreen(true);
+        stage.show();
+    }
+
+    private void tempCreateCustomQuestion() {
         // Example Title
         IQuestionData<Boolean> grow = new QuestionData<>("grow", true);
-        IQuestionData<String> height = new QuestionData<>("height", "10");
+        IQuestionData<Double> height = new QuestionData<>("height", 10D);
         IQuestionData<String> titleData = new QuestionData<>("data", "Das ist der Titel");
         IQuestionComponent title = new QuestionComponent("Title", Arrays.asList(titleData, height));
 
@@ -72,7 +85,7 @@ public class GameController implements IObserver {
                 "erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, " +
                 "no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr");
         IQuestionData<String> width = new QuestionData<>("width", "80%");
-        height = new QuestionData<>("height", "15");
+        height = new QuestionData<>("height", 15D);
         IQuestionComponent text = new QuestionComponent("Text", Arrays.asList(textData, width));
 
         // Example Video
@@ -108,14 +121,7 @@ public class GameController implements IObserver {
 
         IQuestion question = new Question(layout);
 
-        BorderPane pane = new BorderPane(Global.questionConverter.convertQuestion(question, correct));
-
-        stage.setScene(new Scene(pane));
-        stage.setWidth(1280);
-        stage.setHeight(720);
-        stage.setFullScreen(true);
-//        stage.setMaximized(true);
-        stage.show();
+        updateQuestionPane(Global.questionConverter.convertQuestion(question, correct));
     }
 
     /**
@@ -123,7 +129,7 @@ public class GameController implements IObserver {
      *
      * @return Scene with Selection Pane
      */
-    private Scene createSelectionScene() {
+    private Parent createSelectionScene() {
         GridPane buttonGrid = new GridPane();
 //        buttonGrid.setPadding(new Insets(50));
         for (int i = 0; i < Game.getCategories().size(); i++) {
@@ -141,36 +147,66 @@ public class GameController implements IObserver {
 
         EventHandler<ActionEvent> eh = event -> {
             if (event.getSource() instanceof Button) {
-                String[] parts = ((Button) event.getSource()).getId().split(",", 2);
-                // TODO show Question
-                System.out.println("Event Handler works");
+                update(UpdateType.Question, ((Button) event.getSource()).getId());
             }
         };
 
         buttons = new ArrayList<>();
-        for (int i = 0; i < Game.getCategories().size(); i++) {
-            Label name = new Label(Game.getCategories().get(i).getName());
+        for (int column = 0; column < Game.getCategories().size(); column++) {
+            Label name = new Label(Game.getCategories().get(column).getName());
             name.setTextAlignment(TextAlignment.CENTER);
             name.setWrapText(true);
             HBox box = new HBox(name);
             box.setAlignment(Pos.CENTER);
-            buttonGrid.add(box, i, 0);
-            for (int j = 0; j < 5; j++) {
-                Button b = new Button(((j + 1) * 20) + "");
-                b.setId(b.getText() + "," + i);
+            buttonGrid.add(box, column, 0);
+            int row = 0;
+            for (IQuestion question : Game.getCategories().get(column).getQuestions()) {
+                Button b = new Button(String.valueOf(question.getValue()));
+                b.setId(question.getId().toString());
                 b.setOnAction(eh);
+                b.getStyleClass().add("select_Button");
                 QuestionComponentConverter.setAnchors(b, 20);
                 buttons.add(b);
-                buttonGrid.add(new AnchorPane(b), i, j + 1);
+                buttonGrid.add(new AnchorPane(b), column, ++row);
             }
         }
 
         // TODO Teams
-        return new Scene(buttonGrid);
+
+        buttonGrid.getStylesheets().add("/view/style.css");
+
+        return buttonGrid;
+    }
+
+    private void updateQuestionPane(Parent center) {
+        questionPane.setCenter(center);
+        stage.getScene().setRoot(questionPane);
+    }
+
+    private void updateHomePane() {
+        stage.getScene().setRoot(selectionPane);
     }
 
     @Override
     public void update(UpdateType type, String id) {
-        // TODO implement
+        //TODO getArguments
+        if (type == UpdateType.Question) {
+            IQuestion question = Game.getQuestionById(UUID.fromString(id));
+            if (question != null) {
+                updateQuestionPane(Global.questionConverter.convertQuestion(question));
+            }
+        }
+        else if (type == UpdateType.HomeScreen) {
+            updateHomePane();
+        }
+    }
+
+    public void setButtonHovered(String id) {
+        for (Button button : buttons) {
+            if (button.getId().equals(id)) {
+                button.setStyle("select_Button:hover");
+                return;
+            }
+        }
     }
 }

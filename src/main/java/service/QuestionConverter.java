@@ -33,6 +33,10 @@ public class QuestionConverter implements IQuestionConverter {
      */
     @Override
     public Parent convertQuestion(IQuestion question, IQuestionData<?>... args) {
+        if (question.getQuestionLayout() == null) {
+            return null;
+        }
+
         GridPane questionPane = new GridPane();
 
         ColumnConstraints cc = new ColumnConstraints();

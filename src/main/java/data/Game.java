@@ -1,5 +1,6 @@
 package data;
 
+import data.interfaces.IQuestion;
 import service.QuestionLayoutProvider;
 import data.interfaces.ICategory;
 import data.interfaces.IGame;
@@ -158,5 +159,23 @@ public class Game implements IGame {
     public ICategory getCategory(String name) {
         //TODO implement
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * get a Questi0on from this Game by id
+     *
+     * @param id Question id
+     * @return Question
+     */
+    @Override
+    public IQuestion getQuestionById(UUID id) {
+        for (ICategory cat : categories) {
+            for (IQuestion question : cat.getQuestions()) {
+                if (question.getId().equals(id)) {
+                    return question;
+                }
+            }
+        }
+        return null;
     }
 }

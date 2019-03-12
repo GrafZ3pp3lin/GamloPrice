@@ -33,7 +33,7 @@ public class GamloPrice extends Application {
     private void simpleTestGame() {
         IGame Game = new Game("TestGame");
         ICategory cat = new Category("TestCategory");
-        for (int i = 20; i < 100; i += 20) {
+        for (int i = 20; i <= 100; i += 20) {
             IQuestion question = new Question(i);
             cat.addQuestion(question);
         }

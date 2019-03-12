@@ -20,6 +20,21 @@ public class Question implements IQuestion {
     // region Constructors
 
     /**
+     * Constructor for Object Stream
+     *
+     * @param id             Question id
+     * @param value          Question value
+     * @param questionLayout Question Pane Layout
+     * @param answerLayout   Answer Pane Layout
+     */
+    public Question(UUID id, int value, IQuestionLayout questionLayout, IQuestionLayout answerLayout) {
+        this.id = id;
+        this.value = value;
+        this.questionLayout = questionLayout;
+        this.answerLayout = answerLayout;
+    }
+
+    /**
      * Create new Question with questionLayout and value
      *
      * @param value          value of the Question

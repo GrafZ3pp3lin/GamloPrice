@@ -30,7 +30,6 @@
 	-fx-background-insets: 0;
 	-fx-padding: 0;
 	-fx-background-color: transparent;
-	-fx-graphic: url("/images/return.png");
 }
 
 .return_Button:hover {
@@ -46,7 +45,6 @@
 	-fx-background-insets: 0;
 	-fx-padding: 0;
 	-fx-background-color: transparent;
-	-fx-graphic: url("/images/continue.png");
 }
 
 .continue_Button:hover {
@@ -55,6 +53,19 @@
 
 .continue_Button:armed {
 	-fx-background-color: derive(-fx-accent, 80%);
+}
+
+.select_Button {
+    -fx-background-color: derive(-fx-accent, 50%);
+    -fx-font-size: 40;
+}
+
+.select_Button:hover {
+    -fx-background-color: derive(-fx-accent, 80%);
+}
+
+.select_Button:armed {
+    -fx-background-color: derive(-fx-accent, 130%);
 }
 
 .title {

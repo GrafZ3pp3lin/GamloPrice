@@ -4,7 +4,10 @@ import data.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.geometry.*;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -38,6 +41,9 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
     - heightProperty
     - fitHeight
     - oneLine
+    - columns
+    - fontSize
+    - dummy
      */
 
     /**
@@ -94,20 +100,36 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
         return scrollPane;
     }
 
-    private IQuestionData<?> getParameterData(String name, IQuestionData<?>... args) {
+    /**
+     * get Parameter data or default value
+     *
+     * @param name         Data name
+     * @param defaultValue default value
+     * @param args         Parameter data
+     * @return data or default value
+     */
+    private Object getParameterData(String name, Object defaultValue, IQuestionData<?>... args) {
         for (IQuestionData<?> data : args) {
             if (data.getName().equalsIgnoreCase(name)) {
-                return data;
+                return data.getData();
             }
         }
-        return null;
+        return defaultValue;
     }
 
-    private Object getComponentData(IQuestionComponent component) {
-        if (component.containsComponentData("data")) {
-            return component.getComponentData("data").getData();
+    /**
+     * get Data from Component or get defaultValue
+     *
+     * @param component    Question Component
+     * @param name         Data name
+     * @param defaultValue default Value
+     * @return data or default value
+     */
+    private Object getComponentData(IQuestionComponent component, String name, Object defaultValue) {
+        if (component.containsComponentData(name)) {
+            return component.getComponentData(name).getData();
         }
-        return null;
+        return defaultValue;
     }
 
     /*
@@ -144,7 +166,7 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
     @Default
     @Component(types = {"Title", "Image", "ButtonGrid", "ImageGrid", "Video", "Text", "ControlButtons", "Result"})
     public Node convertQuestionComponent(IQuestionComponent component, IQuestionData<?>... args) {
-        Node node = null;
+        Node node;
 
         switch (component.getType().toLowerCase()) {
             case "title":
@@ -180,8 +202,12 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
             node = convertDefaultNode();
         }
         else {
-            if (component.containsComponentData("height")) {
-                ((Region) node).minHeightProperty().bind(((ReadOnlyDoubleProperty) getParameterData("heightProperty", args).getData()).multiply(Double.valueOf((String) component.getComponentData("height").getData()) / 100D));
+            Double height = (Double) getComponentData(component, "height", null);
+            if (height != null) {
+                ReadOnlyDoubleProperty heightProperty = (ReadOnlyDoubleProperty) getParameterData("heightProperty", null, args);
+                if (heightProperty != null) {
+                    ((Region) node).minHeightProperty().bind(heightProperty.multiply(height / 100D));
+                }
             }
         }
 
@@ -189,11 +215,16 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
     }
 
     private Node convertTitle(IQuestionComponent component) {
-        var data = getComponentData(component);
+        var data = getComponentData(component, "data", null);
         if (data instanceof String) {
             Label label = new Label((String) data);
             label.setWrapText(true);
             label.getStyleClass().add("title");
+
+            Double fontSize = (Double) getComponentData(component, "fontSize", null);
+            if (fontSize != null) {
+                label.setStyle("-fx-font-size: " + fontSize + ";");
+            }
 
             VBox titleBox = new VBox(label);
             titleBox.setAlignment(Pos.CENTER);
@@ -205,16 +236,13 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
     }
 
     private Node convertImage(IQuestionComponent component) {
-        var data = getComponentData(component);
+        var data = getComponentData(component, "data", null);
         if (data instanceof String) {
             ImageView view = new ImageView((String) data);
 
             Region mediaHolder = putMediaInMediaHolder(view);
 
-            Boolean preserveRatio = true;
-            if (component.containsComponentData("preserveRatio")) {
-                preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
-            }
+            Boolean preserveRatio = (Boolean) getComponentData(component, "preserveRatio", true);
 
             view.setPreserveRatio(preserveRatio);
             view.setSmooth(true);
@@ -227,8 +255,8 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
         return null;
     }
 
-    private Node convertButtonGrid(IQuestionComponent component) {
-        var data = getComponentData(component);
+    private Node convertButtonGrid(IQuestionComponent component, IQuestionData<?>... args) {
+        var data = getComponentData(component, "data", null);
         if (data instanceof String[]) {
             String[] castData = (String[]) data;
             // TODO make Bounds editable
@@ -239,12 +267,16 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
             }
 
             GridPane buttonGrid = new GridPane();
-            Collections.shuffle(Arrays.asList(castData));
+            if ((Boolean) getParameterData("dummy", false, args)) {
+                Collections.shuffle(Arrays.asList(castData));
+            }
 
-            int columns = (castData.length - 2) / 7 + 2;
+            Integer columns = (Integer) getComponentData(component, "columns", (castData.length - 2) / 7 + 2);
             int rows = (castData.length + (columns - 1)) / columns;
 
             initGridPane(buttonGrid, columns, rows);
+
+            Double fontSize = (Double) getComponentData(component, "fontSize", null);
 
             for (int row = 0; row < rows; row++) {
                 for (int column = 0; column < columns; column++) {
@@ -255,6 +287,11 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
                     Button button = new Button(castData[row * columns + column]);
                     button.setId(castData[row * columns + column]);
                     setAnchors(button, 20);
+
+                    if (fontSize != null) {
+                        button.setStyle("-fx-font-size: " + fontSize + ";");
+                    }
+
                     buttonGrid.add(new AnchorPane(button), column, row);
                 }
             }
@@ -264,8 +301,8 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
         return null;
     }
 
-    private Node convertImageGrid(IQuestionComponent component) {
-        var data = getComponentData(component);
+    private Node convertImageGrid(IQuestionComponent component, IQuestionData<?>... args) {
+        var data = getComponentData(component, "data", null);
         if (data instanceof String[]) {
             String[] castData = (String[]) data;
             // TODO make Bounds editable
@@ -276,9 +313,11 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
             }
 
             GridPane imageGrid = new GridPane();
-            Collections.shuffle(Arrays.asList(castData));
+            if ((Boolean) getParameterData("dummy", false, args)) {
+                Collections.shuffle(Arrays.asList(castData));
+            }
 
-            int columns = (castData.length - 2) / 5 + 2;
+            Integer columns = (Integer) getComponentData(component, "columns", (castData.length - 2) / 5 + 2);
             int rows = (castData.length + (columns - 1)) / columns;
 
             initGridPane(imageGrid, columns, rows);
@@ -295,10 +334,7 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
                     imageView.fitWidthProperty().bind(mediaHolder.widthProperty());
                     imageView.fitHeightProperty().bind(mediaHolder.heightProperty());
 
-                    Boolean preserveRatio = true;
-                    if (component.containsComponentData("preserveRatio")) {
-                        preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
-                    }
+                    Boolean preserveRatio = (Boolean) getComponentData(component, "preserveRatio", true);
 
                     imageView.setPreserveRatio(preserveRatio);
                     imageView.setSmooth(true);
@@ -313,7 +349,7 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
     }
 
     private Node convertVideo(IQuestionComponent component) {
-        var data = getComponentData(component);
+        var data = getComponentData(component, "data", null);
         if (data instanceof String) {
             Media media = new Media((String) data);
             MediaPlayer player = new MediaPlayer(media);
@@ -335,15 +371,8 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
             view.fitHeightProperty().bind(mediaHolder.heightProperty());
             view.fitWidthProperty().bind(mediaHolder.widthProperty());
 
-            Boolean preserveRatio = true;
-            if (component.containsComponentData("preserveRatio")) {
-                preserveRatio = (Boolean) component.getComponentData("preserveRatio").getData();
-            }
-
-            Boolean autoPlay = false;
-            if (component.containsComponentData("autoPlay")) {
-                autoPlay = (Boolean) component.getComponentData("autoPlay").getData();
-            }
+            Boolean preserveRatio = (Boolean) getComponentData(component, "preserveRatio", true);
+            Boolean autoPlay = (Boolean) getComponentData(component, "autoPlay", false);
 
             view.setPreserveRatio(preserveRatio);
             view.setSmooth(true);
@@ -355,7 +384,7 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
     }
 
     private Node convertText(IQuestionComponent component) {
-        var data = getComponentData(component);
+        var data = getComponentData(component, "data", null);
         if (data instanceof String) {
             Label text = new Label((String) data);
             text.setTextAlignment(TextAlignment.CENTER);
@@ -364,15 +393,20 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
             StackPane pane = new StackPane(text);
             pane.minHeightProperty().bind(text.heightProperty().multiply(1.2));
 
-            if (component.containsComponentData("width")) {
-                String widthString = (String) component.getComponentData("width").getData();
+            Double fontSize = (Double) getComponentData(component, "fontSize", null);
+            if (fontSize != null) {
+                text.setStyle("-fx-font-size: " + fontSize + ";");
+            }
+
+            String widthString = (String) getComponentData(component, "width", null);
+            if (widthString != null) {
                 boolean percentage = false;
                 if (widthString.endsWith("%")) {
                     widthString = widthString.substring(0, widthString.length() - 1);
                     percentage = true;
                 }
 
-                Integer value = Integer.valueOf(widthString);
+                int value = Integer.valueOf(widthString);
 
                 if (percentage) {
                     text.maxWidthProperty().bind(pane.widthProperty().multiply(value / 100D));
@@ -395,39 +429,33 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
 
         Button returnButton = new Button();
         returnButton.getStyleClass().add("return_Button");
-//        ImageView returnView = new ImageView("/images/return.png");
-//        returnView.setPreserveRatio(true);
-//        returnButton.setGraphic(returnView);
+        ImageView returnView = new ImageView("/images/return.png");
+        returnView.setPreserveRatio(true);
+        returnButton.setGraphic(returnView);
         box.getChildren().add(returnButton);
 
         Button continueButton = new Button();
         continueButton.getStyleClass().add("continue_Button");
-//        ImageView continueView = new ImageView("/images/continue.png");
-//        continueView.setPreserveRatio(true);
-//        continueButton.setGraphic(continueView);
+        ImageView continueView = new ImageView("/images/continue.png");
+        continueView.setPreserveRatio(true);
+        continueButton.setGraphic(continueView);
         box.getChildren().add(continueButton);
 
         return box;
     }
 
     private Node convertResult(IQuestionComponent component, IQuestionData<?>... args) {
-        IQuestionData<?> correct = getParameterData("correct", args);
+        Boolean correct = (Boolean) getParameterData("correct", null, args);
         if (correct != null) {
-            String src = null;
-            String content = null;
-            if ((Boolean) correct.getData()) {
+            String src;
+            String content;
+            if (correct) {
                 src = "/images/correct.png";
-                content = "Richtig!";
-                if (component.containsComponentData("correctText")) {
-                    content = (String) component.getComponentData("correctText").getData();
-                }
+                content = (String) getComponentData(component, "correctText", "Richtig!");
             }
             else {
                 src = "/images/wrong.png";
-                content = "Falsch!";
-                if (component.containsComponentData("wrongText")) {
-                    content = (String) component.getComponentData("wrongText").getData();
-                }
+                content = (String) getComponentData(component, "wrongText", "Falsch!");
             }
 
             FlowPane flowPane = new FlowPane(Orientation.VERTICAL);
@@ -436,23 +464,27 @@ public class QuestionComponentConverter implements IQuestionComponentConverter {
             flowPane.setHgap(20);
             flowPane.setVgap(20);
 
-            if (component.containsComponentData("oneLine")) {
-                if ((Boolean) component.getComponentData("oneLine").getData()) {
-                    flowPane.setOrientation(Orientation.HORIZONTAL);
-                }
+            if ((Boolean) getComponentData(component, "oneLine", false)) {
+                flowPane.setOrientation(Orientation.HORIZONTAL);
             }
 
             Label label = new Label(content);
-            label.setStyle("-fx-font-size: 100;");
             flowPane.getChildren().add(label);
+
+            Double fontSize = (Double) getComponentData(component, "fontSize", null);
+            if (fontSize != null) {
+                label.setStyle("-fx-font-size: " + fontSize + ";");
+            }
+            else {
+                label.setStyle("-fx-font-size: 100;");
+            }
 
             ImageView imageView = new ImageView(src);
             imageView.setPreserveRatio(true);
 
-            if (component.containsComponentData("fitHeight")) {
-                double size = (Double) component.getComponentData("fitHeight").getData();
-                label.setStyle("-fx-font-size: " + size + ";");
-                imageView.setFitHeight(size);
+            Double fitHeight = (Double) getComponentData(component, "fitHeight", null);
+            if (fitHeight != null) {
+                imageView.setFitHeight(fitHeight);
             }
 
             flowPane.getChildren().add(imageView);
