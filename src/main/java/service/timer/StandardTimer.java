@@ -1,48 +1,55 @@
 package service.timer;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import controller.TimerController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.*;
 
-public class StandardTimer extends Timer{
+import java.io.IOException;
 
-    private Button play;
-    private Button pause;
-    private Label timerLabel;
+public class StandardTimer extends Timer {
+
+    private TimerController controller;
 
     public StandardTimer(TimerMode mode, int millis) {
         super(mode, millis);
     }
 
-
     @Override
     public Region createTimerPane() {
-        play = new Button("play");
-        pause = new Button("pause");
-        play.setOnAction(e -> {
-            if(isStarted()){
-                play();
-            }
-            else{
-                start();
-            }
-        });
-        pause.setOnAction(e -> pause());
-        timerLabel = new Label();
+        Region layout = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Timer.fxml"));
+            controller = new TimerController();
+            controller.setTimer(this);
+            loader.setController(controller);
+            layout = loader.load();
+            millis.addListener(e-> controller.update(convertToTimeString(millis.get())));
+            controller.update(convertToTimeString(millis.get()));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        millis.addListener(e-> update());
-        update();
-        return new VBox(play, pause, timerLabel);
+        return layout;
     }
 
-    private void update(){
-        timerLabel.setText(millis.get()/1000 + ":" + (millis.get()%1000)/10);
+    private String convertToTimeString(int millis){
+        int ms = (millis/10)%100;
+        int sec = (millis/1000)%60;
+        int min = (millis/60000)%60;
+        int hour = millis/3600000;
+        return (hour >= 1 ? hour + ":" : "") + ((min >= 1 || hour >= 1) ? (min < 10 ? "0":"") +  min + ":" : "") + (sec < 10 ? "0":"") + sec + ":" + (ms < 10 ? "0":"") +ms;
     }
 
     @Override
     public void timerEnd() {
-        System.out.println("finished");
+        controller.onEnd();
     }
+
+    @Override
+    public void onReset() {
+        controller.onReset();
+    }
+
+
 }

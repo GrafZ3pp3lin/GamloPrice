@@ -35,7 +35,7 @@ public class GamloPrice extends Application {
     }
 
     private void timerTest(){
-        StandardTimer standard = new StandardTimer(TimerMode.COUNTDOWN, 3000);
+        StandardTimer standard = new StandardTimer(TimerMode.COUNTDOWN, 11110);
         Stage s = new Stage();
         s.setTitle("Timer");
 

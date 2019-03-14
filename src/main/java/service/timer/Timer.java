@@ -15,6 +15,7 @@ public abstract class Timer {
     protected IntegerProperty millis = new SimpleIntegerProperty(0);
     protected int starttime;
     private boolean alredyStarted = false;
+    private boolean pause = false;
     private Timeline timeline;
 
     public Timer(TimerMode mode, int millis){
@@ -34,18 +35,34 @@ public abstract class Timer {
         this.millis.set(millis + 1);
     }
 
-    public void play(){
+    public TimerState play(){
         timeline.play();
+        pause = false;
+        return TimerState.PLAY;
     }
 
-    public void pause(){
+    public TimerState pause(){
         timeline.pause();
+        pause = true;
+        return TimerState.PAUSE;
+    }
+
+    public TimerState togglePlayPause(){
+        if(pause){
+            return play();
+        }
+        return pause();
     }
 
     public void reset(){
-        millis.set(starttime);
         alredyStarted = false;
+        if(timeline != null){
+            timeline.stop();
+        }
         timeline = null;
+        millis.set(starttime);
+        pause = false;
+        onReset();
     }
 
     public boolean isStarted(){
@@ -77,5 +94,7 @@ public abstract class Timer {
      * called when countdown is finished (never called in stopwatchmode)
      */
     public abstract void timerEnd();
+
+    public abstract void onReset();
 
 }
