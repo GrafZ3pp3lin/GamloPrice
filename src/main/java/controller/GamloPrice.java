@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import service.timer.StandardTimer;
+import service.timer.TimerMode;
 
 import java.io.IOException;
 
@@ -25,7 +27,21 @@ public class GamloPrice extends Application {
 
         primaryStage.show();
 
-        simpleTestGame();
+        //simpleTestGame();
+
+
+        timerTest();
+
+    }
+
+    private void timerTest(){
+        StandardTimer standard = new StandardTimer(TimerMode.COUNTDOWN, 3000);
+        Stage s = new Stage();
+        s.setTitle("Timer");
+
+        Scene scene = new Scene(standard.createTimerPane(), 400, 400);
+        s.setScene(scene);
+        s.show();
     }
 
     private void simpleTestGame() {
