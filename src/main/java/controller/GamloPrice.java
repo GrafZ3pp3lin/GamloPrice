@@ -10,8 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GamloPrice extends Application {
 
@@ -19,15 +18,17 @@ public class GamloPrice extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Locale.setDefault( new Locale("en", "US") );
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("GamloPrice");
+        primaryStage.setTitle(Global.languageBundle.getString("title"));
         primaryStage.setOnCloseRequest(e -> Platform.exit());
 
         loadSampleLayout();
 
         primaryStage.show();
 
-        simpleTestGame();
+        //simpleTestGame();
+
     }
 
     private void simpleTestGame() {
@@ -36,13 +37,13 @@ public class GamloPrice extends Application {
         for(int j = 0; j < 5; j++){
             ICategory cat = new Category("TestCategory: " + j);
             for (int i = 20; i < 100; i += 20) {
-                IQuestion question = new Question(i);
+                IQuestion question = new Question(i);/*
                 IQuestionData<String> questionTitle = new QuestionData<>();
                 questionTitle.setData("Wann ist Napoleon geboren?");
                 IQuestionComponent component = new QuestionComponent("type", "title", questionTitle);
                 List<IQuestionComponent> componentList = new ArrayList<>();
                 IQuestionLayout layout = new QuestionLayout("Frage", componentList);
-                question.setQuestionLayout(layout);
+                question.setQuestionLayout(layout);*/
                 cat.addQuestion(question);
             }
             Game.addCategory(cat);

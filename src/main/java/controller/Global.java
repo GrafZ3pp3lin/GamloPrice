@@ -5,6 +5,8 @@ import service.interfaces.IFileHandler;
 import service.interfaces.IMessages;
 import service.interfaces.IQuestionConverter;
 
+import java.util.ResourceBundle;
+
 /**
  * Provides service Classes as Singletons
  */
@@ -34,5 +36,10 @@ public class Global {
      * contains the data of the connected Screens
      */
     public static ScreenData screenData = new ScreenData();
+
+    /**
+     * contains LanguageData
+     */
+    public static ResourceBundle languageBundle = ResourceBundle.getBundle( "GamloPrice" );
 
 }
