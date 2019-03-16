@@ -1,5 +1,5 @@
 package service.timer;
 
-public enum TimerState{
+public enum TimerState {
     PLAY, PAUSE
 }
