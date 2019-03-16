@@ -30,13 +30,13 @@ public class Team implements ITeam {
     // endregion
 
     /**
-     * set the Team name
+     * add some points
      *
-     * @param name Team name
+     * @param points amount of points
      */
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public void addPoints(int points) {
+        this.points += points;
     }
 
     /**
@@ -50,23 +50,13 @@ public class Team implements ITeam {
     }
 
     /**
-     * set Team points
+     * set the Team name
      *
-     * @param points Team points
+     * @param name Team name
      */
     @Override
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    /**
-     * add some points
-     *
-     * @param points amount of points
-     */
-    @Override
-    public void addPoints(int points) {
-        this.points += points;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -77,5 +67,15 @@ public class Team implements ITeam {
     @Override
     public int getPoints() {
         return points;
+    }
+
+    /**
+     * set Team points
+     *
+     * @param points Team points
+     */
+    @Override
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

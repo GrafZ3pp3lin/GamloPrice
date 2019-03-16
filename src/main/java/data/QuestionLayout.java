@@ -3,7 +3,6 @@ package data;
 import data.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionLayout;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +59,16 @@ public class QuestionLayout implements IQuestionLayout {
     // endregion
 
     /**
+     * add a Question Component to the Bottom of the Layout
+     *
+     * @param component Question Component to be added
+     */
+    @Override
+    public void addQuestionComponent(IQuestionComponent component) {
+        questionComponents.add(component);
+    }
+
+    /**
      * get the name of the Layout
      *
      * @return name of Layout
@@ -67,6 +76,18 @@ public class QuestionLayout implements IQuestionLayout {
     @Override
     public String getName() {
         return name;
+    }
+
+    /**
+     * get a Component from this Layout by name
+     *
+     * @param name name of the Component
+     * @return Component wit given name
+     */
+    @Override
+    public IQuestionComponent getQuestionComponent(String name) {
+        // TODO implement
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -88,27 +109,5 @@ public class QuestionLayout implements IQuestionLayout {
     public void setQuestionComponents(List<IQuestionComponent> components) {
         questionComponents.clear();
         questionComponents.addAll(components);
-    }
-
-    /**
-     * get a Component from this Layout by name
-     *
-     * @param name name of the Component
-     * @return Component wit given name
-     */
-    @Override
-    public IQuestionComponent getQuestionComponent(String name) {
-        // TODO implement
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * add a Question Component to the Bottom of the Layout
-     *
-     * @param component Question Component to be added
-     */
-    @Override
-    public void addQuestionComponent(IQuestionComponent component) {
-        questionComponents.add(component);
     }
 }

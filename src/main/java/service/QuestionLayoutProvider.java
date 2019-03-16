@@ -37,6 +37,15 @@ public class QuestionLayoutProvider {
     // endregion
 
     /**
+     * add a new Layout to the Layout List.
+     *
+     * @param layout Layout to be added
+     */
+    public void addLayout(IQuestionLayout layout) {
+        this.layouts.add(layout);
+    }
+
+    /**
      * Get a copy of a Layout to set it to an Question
      *
      * @param name Name of the Layout
@@ -55,15 +64,6 @@ public class QuestionLayoutProvider {
     public void initLayouts(List<IQuestionLayout> layouts) {
         this.layouts.clear();
         this.layouts.addAll(layouts);
-    }
-
-    /**
-     * add a new Layout to the Layout List.
-     *
-     * @param layout Layout to be added
-     */
-    public void addLayout(IQuestionLayout layout) {
-        this.layouts.add(layout);
     }
 
 }

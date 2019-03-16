@@ -6,14 +6,14 @@ package data.observable;
 public interface ISender {
 
     /**
+     * notify Observer
+     */
+    void notifyObserver();
+
+    /**
      * set Observer to this Event Sender
      *
      * @param observer
      */
     void setObserver(IObserver observer);
-
-    /**
-     * notify Observer
-     */
-    void notifyObserver();
 }

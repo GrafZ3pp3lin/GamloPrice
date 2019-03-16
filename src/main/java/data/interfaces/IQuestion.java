@@ -10,25 +10,25 @@ import java.util.UUID;
 public interface IQuestion {
 
     /**
+     * get the Answer Layout with all Question Components ordered
+     *
+     * @return all Answer Components
+     */
+    IQuestionLayout getAnswerLayout();
+
+    /**
+     * set the Answer Layout. Override the old Layout.
+     *
+     * @param layout new Answer Layout
+     */
+    void setAnswerLayout(IQuestionLayout layout);
+
+    /**
      * get unique Id of this Question
      *
      * @return Question Id
      */
     UUID getId();
-
-    /**
-     * Value of Question. The Team, which correctly answered this Question will get the amount of this Value as Points.
-     *
-     * @return Value of Question
-     */
-    int getValue();
-
-    /**
-     * set the Value for this Question.
-     *
-     * @param value Value of Question
-     */
-    void setValue(int value);
 
     /**
      * get the Question Layout with all Question Components ordered
@@ -45,17 +45,17 @@ public interface IQuestion {
     void setQuestionLayout(IQuestionLayout layout);
 
     /**
-     * get the Answer Layout with all Question Components ordered
+     * Value of Question. The Team, which correctly answered this Question will get the amount of this Value as Points.
      *
-     * @return all Answer Components
+     * @return Value of Question
      */
-    IQuestionLayout getAnswerLayout();
+    int getValue();
 
     /**
-     * set the Answer Layout. Override the old Layout.
+     * set the Value for this Question.
      *
-     * @param layout new Answer Layout
+     * @param value Value of Question
      */
-    void setAnswerLayout(IQuestionLayout layout);
+    void setValue(int value);
 
 }

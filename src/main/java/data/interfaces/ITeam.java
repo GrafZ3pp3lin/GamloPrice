@@ -6,11 +6,11 @@ package data.interfaces;
 public interface ITeam {
 
     /**
-     * set the Team Name
+     * add some Points
      *
-     * @param name Team name
+     * @param points amount of Points
      */
-    void setName(String name);
+    void addPoints(int points);
 
     /**
      * get Team Name
@@ -20,18 +20,11 @@ public interface ITeam {
     String getName();
 
     /**
-     * set Team points
+     * set the Team Name
      *
-     * @param points Team points
+     * @param name Team name
      */
-    void setPoints(int points);
-
-    /**
-     * add some Points
-     *
-     * @param points amount of Points
-     */
-    void addPoints(int points);
+    void setName(String name);
 
     /**
      * get Team Points
@@ -39,5 +32,12 @@ public interface ITeam {
      * @return Team Points
      */
     int getPoints();
+
+    /**
+     * set Team points
+     *
+     * @param points Team points
+     */
+    void setPoints(int points);
 
 }

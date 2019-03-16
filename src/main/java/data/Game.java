@@ -1,9 +1,9 @@
 package data;
 
-import data.interfaces.IQuestion;
-import service.QuestionLayoutProvider;
 import data.interfaces.ICategory;
 import data.interfaces.IGame;
+import data.interfaces.IQuestion;
+import service.QuestionLayoutProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +59,38 @@ public class Game implements IGame {
     // endregion
 
     /**
+     * add a Category with a unique name
+     *
+     * @param category Category to add
+     */
+    @Override
+    public void addCategory(ICategory category) {
+        categories.add(category);
+    }
+
+    /**
+     * get all categories of this Game
+     *
+     * @return all categories
+     */
+    @Override
+    public List<ICategory> getCategories() {
+        return categories;
+    }
+
+    /**
+     * get a Category by its name
+     *
+     * @param name name of the Category
+     * @return specified Category
+     */
+    @Override
+    public ICategory getCategory(String name) {
+        //TODO implement
+        throw new UnsupportedOperationException();
+    }
+
+    /**
      * get unique Id of this Game
      *
      * @return Game Id
@@ -105,7 +137,7 @@ public class Game implements IGame {
      */
     @Override
     public void setPath(String path) {
-        // TODO tet for valid path
+        // TODO test for valid path
         this.path = path;
     }
 
@@ -130,39 +162,7 @@ public class Game implements IGame {
     }
 
     /**
-     * get all categories of this Game
-     *
-     * @return all categories
-     */
-    @Override
-    public List<ICategory> getCategories() {
-        return categories;
-    }
-
-    /**
-     * add a Category with a unique name
-     *
-     * @param category Category to add
-     */
-    @Override
-    public void addCategory(ICategory category) {
-        categories.add(category);
-    }
-
-    /**
-     * get a Category by its name
-     *
-     * @param name name of the Category
-     * @return specified Category
-     */
-    @Override
-    public ICategory getCategory(String name) {
-        //TODO implement
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * get a Questi0on from this Game by id
+     * get a Question from this Game by id
      *
      * @param id Question id
      * @return Question

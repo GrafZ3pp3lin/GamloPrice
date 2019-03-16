@@ -15,61 +15,11 @@ public interface IQuestionComponent extends Serializable, ISender {
     String SELECTED_ANSWER = "%SELECTED_ANSWER:<name>%";
 
     /**
-     * get Component Type. Dependent on this type the GUI Component will be created.
-     *
-     * @return Component Type
-     */
-    String getType();
-
-    /**
-     * set Component Type
-     *
-     * @param type Component Type
-     */
-    void setType(String type);
-
-    /**
-     * Name of Component to identify Data for this Component in case there are more then one of these Components
-     *
-     * @return Name of Component
-     */
-    String getName();
-
-    /**
-     * set the Component Name if there are more then one on one Question Layout
-     *
-     * @param name Name of the Component
-     */
-    void setName(String name);
-
-    /**
-     * Init Component with Content Data
-     *
-     * @param data List of QuestionData for this Component from Game Data File
-     */
-    void setComponentData(List<IQuestionData<?>> data);
-
-    /**
-     * get all Component data
-     *
-     * @return List with all component datas
-     */
-    List<IQuestionData<?>> getComponentData();
-
-    /**
      * add Data to Component
      *
      * @param data QuestionData
      */
     void addComponentData(IQuestionData<?> data);
-
-    /**
-     * get the specified Content Data for this Component
-     *
-     * @param name Name of Data
-     * @return Component Data
-     */
-    IQuestionData<?> getComponentData(String name);
 
     /**
      * contains this Question Component the specified Data
@@ -87,10 +37,60 @@ public interface IQuestionComponent extends Serializable, ISender {
     boolean containsCorrectAnswer();
 
     /**
+     * get all Component data
+     *
+     * @return List with all component datas
+     */
+    List<IQuestionData<?>> getComponentData();
+
+    /**
+     * Init Component with Content Data
+     *
+     * @param data List of QuestionData for this Component from Game Data File
+     */
+    void setComponentData(List<IQuestionData<?>> data);
+
+    /**
+     * get the specified Content Data for this Component
+     *
+     * @param name Name of Data
+     * @return Component Data
+     */
+    IQuestionData<?> getComponentData(String name);
+
+    /**
      * get the correct Answer to this Component
      *
      * @return Data with correct Answer
      */
     IQuestionData<?> getCorrectAnswer();
+
+    /**
+     * Name of Component to identify Data for this Component in case there are more then one of these Components
+     *
+     * @return Name of Component
+     */
+    String getName();
+
+    /**
+     * set the Component Name if there are more then one on one Question Layout
+     *
+     * @param name Name of the Component
+     */
+    void setName(String name);
+
+    /**
+     * get Component Type. Dependent on this type the GUI Component will be created.
+     *
+     * @return Component Type
+     */
+    String getType();
+
+    /**
+     * set Component Type
+     *
+     * @param type Component Type
+     */
+    void setType(String type);
 
 }

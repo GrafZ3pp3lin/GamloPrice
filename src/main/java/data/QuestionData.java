@@ -17,7 +17,7 @@ public class QuestionData<T> implements IQuestionData<T> {
     /**
      * create a new Question Data Object with custom name
      *
-     * @param name Name of Question data
+     * @param name  Name of Question data
      * @param value Value for this Question data
      */
     public QuestionData(String name, T value) {
@@ -37,13 +37,13 @@ public class QuestionData<T> implements IQuestionData<T> {
     // endregion
 
     /**
-     * get Name of this data Object
+     * get the Data value
      *
-     * @return Name of data Object
+     * @return Data value
      */
     @Override
-    public String getName() {
-        return name;
+    public T getData() {
+        return Value;
     }
 
     /**
@@ -57,12 +57,12 @@ public class QuestionData<T> implements IQuestionData<T> {
     }
 
     /**
-     * get the Data value
+     * get Name of this data Object
      *
-     * @return Data value
+     * @return Name of data Object
      */
     @Override
-    public T getData() {
-        return Value;
+    public String getName() {
+        return name;
     }
 }

@@ -11,7 +11,7 @@ import java.io.*;
  */
 public class XMLHandler<T> implements IFileHandler<T> {
 
-    // TODO das funktioniert nicht!
+    // TODO does not work
 
     /**
      * read a XML-Document

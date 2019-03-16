@@ -8,12 +8,15 @@ import service.MessageType;
 public interface IMessages {
 
     /**
-     * Show a simple Message with given MessageType
+     * Show a Message that have to be confirmed
      *
      * @param type    Type of the Message
      * @param message Message, that will be shown
+     * @param title   Title of the Message
+     * @param header  Header of the Message (can be null)
+     * @return true, if the User pressed OK
      */
-    void showMessage(MessageType type, String message);
+    boolean confirmMessage(MessageType type, String message, String title, String header);
 
     /**
      * Show a Message with Message Type and Title
@@ -35,14 +38,11 @@ public interface IMessages {
     void showMessage(MessageType type, String message, String title, String header);
 
     /**
-     * Show a Message that have to be confirmed
+     * Show a simple Message with given MessageType
      *
      * @param type    Type of the Message
      * @param message Message, that will be shown
-     * @param title   Title of the Message
-     * @param header  Header of the Message (can be null)
-     * @return true, if the User pressed OK
      */
-    boolean confirmMessage(MessageType type, String message, String title, String header);
+    void showMessage(MessageType type, String message);
 
 }

@@ -36,6 +36,16 @@ public class Category implements ICategory {
     // endregion
 
     /**
+     * add a Question to this Category. Value of questions must be unique!
+     *
+     * @param question Question that will be added
+     */
+    @Override
+    public void addQuestion(IQuestion question) {
+        questions.add(question);
+    }
+
+    /**
      * get Category name
      *
      * @return Category name
@@ -63,16 +73,6 @@ public class Category implements ICategory {
     @Override
     public List<IQuestion> getQuestions() {
         return questions;
-    }
-
-    /**
-     * add a Question to this Category. Value of questions must be unique!
-     *
-     * @param question Question that will be added
-     */
-    @Override
-    public void addQuestion(IQuestion question) {
-        questions.add(question);
     }
 
     /**

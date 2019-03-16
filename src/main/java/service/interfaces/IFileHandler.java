@@ -17,7 +17,7 @@ public interface IFileHandler<T> {
      * save a Object to a File
      *
      * @param object generic Object, that will be saved
-     * @param path Path to the File
+     * @param path   Path to the File
      * @return true if operation was successful
      */
     boolean saveToFile(T object, String path);

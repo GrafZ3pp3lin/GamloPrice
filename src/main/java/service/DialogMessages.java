@@ -8,13 +8,16 @@ import service.interfaces.IMessages;
 public class DialogMessages implements IMessages {
 
     /**
-     * Show a simple Message with given MessageType
+     * Show a Message that have to be confirmed
      *
      * @param type    Type of the Message
      * @param message Message, that will be shown
+     * @param title   Title of the Message
+     * @param header  Header of the Message (can be null)
+     * @return true, if the User pressed OK
      */
     @Override
-    public void showMessage(MessageType type, String message) {
+    public boolean confirmMessage(MessageType type, String message, String title, String header) {
         // TODO implement
         throw new UnsupportedOperationException();
     }
@@ -47,16 +50,13 @@ public class DialogMessages implements IMessages {
     }
 
     /**
-     * Show a Message that have to be confirmed
+     * Show a simple Message with given MessageType
      *
      * @param type    Type of the Message
      * @param message Message, that will be shown
-     * @param title   Title of the Message
-     * @param header  Header of the Message (can be null)
-     * @return true, if the User pressed OK
      */
     @Override
-    public boolean confirmMessage(MessageType type, String message, String title, String header) {
+    public void showMessage(MessageType type, String message) {
         // TODO implement
         throw new UnsupportedOperationException();
     }

@@ -9,6 +9,28 @@ import java.util.UUID;
 public interface IGame {
 
     /**
+     * add a Category with a unique Name
+     *
+     * @param category Category to add
+     */
+    void addCategory(ICategory category);
+
+    /**
+     * get all Categories of this Game
+     *
+     * @return all Categories
+     */
+    List<ICategory> getCategories();
+
+    /**
+     * get a Category by its Name
+     *
+     * @param name Name of the Category
+     * @return specified Category
+     */
+    ICategory getCategory(String name);
+
+    /**
      * get unique Id of this Game
      *
      * @return Game Id
@@ -56,28 +78,6 @@ public interface IGame {
      * @param amount Amount of Questions
      */
     void setQuestionAmount(int amount);
-
-    /**
-     * get all Categories of this Game
-     *
-     * @return all Categories
-     */
-    List<ICategory> getCategories();
-
-    /**
-     * add a Category with a unique Name
-     *
-     * @param category Category to add
-     */
-    void addCategory(ICategory category);
-
-    /**
-     * get a Category by its Name
-     *
-     * @param name Name of the Category
-     * @return specified Category
-     */
-    ICategory getCategory(String name);
 
     /**
      * get a Questi0on from this Game by id

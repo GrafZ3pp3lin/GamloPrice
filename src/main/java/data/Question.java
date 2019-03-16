@@ -67,6 +67,26 @@ public class Question implements IQuestion {
     // endregion
 
     /**
+     * get the Answer Layout with all Question Components ordered
+     *
+     * @return all Answer Components
+     */
+    @Override
+    public IQuestionLayout getAnswerLayout() {
+        return answerLayout;
+    }
+
+    /**
+     * set the Answer Layout. Override the old Layout.
+     *
+     * @param layout new Answer Layout
+     */
+    @Override
+    public void setAnswerLayout(IQuestionLayout layout) {
+        answerLayout = layout;
+    }
+
+    /**
      * get unique Id of this Question
      *
      * @return Question Id
@@ -74,26 +94,6 @@ public class Question implements IQuestion {
     @Override
     public UUID getId() {
         return id;
-    }
-
-    /**
-     * value of Question. The Team, which correctly answered this Question will get the amount of this value as Points.
-     *
-     * @return value of Question
-     */
-    @Override
-    public int getValue() {
-        return value;
-    }
-
-    /**
-     * set the value for this Question.
-     *
-     * @param value value of Question
-     */
-    @Override
-    public void setValue(int value) {
-        this.value = value;
     }
 
     /**
@@ -118,23 +118,23 @@ public class Question implements IQuestion {
     }
 
     /**
-     * get the Answer Layout with all Question Components ordered
+     * value of Question. The Team, which correctly answered this Question will get the amount of this value as Points.
      *
-     * @return all Answer Components
+     * @return value of Question
      */
     @Override
-    public IQuestionLayout getAnswerLayout() {
-        return answerLayout;
+    public int getValue() {
+        return value;
     }
 
     /**
-     * set the Answer Layout. Override the old Layout.
+     * set the value for this Question.
      *
-     * @param layout new Answer Layout
+     * @param value value of Question
      */
     @Override
-    public void setAnswerLayout(IQuestionLayout layout) {
-        answerLayout = layout;
+    public void setValue(int value) {
+        this.value = value;
     }
 
 }

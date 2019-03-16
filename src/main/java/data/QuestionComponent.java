@@ -33,11 +33,6 @@ public class QuestionComponent implements IQuestionComponent {
         }
     }
 
-    @Override
-    public String toString() {
-        return type + "(" + name + ")";
-    }
-
     /**
      * Create a Question Component with default name and data
      *
@@ -67,68 +62,6 @@ public class QuestionComponent implements IQuestionComponent {
         this(type, type, null);
     }
 
-    // endregion
-
-    /**
-     * get Component Type. Dependent on this type the GUI Component will be created.
-     *
-     * @return Component Type
-     */
-    @Override
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * set Component Type
-     *
-     * @param type Component Type
-     */
-    @Override
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    /**
-     * Name of Component to identify Data for this Component in case there are more then one of these Components
-     *
-     * @return Name of Component
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * set the Component Name if there are more then one on one Question Layout
-     *
-     * @param name Name of the Component
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Init Component with Content Data
-     *
-     * @param data List of QuestionData for this Component from Game Data File
-     */
-    @Override
-    public void setComponentData(List<IQuestionData<?>> data) {
-        this.questionData.clear();
-        questionData.addAll(data);
-    }
-
-    /**
-     * get all Component data
-     *
-     * @return List with all component datas
-     */
-    @Override
-    public List<IQuestionData<?>> getComponentData() {
-        return questionData;
-    }
-
     /**
      * add Data to Component
      *
@@ -139,21 +72,7 @@ public class QuestionComponent implements IQuestionComponent {
         this.questionData.add(data);
     }
 
-    /**
-     * get the specified Content Data for this Component
-     *
-     * @param name Name of Data
-     * @return Component Data
-     */
-    @Override
-    public IQuestionData<?> getComponentData(String name) {
-        for (IQuestionData<?> data : this.questionData) {
-            if (data.getName().equalsIgnoreCase(name)) {
-                return data;
-            }
-        }
-        return null;
-    }
+    // endregion
 
     /**
      * contains this Question Component the specified Data
@@ -187,6 +106,43 @@ public class QuestionComponent implements IQuestionComponent {
     }
 
     /**
+     * get all Component data
+     *
+     * @return List with all component datas
+     */
+    @Override
+    public List<IQuestionData<?>> getComponentData() {
+        return questionData;
+    }
+
+    /**
+     * Init Component with Content Data
+     *
+     * @param data List of QuestionData for this Component from Game Data File
+     */
+    @Override
+    public void setComponentData(List<IQuestionData<?>> data) {
+        this.questionData.clear();
+        questionData.addAll(data);
+    }
+
+    /**
+     * get the specified Content Data for this Component
+     *
+     * @param name Name of Data
+     * @return Component Data
+     */
+    @Override
+    public IQuestionData<?> getComponentData(String name) {
+        for (IQuestionData<?> data : this.questionData) {
+            if (data.getName().equalsIgnoreCase(name)) {
+                return data;
+            }
+        }
+        return null;
+    }
+
+    /**
      * get the correct Answer to this Component
      *
      * @return Data with correct Answer
@@ -202,13 +158,42 @@ public class QuestionComponent implements IQuestionComponent {
     }
 
     /**
-     * set Observer to this Event Sender
+     * Name of Component to identify Data for this Component in case there are more then one of these Components
      *
-     * @param observer
+     * @return Name of Component
      */
     @Override
-    public void setObserver(IObserver observer) {
-        this.observer = observer;
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * set the Component Name if there are more then one on one Question Layout
+     *
+     * @param name Name of the Component
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * get Component Type. Dependent on this type the GUI Component will be created.
+     *
+     * @return Component Type
+     */
+    @Override
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * set Component Type
+     *
+     * @param type Component Type
+     */
+    @Override
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -219,5 +204,20 @@ public class QuestionComponent implements IQuestionComponent {
         // TODO implement
         // observer.update(UpdateType.Answer, "");
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * set Observer to this Event Sender
+     *
+     * @param observer
+     */
+    @Override
+    public void setObserver(IObserver observer) {
+        this.observer = observer;
+    }
+
+    @Override
+    public String toString() {
+        return type + " (" + name + ")";
     }
 }

@@ -49,6 +49,10 @@
     -fx-background-color: derive(-fx-accent, 130%);
 }
 
+.no_button {
+	-fx-background-color: -fx-background;
+}
+
 .title {
 	-fx-font-size: 30;
 }

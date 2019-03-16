@@ -8,11 +8,11 @@ package data.interfaces;
 public interface IQuestionData<T> {
 
     /**
-     * get Name of this data Object
+     * get the Data value
      *
-     * @return Name of data Object
+     * @return Data value
      */
-    String getName();
+    T getData();
 
     /**
      * set the Data value
@@ -22,9 +22,9 @@ public interface IQuestionData<T> {
     void setData(T value);
 
     /**
-     * get the Data value
+     * get Name of this data Object
      *
-     * @return Data value
+     * @return Name of data Object
      */
-    T getData();
+    String getName();
 }
