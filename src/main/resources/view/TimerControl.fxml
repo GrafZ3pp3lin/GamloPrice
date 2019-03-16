@@ -10,8 +10,8 @@
    <bottom>
       <FlowPane alignment="CENTER" hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="playpause" mnemonicParsing="false" onAction="#playTimer" prefHeight="30.0" prefWidth="150.0" styleClass="timer_button" text="start" />
-            <Button mnemonicParsing="false" onAction="#resetTimer" prefHeight="30.0" prefWidth="150.0" styleClass="timer_button" text="reset" />
+            <Button fx:id="playpause" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="timer_button" text="start" />
+            <Button fx:id="reset" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="timer_button" text="reset" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -19,6 +19,6 @@
       </FlowPane>
    </bottom>
    <center>
-      <Label fx:id="anzeige" styleClass="timer_label" text="Time" BorderPane.alignment="CENTER" />
+      <Label fx:id="timeC" styleClass="timer_label" text="Time" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

@@ -86,9 +86,16 @@ public abstract class Timer {
     /**
      * here you have to generate your Timerpane, you get current timevalue with direct binding to millis
      * or by adding a EventHandler millis.addListener(e -> ... );
-     * @return Refion with the timerpane
+     * @return Region with the timerpane for Control
      */
-    public abstract Region createTimerPane();
+    public abstract Region createTimerControlPane();
+
+    /**
+     * here you have to generate your Timerpane, you get current timevalue with direct binding to millis
+     * or by adding a EventHandler millis.addListener(e -> ... );
+     * @return Region with the timerpane for Show
+     */
+    public abstract Region createTimerShowPane();
 
     /**
      * called when countdown is finished (never called in stopwatchmode)
