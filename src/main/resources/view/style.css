@@ -57,11 +57,15 @@
 }
 
 .timer_button {
+    -fx-background-color: #ccc;
+    -fx-text-fill: black;
 }
 
 .timer_background{
+-fx-background-color: #eee;
 }
 
 .timer_label{
     -fx-font-size: 30pt;
+    -fx-text-fill: black;
 }

@@ -44,6 +44,7 @@ public class StandardTimer extends Timer {
     @Override
     public void timerEnd() {
         controller.onEnd();
+        System.out.println("finished");
     }
 
     @Override
