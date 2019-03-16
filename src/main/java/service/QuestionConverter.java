@@ -25,6 +25,19 @@ public class QuestionConverter implements IQuestionConverter {
 
     IQuestionComponentConverter converter = new QuestionComponentConverter();
 
+    public QuestionConverter() {
+//        ClassLoader loader = QuestionConverter.class.getClassLoader();
+//        try {
+//            Class<?> clazz = loader.loadClass("service.QuestionComponentConverter");
+//            var temp = clazz.getAnnotatedInterfaces();
+//            var temp2 = clazz.getDeclaredMethods();
+//            System.out.println(temp2[3].getName());
+//        }
+//        catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+    }
+
     /**
      * convert a Question to its JavaFX QuestionPane
      *
