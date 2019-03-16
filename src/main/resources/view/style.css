@@ -1,23 +1,4 @@
 /*
-	Default Layouts
-*/
-
-.label {
-	-fx-font-size: 20px;
-	-fx-text-fill: -fx-text-color;
-}
-
-.button {
-	-fx-background-color: -fx-button-color;
-	-fx-font-size: 30;
-	-fx-text-fill: -fx-text-color;
-}
-
-.button:hover {
-	-fx-background-color: -fx-hover-base;
-}
-
-/*
 	Custom Layouts
 */
 

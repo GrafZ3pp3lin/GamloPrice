@@ -33,6 +33,11 @@ public class QuestionComponent implements IQuestionComponent {
         }
     }
 
+    @Override
+    public String toString() {
+        return type + "(" + name + ")";
+    }
+
     /**
      * Create a Question Component with default name and data
      *
@@ -75,6 +80,16 @@ public class QuestionComponent implements IQuestionComponent {
     }
 
     /**
+     * set Component Type
+     *
+     * @param type Component Type
+     */
+    @Override
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
      * Name of Component to identify Data for this Component in case there are more then one of these Components
      *
      * @return Name of Component
@@ -102,6 +117,16 @@ public class QuestionComponent implements IQuestionComponent {
     public void setComponentData(List<IQuestionData<?>> data) {
         this.questionData.clear();
         questionData.addAll(data);
+    }
+
+    /**
+     * get all Component data
+     *
+     * @return List with all component datas
+     */
+    @Override
+    public List<IQuestionData<?>> getComponentData() {
+        return questionData;
     }
 
     /**

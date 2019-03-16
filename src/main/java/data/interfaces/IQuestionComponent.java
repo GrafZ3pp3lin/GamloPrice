@@ -22,6 +22,13 @@ public interface IQuestionComponent extends Serializable, ISender {
     String getType();
 
     /**
+     * set Component Type
+     *
+     * @param type Component Type
+     */
+    void setType(String type);
+
+    /**
      * Name of Component to identify Data for this Component in case there are more then one of these Components
      *
      * @return Name of Component
@@ -41,6 +48,13 @@ public interface IQuestionComponent extends Serializable, ISender {
      * @param data List of QuestionData for this Component from Game Data File
      */
     void setComponentData(List<IQuestionData<?>> data);
+
+    /**
+     * get all Component data
+     *
+     * @return List with all component datas
+     */
+    List<IQuestionData<?>> getComponentData();
 
     /**
      * add Data to Component

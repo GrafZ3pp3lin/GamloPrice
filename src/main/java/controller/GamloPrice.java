@@ -26,8 +26,14 @@ public class GamloPrice extends Application {
 
         primaryStage.show();
 
-        simpleTestGame();
+//        simpleTestGame();
 //        testXMLLayoutHandler();
+        testQuestionEdit();
+    }
+
+    private void testQuestionEdit() {
+        QuestionEditor editor = new QuestionEditor();
+        editor.openQuestionPane();
     }
 
     private void simpleTestGame() {
