@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
+
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<SplitPane fx:id="splitPane_root" dividerPositions="0.24" prefHeight="720.0" prefWidth="1280.0" styleClass="background"
-           stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="718.0" prefWidth="315.0" styleClass="background">
-        <ListView fx:id="listView_Questions" prefWidth="250.0" AnchorPane.bottomAnchor="70.0"
-                  AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
-        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" AnchorPane.bottomAnchor="10.0"
-              AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-            <Button fx:id="button_addQuestion" mnemonicParsing="false" text="+"/>
-        </HBox>
-    </AnchorPane>
-    <GridPane fx:id="gridPane_Game" styleClass="background">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-        </rowConstraints>
-    </GridPane>
-</SplitPane>
+<?import java.lang.String?>
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="textField_name" layoutX="14.0" layoutY="14.0" promptText="Name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Separator prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0" />
+      <SplitPane fx:id="splitPane_root" dividerPositions="0.24" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
+          <AnchorPane minWidth="100.0" styleClass="background">
+              <ListView fx:id="listView_Questions" prefWidth="250.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <Button fx:id="button_addQuestion" mnemonicParsing="false" text="+" />
+              </HBox>
+          </AnchorPane>
+          <GridPane fx:id="gridPane_Game" minWidth="500.0" styleClass="background" />
+         <styleClass>
+            <String fx:value="background" />
+            <String fx:value="question-split-pane" />
+         </styleClass>
+      </SplitPane>
+      <Separator prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <HBox alignment="CENTER_RIGHT" layoutX="1070.0" layoutY="610.0" prefHeight="40.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+         <children>
+            <Button fx:id="button_start" mnemonicParsing="false" text="Start" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

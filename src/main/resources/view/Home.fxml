@@ -7,25 +7,25 @@
             xmlns:fx="http://javafx.com/fxml/1">
     <MenuBar layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Menu mnemonicParsing="false" text="File">
-            <MenuItem fx:id="MenuItem_Open" mnemonicParsing="false" text="Open"/>
-            <MenuItem fx:id="MenuItem_Save" mnemonicParsing="false" text="Save"/>
+            <MenuItem fx:id="menuItem_Open" mnemonicParsing="false" text="Open"/>
+            <MenuItem fx:id="menuItem_Save" mnemonicParsing="false" text="Save"/>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem fx:id="MenuItem_EditGame" mnemonicParsing="false" text="Edit Game"/>
-            <MenuItem fx:id="MenuItem_Teams" mnemonicParsing="false" text="Teams"/>
-            <MenuItem fx:id="MenuItem_Timer" mnemonicParsing="false" text="Timer"/>
+            <MenuItem fx:id="menuItem_EditGame" mnemonicParsing="false" text="Edit Game"/>
+            <MenuItem fx:id="menuItem_Teams" mnemonicParsing="false" text="Teams"/>
+            <MenuItem fx:id="menuItem_Timer" mnemonicParsing="false" text="Timer"/>
         </Menu>
         <Menu mnemonicParsing="false" text="Game">
-            <MenuItem fx:id="MenuItem_Start" mnemonicParsing="false" text="Start"/>
-            <MenuItem fx:id="MenuItem_End" mnemonicParsing="false" text="End"/>
+            <MenuItem fx:id="menuItem_Start" mnemonicParsing="false" text="Start"/>
+            <MenuItem fx:id="menuItem_End" mnemonicParsing="false" text="End"/>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="MenuItem_About" mnemonicParsing="false" text="About"/>
+            <MenuItem fx:id="menuItem_About" mnemonicParsing="false" text="About"/>
         </Menu>
     </MenuBar>
-    <StackPane fx:id="StackPane_Content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+    <StackPane fx:id="stackPane_Content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
-        <BorderPane fx:id="BorderPane_Default" prefHeight="200.0" prefWidth="200.0">
+        <BorderPane fx:id="borderPane_Default" prefHeight="200.0" prefWidth="200.0">
             <center>
                 <Label text="Welcome" BorderPane.alignment="CENTER">
                     <font>
@@ -34,9 +34,9 @@
                 </Label>
             </center>
         </BorderPane>
-        <BorderPane fx:id="BorderPane_Content" prefHeight="200.0" prefWidth="200.0">
+        <BorderPane fx:id="borderPane_Content" prefHeight="200.0" prefWidth="200.0">
             <center>
-                <TabPane fx:id="TabPane_Games" BorderPane.alignment="CENTER"/>
+                <TabPane fx:id="tabPane_Games" BorderPane.alignment="CENTER"/>
             </center>
         </BorderPane>
     </StackPane>

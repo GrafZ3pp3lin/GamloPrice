@@ -1,12 +1,9 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 public class HomeController {
@@ -14,60 +11,49 @@ public class HomeController {
     // region FXML Components
 
     @FXML
-    private MenuItem MenuItem_Open;
+    private MenuItem menuItem_Open;
 
     @FXML
-    private MenuItem MenuItem_Save;
+    private MenuItem menuItem_Save;
 
     @FXML
-    private MenuItem MenuItem_EditGame;
+    private MenuItem menuItem_EditGame;
 
     @FXML
-    private MenuItem MenuItem_Teams;
+    private MenuItem menuItem_Teams;
 
     @FXML
-    private MenuItem MenuItem_Timer;
+    private MenuItem menuItem_Timer;
 
     @FXML
-    private MenuItem MenuItem_Start;
+    private MenuItem menuItem_Start;
 
     @FXML
-    private MenuItem MenuItem_End;
+    private MenuItem menuItem_End;
 
     @FXML
-    private MenuItem MenuItem_About;
+    private MenuItem menuItem_About;
 
     @FXML
-    private StackPane StackPane_Content;
+    private StackPane stackPane_Content;
 
     @FXML
-    private BorderPane BorderPane_Default;
+    private BorderPane borderPane_Default;
 
     @FXML
-    private BorderPane BorderPane_Content;
+    private BorderPane borderPane_Content;
 
     @FXML
-    private TabPane TabPane_Games;
-
-    @FXML
-    private Button Button_Start;
-
-    @FXML
-    private Button Button_Edit;
-
-    @FXML
-    private HBox HBox_Controls;
+    private TabPane tabPane_Games;
 
     // endregion
 
     @FXML
     private void initialize() {
-//        Button_Start.setVisible(true);
     }
 
     public void addGame(GameEditor gameEditor) {
-        Tab tab = new Tab("TempName", gameEditor.getGameEditPane());
-        TabPane_Games.getTabs().add(tab);
+        tabPane_Games.getTabs().add(gameEditor);
     }
 
 }

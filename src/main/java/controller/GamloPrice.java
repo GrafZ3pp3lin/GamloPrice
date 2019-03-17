@@ -40,7 +40,7 @@ public class GamloPrice extends Application {
         editor.openQuestionPane();
     }
 
-    private void simpleTestGame() {
+    private IGame simpleTestGame() {
         IGame Game = new Game("TestGame");
         ICategory cat = new Category("TestCategory");
         for (int i = 20; i <= 100; i += 20) {
@@ -48,8 +48,7 @@ public class GamloPrice extends Application {
             cat.addQuestion(question);
         }
         Game.addCategory(cat);
-        GameController gc = new GameController(Game);
-        gc.showGame();
+        return Game;
     }
 
     private void testXMLLayoutHandler() {
@@ -66,7 +65,7 @@ public class GamloPrice extends Application {
     }
 
     private void testGameEditor() {
-        GameEditor editor = new GameEditor();
+        GameEditor editor = new GameEditor(simpleTestGame());
         homeController.addGame(editor);
     }
 

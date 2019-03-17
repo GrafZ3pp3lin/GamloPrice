@@ -46,7 +46,9 @@ public class Question implements IQuestion {
         id = UUID.randomUUID();
         this.value = value;
         this.questionLayout = new QuestionLayout();
-        this.questionLayout.setQuestionComponents(questionComponents);
+        if (questionComponents != null) {
+            this.questionLayout.setQuestionComponents(questionComponents);
+        }
         this.answerLayout = new QuestionLayout();
     }
 
