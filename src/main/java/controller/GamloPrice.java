@@ -15,6 +15,7 @@ import java.util.Arrays;
 public class GamloPrice extends Application {
 
     private Stage primaryStage;
+    private HomeController homeController;
 
     @Override
     public void start(Stage primaryStage) {
@@ -22,13 +23,16 @@ public class GamloPrice extends Application {
         primaryStage.setTitle("GamloPrice");
         primaryStage.setOnCloseRequest(e -> Platform.exit());
 
+        homeController = new HomeController();
+
         loadSampleLayout();
 
         primaryStage.show();
 
 //        simpleTestGame();
 //        testXMLLayoutHandler();
-        testQuestionEdit();
+//        testQuestionEdit();
+        testGameEditor();
     }
 
     private void testQuestionEdit() {
@@ -61,10 +65,15 @@ public class GamloPrice extends Application {
         System.out.println(layout2.length);
     }
 
+    private void testGameEditor() {
+        GameEditor editor = new GameEditor();
+        homeController.addGame(editor);
+    }
+
     private void loadSampleLayout() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Home.fxml"));
-            loader.setController(new HomeController());
+            loader.setController(homeController);
             Parent layout = loader.load();
             primaryStage.setScene(new Scene(layout));
         }

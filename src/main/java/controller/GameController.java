@@ -3,8 +3,10 @@ package controller;
 import data.Question;
 import data.QuestionComponent;
 import data.QuestionData;
-import data.QuestionLayout;
-import data.interfaces.*;
+import data.interfaces.IGame;
+import data.interfaces.IQuestion;
+import data.interfaces.IQuestionComponent;
+import data.interfaces.IQuestionData;
 import data.observable.IObserver;
 import data.observable.UpdateType;
 import javafx.event.ActionEvent;
@@ -116,10 +118,7 @@ public class GameController implements IObserver {
         //Control Buttons
         IQuestionComponent controlButtons = new QuestionComponent("ControlButtons");
 
-        // Layout
-        IQuestionLayout layout = new QuestionLayout(Arrays.asList(title, text, buttonGrid, controlButtons));
-
-        IQuestion question = new Question(layout);
+        IQuestion question = new Question(Arrays.asList(title, text, buttonGrid, controlButtons));
 
         updateQuestionPane(Global.questionConverter.convertQuestion(question, correct));
     }

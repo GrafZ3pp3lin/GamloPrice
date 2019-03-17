@@ -17,13 +17,6 @@ public interface IQuestion {
     IQuestionLayout getAnswerLayout();
 
     /**
-     * set the Answer Layout. Override the old Layout.
-     *
-     * @param layout new Answer Layout
-     */
-    void setAnswerLayout(IQuestionLayout layout);
-
-    /**
      * get unique Id of this Question
      *
      * @return Question Id
@@ -36,13 +29,6 @@ public interface IQuestion {
      * @return all Question Components
      */
     IQuestionLayout getQuestionLayout();
-
-    /**
-     * set the QuestionLayout. Override the old Layout.
-     *
-     * @param layout new QuestionLayout
-     */
-    void setQuestionLayout(IQuestionLayout layout);
 
     /**
      * Value of Question. The Team, which correctly answered this Question will get the amount of this Value as Points.

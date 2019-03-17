@@ -1,11 +1,14 @@
 package controller;
 
+import data.Question;
 import data.QuestionComponent;
 import data.QuestionData;
+import data.interfaces.IQuestion;
 import data.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionData;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -15,7 +18,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -24,8 +29,6 @@ import java.io.IOException;
 public class QuestionEditor {
 
     // region QuestionEdit
-    // TODO Event on close Stage to get the Question
-    public Event FinishEvent;
     @FXML
     private TextField textField_value;
     @FXML
@@ -35,6 +38,8 @@ public class QuestionEditor {
     @FXML
     private Button button_addComponentData;
     @FXML
+    private Button button_cancelComponent;
+    @FXML
     private Button button_OKComponent;
     @FXML
     private TextField textField_type;
@@ -43,11 +48,19 @@ public class QuestionEditor {
     @FXML
     private GridPane gridPane_Components;
     @FXML
+    private ColumnConstraints nameColumn;
+    @FXML
+    private ColumnConstraints valueColumn;
+    @FXML
     private AnchorPane anchorPane_Component;
     @FXML
     private ScrollPane scrollPane_data;
     @FXML
     private Button button_cancel;
+    @FXML
+    private RadioButton radioButton_question;
+    @FXML
+    private RadioButton radioButton_answer;
 
     // endregion
     @FXML
@@ -55,14 +68,18 @@ public class QuestionEditor {
     private Stage questionStage;
     private boolean newComponent;
 
+    private ObservableList<IQuestionComponent> questionComponents;
+    private ObservableList<IQuestionComponent> answerComponents;
+
     public QuestionEditor() {
+        questionComponents = FXCollections.observableArrayList();
+        answerComponents = FXCollections.observableArrayList();
+
 //        questionStage = new Stage(StageStyle.UNDECORATED);
         questionStage = new Stage();
         questionStage.setHeight(720);
         questionStage.setWidth(1280);
         loadQuestionStage();
-
-        FinishEvent = new Event(Event.ANY);
     }
 
     private void addComponent(ActionEvent actionEvent) {
@@ -85,10 +102,37 @@ public class QuestionEditor {
         field_value.setPromptText("Value");
         field_value.setPadding(new Insets(10));
 
-        Button delete = new Button("X");
-        delete.getStyleClass().add("no_button");
+        Region delete;
+
+        if (gridPane_Components.getChildren().size() > 0) {
+            delete = new Button();
+            ((Button) delete).setOnAction(this::deleteRow);
+            delete.getStyleClass().add("delete_button");
+        }
+        else {
+            delete = new Label();
+        }
 
         gridPane_Components.addRow(gridPane_Components.getRowCount(), field_name, field_value, delete);
+    }
+
+    private void changeLayoutPane(ActionEvent actionEvent) {
+        if (actionEvent.getSource().equals(radioButton_question)) {
+            listView_Components.setItems(questionComponents);
+        }
+        else {
+            listView_Components.setItems(answerComponents);
+        }
+        anchorPane_Component.setVisible(false);
+    }
+
+    private void deleteRow(ActionEvent actionEvent) {
+        if (gridPane_Components.getChildren().contains(actionEvent.getSource())) {
+            int index = gridPane_Components.getChildren().indexOf(actionEvent.getSource());
+            int row = index / 3;
+            gridPane_Components.getChildren().remove(row * 3, row * 3 + 3);
+        }
+
     }
 
     private void duplicateText(KeyEvent keyEvent) {
@@ -98,6 +142,23 @@ public class QuestionEditor {
     private void finishComponent(ActionEvent actionEvent) {
         setData();
         anchorPane_Component.setVisible(false);
+    }
+
+    private IQuestion initQuestion() {
+        IQuestion question = new Question();
+        if (!textField_value.getText().isBlank()) {
+            try {
+                int value = Integer.parseInt(textField_value.getText());
+                question.setValue(value);
+            }
+            catch (NumberFormatException e) {
+                // TODO cancel and ask Client
+            }
+        }
+        question.getQuestionLayout().setQuestionComponents(questionComponents);
+        question.getAnswerLayout().setQuestionComponents(answerComponents);
+
+        return question;
     }
 
     @FXML
@@ -115,6 +176,13 @@ public class QuestionEditor {
 
         button_OKComponent.setOnAction(this::finishComponent);
 
+        button_cancelComponent.setOnAction(actionEvent -> anchorPane_Component.setVisible(false));
+
+        radioButton_answer.setOnAction(this::changeLayoutPane);
+
+        radioButton_question.setOnAction(this::changeLayoutPane);
+
+        listView_Components.setItems(questionComponents);
         listView_Components.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         listView_Components.setOnMouseClicked(this::openComponent);
 
@@ -126,7 +194,11 @@ public class QuestionEditor {
         textField_name.setOnAction(this::finishComponent);
 
         gridPane_Components.setPadding(new Insets(10));
-        gridPane_Components.minWidthProperty().bind(scrollPane_data.widthProperty());
+        gridPane_Components.prefWidthProperty().bind(scrollPane_data.widthProperty());
+        gridPane_Components.maxWidthProperty().bind(gridPane_Components.prefWidthProperty());
+
+        nameColumn.prefWidthProperty().bind(gridPane_Components.widthProperty().multiply(0.35));
+        valueColumn.prefWidthProperty().bind(gridPane_Components.widthProperty().multiply(0.65));
     }
 
     private void loadQuestionStage() {
@@ -191,9 +263,10 @@ public class QuestionEditor {
         questionStage.close();
     }
 
-    public void openQuestionPane() {
+    public IQuestion openQuestionPane() {
         resetPane();
         questionStage.showAndWait();
+        return initQuestion();
     }
 
     public void resetPane() {

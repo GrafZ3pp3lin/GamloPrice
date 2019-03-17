@@ -3,6 +3,7 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -62,6 +63,11 @@ public class HomeController {
     @FXML
     private void initialize() {
 //        Button_Start.setVisible(true);
+    }
+
+    public void addGame(GameEditor gameEditor) {
+        Tab tab = new Tab("TempName", gameEditor.getGameEditPane());
+        TabPane_Games.getTabs().add(tab);
     }
 
 }

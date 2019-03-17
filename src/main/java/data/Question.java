@@ -1,8 +1,10 @@
 package data;
 
 import data.interfaces.IQuestion;
+import data.interfaces.IQuestionComponent;
 import data.interfaces.IQuestionLayout;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -35,24 +37,26 @@ public class Question implements IQuestion {
     }
 
     /**
-     * Create new Question with questionLayout and value
+     * Create new Question with custom Layout and value
      *
-     * @param value          value of the Question
-     * @param questionLayout Layout of the Question Pane
+     * @param value              value of the Question
+     * @param questionComponents List with Question Components
      */
-    public Question(int value, IQuestionLayout questionLayout) {
+    public Question(int value, List<IQuestionComponent> questionComponents) {
         id = UUID.randomUUID();
         this.value = value;
-        this.questionLayout = questionLayout;
+        this.questionLayout = new QuestionLayout();
+        this.questionLayout.setQuestionComponents(questionComponents);
+        this.answerLayout = new QuestionLayout();
     }
 
     /**
-     * Create a new Question with questionLayout and no value
+     * Create a new Question with custom Layout and no value
      *
-     * @param questionLayout
+     * @param questionComponents List with Question Components
      */
-    public Question(IQuestionLayout questionLayout) {
-        this(0, questionLayout);
+    public Question(List<IQuestionComponent> questionComponents) {
+        this(0, questionComponents);
     }
 
     /**
@@ -62,6 +66,10 @@ public class Question implements IQuestion {
      */
     public Question(int value) {
         this(value, null);
+    }
+
+    public Question() {
+        this(0, null);
     }
 
     // endregion
@@ -74,16 +82,6 @@ public class Question implements IQuestion {
     @Override
     public IQuestionLayout getAnswerLayout() {
         return answerLayout;
-    }
-
-    /**
-     * set the Answer Layout. Override the old Layout.
-     *
-     * @param layout new Answer Layout
-     */
-    @Override
-    public void setAnswerLayout(IQuestionLayout layout) {
-        answerLayout = layout;
     }
 
     /**
@@ -104,17 +102,6 @@ public class Question implements IQuestion {
     @Override
     public IQuestionLayout getQuestionLayout() {
         return questionLayout;
-    }
-
-    /**
-     * set the questionLayout. Override the old Layout.
-     *
-     * @param layout new questionLayout
-     */
-    @Override
-    public void setQuestionLayout(IQuestionLayout layout) {
-        // TODO Ask User for commit, maybe save old Layout
-        this.questionLayout = layout;
     }
 
     /**
