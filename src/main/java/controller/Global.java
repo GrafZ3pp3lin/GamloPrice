@@ -34,4 +34,9 @@ public class Global {
      */
     public static ScreenData screenData = new ScreenData();
 
+    /**
+     *  allows to create and edit Questions. Opens a new Stage.
+     */
+    public static QuestionEditor questionEditor = new QuestionEditor();
+
 }

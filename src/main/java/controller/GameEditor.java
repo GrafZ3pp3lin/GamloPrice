@@ -60,6 +60,13 @@ public class GameEditor extends Tab {
         this.textProperty().bind(textField_name.textProperty());
 
         gridPane_Game.setGridLinesVisible(true);
+
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem newColumn = new MenuItem("New Column");
+        contextMenu.getItems().add(newColumn);
+
+        gridPane_Game.setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(gridPane_Game, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()));
+        gridPane_Game.setOnMouseClicked(mouseEvent -> contextMenu.hide());
     }
 
     private Node loadContent() {
