@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  * @param <T> Question Data Type
  */
-public interface IQuestionData<T extends Serializable> extends Serializable {
+public interface IQuestionData<T> extends Serializable {
 
     /**
      * get Name of this data Object
