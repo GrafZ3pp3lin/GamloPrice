@@ -37,7 +37,7 @@ public class GamloPrice extends Application {
 
     private void testQuestionEdit() {
         QuestionEditor editor = new QuestionEditor();
-        editor.openQuestionPane();
+        editor.openQuestionPane(null);
     }
 
     private IGame simpleTestGame() {
@@ -65,7 +65,7 @@ public class GamloPrice extends Application {
     }
 
     private void testGameEditor() {
-        GameEditor editor = new GameEditor(simpleTestGame());
+        GameEditor editor = new GameEditor(new Game());
         homeController.addGame(editor);
     }
 

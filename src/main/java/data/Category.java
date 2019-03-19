@@ -82,8 +82,8 @@ public class Category implements ICategory {
      * @return Question with specified Value
      */
     @Override
-    public IQuestion getQuestions(int value) {
-        //TODO implement
+    public IQuestion getQuestion(int value) {
+        // TODO implement
         throw new UnsupportedOperationException();
     }
 }

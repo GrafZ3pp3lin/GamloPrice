@@ -41,6 +41,6 @@ public interface ICategory {
      * @param value Value of Question
      * @return Question with specified Value
      */
-    IQuestion getQuestions(int value);
+    IQuestion getQuestion(int value);
 
 }

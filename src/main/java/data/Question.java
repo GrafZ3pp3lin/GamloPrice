@@ -76,6 +76,11 @@ public class Question implements IQuestion {
 
     // endregion
 
+    @Override
+    public String toString() {
+        return getId().toString();
+    }
+
     /**
      * get the Answer Layout with all Question Components ordered
      *

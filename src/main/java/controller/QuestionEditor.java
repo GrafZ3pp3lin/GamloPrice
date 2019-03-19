@@ -23,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -67,6 +68,7 @@ public class QuestionEditor {
     private Button button_OK;
     private Stage questionStage;
     private boolean newComponent;
+    private boolean canceled;
 
     private ObservableList<IQuestionComponent> questionComponents;
     private ObservableList<IQuestionComponent> answerComponents;
@@ -80,6 +82,78 @@ public class QuestionEditor {
         questionStage.setHeight(720);
         questionStage.setWidth(1280);
         loadQuestionStage();
+    }
+
+    @FXML
+    private void initialize() {
+        button_OK.setOnAction(this::close);
+
+        button_cancel.setOnAction(this::close);
+
+        button_addComponent.setShape(new Circle(10));
+        button_addComponent.setMinHeight(20);
+        button_addComponent.setMinWidth(20);
+        button_addComponent.setOnAction(this::addComponent);
+
+        button_addComponentData.setOnAction(this::addGridRow);
+
+        button_OKComponent.setOnAction(this::finishComponent);
+
+        button_cancelComponent.setOnAction(actionEvent -> anchorPane_Component.setVisible(false));
+
+        radioButton_answer.setOnAction(this::changeLayoutPane);
+
+        radioButton_question.setOnAction(this::changeLayoutPane);
+
+        listView_Components.setItems(questionComponents);
+        listView_Components.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        listView_Components.setOnMouseClicked(this::openComponent);
+
+        anchorPane_Component.setVisible(false);
+
+        textField_type.setOnAction(this::finishComponent);
+        textField_type.setOnKeyPressed(this::duplicateText);
+
+        textField_name.setOnAction(this::finishComponent);
+
+        gridPane_Components.setPadding(new Insets(10));
+        gridPane_Components.prefWidthProperty().bind(scrollPane_data.widthProperty());
+        gridPane_Components.maxWidthProperty().bind(gridPane_Components.prefWidthProperty());
+
+        nameColumn.prefWidthProperty().bind(gridPane_Components.widthProperty().multiply(0.35));
+        valueColumn.prefWidthProperty().bind(gridPane_Components.widthProperty().multiply(0.65));
+    }
+
+    /**
+     * Gets the value of the property showing.
+     *
+     * @return Whether or not this Window is showing (that is, open on the user's system)
+     */
+    public boolean isOpened() {
+        return questionStage.isShowing();
+    }
+
+    /**
+     * Open the Question Pane and Wait for closing it.
+     *
+     * @return edited Question
+     */
+    public IQuestion openQuestionPane(IQuestion question) {
+        if (!isOpened()) {
+            resetPane();
+            if (question != null) {
+                initPane(question);
+            }
+            questionStage.showAndWait();
+            return canceled ? null : initQuestion(question);
+        }
+        return null;
+    }
+
+    private void initPane(IQuestion question) {
+        textField_value.setText(String.valueOf(question.getValue()));
+        questionComponents.addAll(question.getQuestionLayout().getQuestionComponents());
+        answerComponents.addAll(question.getAnswerLayout().getQuestionComponents());
     }
 
     private void addComponent(ActionEvent actionEvent) {
@@ -126,6 +200,11 @@ public class QuestionEditor {
         anchorPane_Component.setVisible(false);
     }
 
+    private void close(ActionEvent actionEvent) {
+        canceled = !actionEvent.getSource().equals(button_OK);
+        questionStage.close();
+    }
+
     private void deleteRow(ActionEvent actionEvent) {
         if (gridPane_Components.getChildren().contains(actionEvent.getSource())) {
             int index = gridPane_Components.getChildren().indexOf(actionEvent.getSource());
@@ -144,8 +223,11 @@ public class QuestionEditor {
         anchorPane_Component.setVisible(false);
     }
 
-    private IQuestion initQuestion() {
-        IQuestion question = new Question();
+    private IQuestion initQuestion(IQuestion question) {
+        if (question == null) {
+            question = new Question();
+        }
+
         if (!textField_value.getText().isBlank()) {
             try {
                 int value = Integer.parseInt(textField_value.getText());
@@ -155,50 +237,11 @@ public class QuestionEditor {
                 // TODO cancel and ask Client
             }
         }
+
         question.getQuestionLayout().setQuestionComponents(questionComponents);
         question.getAnswerLayout().setQuestionComponents(answerComponents);
 
         return question;
-    }
-
-    @FXML
-    private void initialize() {
-        button_OK.setOnAction(this::close);
-
-        button_cancel.setOnAction(this::close);
-
-        button_addComponent.setShape(new Circle(10));
-        button_addComponent.setMinHeight(20);
-        button_addComponent.setMinWidth(20);
-        button_addComponent.setOnAction(this::addComponent);
-
-        button_addComponentData.setOnAction(this::addGridRow);
-
-        button_OKComponent.setOnAction(this::finishComponent);
-
-        button_cancelComponent.setOnAction(actionEvent -> anchorPane_Component.setVisible(false));
-
-        radioButton_answer.setOnAction(this::changeLayoutPane);
-
-        radioButton_question.setOnAction(this::changeLayoutPane);
-
-        listView_Components.setItems(questionComponents);
-        listView_Components.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        listView_Components.setOnMouseClicked(this::openComponent);
-
-        anchorPane_Component.setVisible(false);
-
-        textField_type.setOnAction(this::finishComponent);
-        textField_type.setOnKeyPressed(this::duplicateText);
-
-        textField_name.setOnAction(this::finishComponent);
-
-        gridPane_Components.setPadding(new Insets(10));
-        gridPane_Components.prefWidthProperty().bind(scrollPane_data.widthProperty());
-        gridPane_Components.maxWidthProperty().bind(gridPane_Components.prefWidthProperty());
-
-        nameColumn.prefWidthProperty().bind(gridPane_Components.widthProperty().multiply(0.35));
-        valueColumn.prefWidthProperty().bind(gridPane_Components.widthProperty().multiply(0.65));
     }
 
     private void loadQuestionStage() {
@@ -233,6 +276,12 @@ public class QuestionEditor {
         gridPane_Components.getChildren().clear();
     }
 
+    private void resetPane() {
+        listView_Components.getItems().clear();
+        textField_value.clear();
+        resetComponent();
+    }
+
     private void setData() {
         if (!textField_type.getText().isBlank()) {
             IQuestionComponent component;
@@ -257,22 +306,6 @@ public class QuestionEditor {
 
             listView_Components.refresh();
         }
-    }
-
-    public void close(ActionEvent actionEvent) {
-        questionStage.close();
-    }
-
-    public IQuestion openQuestionPane() {
-        resetPane();
-        questionStage.showAndWait();
-        return initQuestion();
-    }
-
-    public void resetPane() {
-        listView_Components.getItems().clear();
-        textField_value.clear();
-        resetComponent();
     }
 
 }

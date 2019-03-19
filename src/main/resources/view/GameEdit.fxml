@@ -15,7 +15,7 @@
                   <Button fx:id="button_addQuestion" mnemonicParsing="false" text="+" />
               </HBox>
           </AnchorPane>
-          <GridPane fx:id="gridPane_Game" hgap="10.0" minWidth="500.0" styleClass="background" vgap="10.0">
+          <GridPane fx:id="gridPane_Game" minWidth="600.0" styleClass="background">
             <padding>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>

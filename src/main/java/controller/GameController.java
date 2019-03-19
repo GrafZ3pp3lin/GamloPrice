@@ -188,7 +188,7 @@ public class GameController implements IObserver {
 
     @Override
     public void update(UpdateType type, String id) {
-        //TODO getArguments
+        //TODO init Arguments
         if (type == UpdateType.Question) {
             IQuestion question = Game.getQuestionById(UUID.fromString(id));
             if (question != null) {
