@@ -5,9 +5,13 @@ import data.interfaces.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import service.timer.StandardTimer;
+import service.timer.TimerMode;
 
 import java.io.IOException;
 import java.util.*;
@@ -28,7 +32,28 @@ public class GamloPrice extends Application {
         primaryStage.show();
 
         //simpleTestGame();
+    }
 
+    private void timerTest(){
+        StandardTimer standard = new StandardTimer(TimerMode.COUNTDOWN, 11110);
+        Stage control = new Stage();
+        control.setTitle("Timercontrol");
+
+        Scene scenec = new Scene(standard.createTimerControlPane(), 400, 400);
+        control.setScene(scenec);
+        control.setX(500);
+        control.setY(0);
+
+        Stage show = new Stage();
+        show.setTitle("Timershow");
+        show.setX(1000);
+        show.setY(400);
+
+        Scene scenes = new Scene(standard.createTimerShowPane(), 400, 400);
+        show.setScene(scenes);
+
+        control.show();
+        show.show();
     }
 
     private void simpleTestGame() {
